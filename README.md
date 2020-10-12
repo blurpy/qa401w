@@ -8,6 +8,6 @@ Due to missing CORS headers in the REST API it will not work by default. I curre
 
 1. Download and start QA401H
 2. Download/build/start a CORS bypass proxy
-3. Open index.html in the browser
+3. Open [index.html](index.html) in the browser
 
 If you use a proxy that does not run on `http://localhost:8080` you can change the basePath in [qa401.js](js/qa401.js).
