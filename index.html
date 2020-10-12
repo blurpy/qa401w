@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>QA401 Web</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-2 mb-2">
+      <h1 class="text-white m-0">QA401 Web</h1>
+    </nav>
+
+    <div class="container-fluid">
+      <div>
+        <h2>Status</h2>
+        <p>
+          Version: <span id="statusVersion"></span><br/>
+          Connection: <span id="statusConnection"></span>
+        </p>
+        <button id="refreshBtn" type="button" class="btn btn-secondary">Refresh</button>
+      </div>
+
+      <hr/>
+
+      <div>
+        <h2>Acquire</h2>
+
+        <div>
+          <label for="bufferSize">Buffer size:</label> <input id="bufferSize" value="32768"/>
+          <button id="bufferSizeBtn" type="button" class="btn btn-secondary">Set</button>
+        </div>
+
+        <div>
+          Attenuator:
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOff" value="6">
+            <label class="form-check-label" for="attenuatorOff">+6 dBV</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOn" value="26" checked>
+            <label class="form-check-label" for="attenuatorOn">+26 dBV</label>
+          </div>
+          <button id="attenuatorBtn" type="button" class="btn btn-secondary">Set</button>
+        </div>
+
+        <div>
+          Generator 1:
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="audioGen1Choice" id="audioGen1Off" value="Off" checked>
+            <label class="form-check-label" for="audioGen1Off">Off</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="audioGen1Choice" id="audioGen1On" value="On">
+            <label class="form-check-label" for="audioGen1On">On</label>
+          </div>
+          <div>
+            <label for="audioGen1Frequency">Frequency:</label> <input id="audioGen1Frequency" value="1000"/>
+            <label for="audioGen1Amplitude">Amplitude:</label> <input id="audioGen1Amplitude" value="0"/>
+            <button id="audioGen1Btn" type="button" class="btn btn-secondary">Set</button>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div>
+          <button id="acquireBtn" type="button" class="btn btn-secondary">Acquire</button>
+          <button id="runBtn" type="button" class="btn btn-success">Run</button>
+          <button id="stopBtn" type="button" class="btn btn-danger">Stop</button>
+          <p class="pt-3">
+            THD: <span id="thdResult"></span><br/>
+            THD%: <span id="thdPctResult"></span><br/>
+            THD+N: <span id="thdnResult"></span><br/>
+            THD+N%: <span id="thdnPctResult"></span><br/>
+            RMS: <span id="rmsResult"></span><br/>
+            Peak: <span id="peakResult"></span><br/>
+            Phase Degree: <span id="phaseDegreeResult"></span><br/>
+            Phase Second: <span id="phaseSecondResult"></span><br/>
+          </p>
+          <img id="acquireLeftImg" src=""/>
+          <img id="acquireRightImg" src=""/>
+        </div>
+      </div>
+
+      <div class="m-4"></div>
+    </div>
+
+    <script src="js/qa401.js"></script>
+  </body>
+</html>
