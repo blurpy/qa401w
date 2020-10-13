@@ -34,7 +34,8 @@ function clickAttenuator() {
 }
 
 function clickGenerator1() {
-    const enabled = document.querySelector('input[name="audioGen1Choice"]:checked').value;
+    const checked = document.querySelector('input[name="audioGen1Check"]').checked;
+    const enabled = (checked ? "On" : "Off");
     const frequency =  document.getElementById("audioGen1Frequency").value;
     const amplitude =  document.getElementById("audioGen1Amplitude").value;
     makeRequest("PUT", "/Settings/AudioGen/Gen1/" + enabled + "/" + frequency + "/" + amplitude, function() {});
@@ -52,8 +53,8 @@ function clickSampleRate() {
 
 function clickRoundFrequencies() {
     const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
-    const roundFrequencies = (checked ? "On" : "Off");
-    makeRequest("PUT", "/Settings/RoundFrequencies/" + roundFrequencies, function() {});
+    const enabled = (checked ? "On" : "Off");
+    makeRequest("PUT", "/Settings/RoundFrequencies/" + enabled, function() {});
 }
 
 function clickAcquire() {
