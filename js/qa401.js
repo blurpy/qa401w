@@ -10,6 +10,7 @@ function registerButtons() {
     document.getElementById("bufferSizeBtn").addEventListener('click', clickBufferSize);
     document.getElementById("attenuatorBtn").addEventListener('click', clickAttenuator);
     document.getElementById("audioGen1Btn").addEventListener('click', clickGenerator1);
+    document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
@@ -35,6 +36,11 @@ function clickGenerator1() {
     const frequency =  document.getElementById("audioGen1Frequency").value;
     const amplitude =  document.getElementById("audioGen1Amplitude").value;
     makeRequest("PUT", "/Settings/AudioGen/Gen1/" + enabled + "/" + frequency + "/" + amplitude, function() {});
+}
+
+function clickWindowType() {
+    const windowTypeChoice = document.querySelector('#windowTypeSelect option:checked').value;
+    makeRequest("PUT", "/Settings/Window/" + windowTypeChoice, function() {});
 }
 
 function clickAcquire() {

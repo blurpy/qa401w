@@ -62,6 +62,19 @@
           </div>
         </div>
 
+        <div>
+          <label for="windowTypeSelect" class="col-form-label">Window type:</label>
+          <select name="windowTypeSelect" id="windowTypeSelect">
+            <option value="Rectangle">Rectangle</option>
+            <option value="Bartlett">Bartlett</option>
+            <option value="Hamming">Hamming</option>
+            <option value="Hann" selected>Hann</option>
+            <option value="FlatTop">FlatTop</option>
+            <option value="Kaiser7">Kaiser7</option>
+          </select>
+          <button id="windowTypeBtn" type="button" class="btn btn-secondary">Set</button>
+        </div>
+
         <div class="pt-3 pb-1">
           <button id="acquireBtn" type="button" class="btn btn-secondary">Single acquire</button>
           <button id="runBtn" type="button" class="btn btn-success">Run</button>
