@@ -11,6 +11,7 @@ function registerButtons() {
     document.getElementById("attenuatorBtn").addEventListener('click', clickAttenuator);
     document.getElementById("audioGen1Btn").addEventListener('click', clickGenerator1);
     document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
+    document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
@@ -41,6 +42,11 @@ function clickGenerator1() {
 function clickWindowType() {
     const windowTypeChoice = document.querySelector('#windowTypeSelect option:checked').value;
     makeRequest("PUT", "/Settings/Window/" + windowTypeChoice, function() {});
+}
+
+function clickSampleRate() {
+    const sampleRate = document.querySelector('input[name="sampleRateChoice"]:checked').value;
+    makeRequest("PUT", "/Settings/SampleRate/" + sampleRate, function() {});
 }
 
 function clickAcquire() {
