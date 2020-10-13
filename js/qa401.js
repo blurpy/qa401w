@@ -10,6 +10,7 @@ function registerButtons() {
     document.getElementById("bufferSizeBtn").addEventListener('click', clickBufferSize);
     document.getElementById("attenuatorBtn").addEventListener('click', clickAttenuator);
     document.getElementById("audioGen1Btn").addEventListener('click', clickGenerator1);
+    document.getElementById("audioGen2Btn").addEventListener('click', clickGenerator2);
     document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
     document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
     document.getElementById("roundFrequenciesBtn").addEventListener('click', clickRoundFrequencies);
@@ -39,6 +40,14 @@ function clickGenerator1() {
     const frequency =  document.getElementById("audioGen1Frequency").value;
     const amplitude =  document.getElementById("audioGen1Amplitude").value;
     makeRequest("PUT", "/Settings/AudioGen/Gen1/" + enabled + "/" + frequency + "/" + amplitude, function() {});
+}
+
+function clickGenerator2() {
+    const checked = document.querySelector('input[name="audioGen2Check"]').checked;
+    const enabled = (checked ? "On" : "Off");
+    const frequency =  document.getElementById("audioGen2Frequency").value;
+    const amplitude =  document.getElementById("audioGen2Amplitude").value;
+    makeRequest("PUT", "/Settings/AudioGen/Gen2/" + enabled + "/" + frequency + "/" + amplitude, function() {});
 }
 
 function clickWindowType() {
