@@ -12,6 +12,7 @@ function registerButtons() {
     document.getElementById("audioGen1Btn").addEventListener('click', clickGenerator1);
     document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
     document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
+    document.getElementById("roundFrequenciesBtn").addEventListener('click', clickRoundFrequencies);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
@@ -47,6 +48,12 @@ function clickWindowType() {
 function clickSampleRate() {
     const sampleRate = document.querySelector('input[name="sampleRateChoice"]:checked').value;
     makeRequest("PUT", "/Settings/SampleRate/" + sampleRate, function() {});
+}
+
+function clickRoundFrequencies() {
+    const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
+    const roundFrequencies = (checked ? "On" : "Off");
+    makeRequest("PUT", "/Settings/RoundFrequencies/" + roundFrequencies, function() {});
 }
 
 function clickAcquire() {
