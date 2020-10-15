@@ -99,42 +99,50 @@ function refreshStatusConnection(httpRequest) {
 
 function refreshThd(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdResult").innerText = JSON.stringify(response);
+    document.getElementById("thdLeft").innerText = response.Left;
+    document.getElementById("thdRight").innerText = response.Right;
 }
 
 function refreshThdPct(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdPctResult").innerText = JSON.stringify(response);
+    document.getElementById("thdPctLeft").innerText = response.Left;
+    document.getElementById("thdPctRight").innerText = response.Right;
 }
 
 function refreshThdN(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdnResult").innerText = JSON.stringify(response);
+    document.getElementById("thdnLeft").innerText = response.Left;
+    document.getElementById("thdnRight").innerText = response.Right;
 }
 
 function refreshThdNPct(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdnPctResult").innerText = JSON.stringify(response);
+    document.getElementById("thdnPctLeft").innerText = response.Left;
+    document.getElementById("thdnPctRight").innerText = response.Right;
 }
 
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("rmsResult").innerText = JSON.stringify(response);
+    document.getElementById("rmsLeft").innerText = response.Left;
+    document.getElementById("rmsRight").innerText = response.Right;
 }
 
 function refreshPeak(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("peakResult").innerText = JSON.stringify(response);
+    document.getElementById("peakLeft").innerText = response.Left;
+    document.getElementById("peakRight").innerText = response.Right;
 }
 
 function refreshPhaseDegrees(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("phaseDegreeResult").innerText = JSON.stringify(response);
+    document.getElementById("phaseDegreeLeft").innerText = response.Left;
+    document.getElementById("phaseDegreeRight").innerText = response.Right;
 }
 
 function refreshPhaseSeconds(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("phaseSecondResult").innerText = JSON.stringify(response);
+    document.getElementById("phaseSecondLeft").innerText = response.Left;
+    document.getElementById("phaseSecondRight").innerText = response.Right;
 }
 
 function refreshAcquisition() {

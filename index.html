@@ -115,27 +115,54 @@
           <button id="roundFrequenciesBtn" type="button" class="btn btn-secondary">Set</button>
         </div>
 
-        <div class="pt-3 pb-1">
+        <div class="pt-3 pb-5">
           <button id="acquireBtn" type="button" class="btn btn-secondary">Single acquire</button>
           <button id="runBtn" type="button" class="btn btn-success">Run</button>
           <button id="stopBtn" type="button" class="btn btn-danger">Stop</button>
         </div>
 
-        <hr/>
-
         <div>
-          <p>
-            THD: <span id="thdResult"></span><br/>
-            THD%: <span id="thdPctResult"></span><br/>
-            THD+N: <span id="thdnResult"></span><br/>
-            THD+N%: <span id="thdnPctResult"></span><br/>
-            RMS: <span id="rmsResult"></span><br/>
-            Peak: <span id="peakResult"></span><br/>
-            Phase Degree: <span id="phaseDegreeResult"></span><br/>
-            Phase Second: <span id="phaseSecondResult"></span><br/>
-          </p>
-          <img id="acquireLeftImg" src=""/>
-          <img id="acquireRightImg" src=""/>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Left</th>
+                <th>Right</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-weight-bold">THD</td>
+                <td><span id="thdLeft"></span> / <span id="thdPctLeft"></span>%</td>
+                <td><span id="thdRight"></span> / <span id="thdPctRight"></span>%</td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">THD+N</td>
+                <td><span id="thdnLeft"></span> / <span id="thdnPctLeft"></span>%</td>
+                <td><span id="thdnRight"></span> / <span id="thdnPctRight"></span>%</td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">RMS</td>
+                <td><span id="rmsLeft"></span></td>
+                <td><span id="rmsRight"></span></td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Peak</td>
+                <td><span id="peakLeft"></span></td>
+                <td><span id="peakRight"></span></td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">Phase</td>
+                <td><span id="phaseDegreeLeft"></span> deg / <span id="phaseSecondLeft"></span> sec</td>
+                <td><span id="phaseDegreeRight"></span> deg / <span id="phaseSecondRight"></span> sec</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><img id="acquireLeftImg" src=""/></td>
+                <td><img id="acquireRightImg" src=""/></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
