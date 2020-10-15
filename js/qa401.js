@@ -1,4 +1,5 @@
 let run = false;
+let currentRequests = 0;
 const basePath = "http://localhost:8080/http://localhost:9401";
 
 onDOMContentLoaded = (function() {
@@ -67,11 +68,14 @@ function clickRoundFrequencies() {
 }
 
 function clickAcquire() {
+    run = false;
+    currentRequests = 0;
     doAcquire();
 }
 
 function clickRun() {
     run = true;
+    currentRequests = 0;
     doAcquire();
 }
 
@@ -131,10 +135,6 @@ function refreshPhaseDegrees(httpRequest) {
 function refreshPhaseSeconds(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("phaseSecondResult").innerText = JSON.stringify(response);
-
-    if (run) {
-        clickAcquire();
-    }
 }
 
 function refreshAcquisition() {
@@ -152,6 +152,12 @@ function refreshAcquisition() {
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
 }
 
+function requestsComplete() {
+    if (run) {
+        doAcquire();
+    }
+}
+
 function makeRequest(method, path, callback) {
     let httpRequest = new XMLHttpRequest();
 
@@ -161,9 +167,17 @@ function makeRequest(method, path, callback) {
     }
 
     httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.readyState === XMLHttpRequest.OPENED) {
+            currentRequests++;
+        } else if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            currentRequests--;
+
             if (httpRequest.status === 200) {
                 callback(httpRequest);
+
+                if (currentRequests === 0) {
+                    requestsComplete();
+                }
             } else {
                 alert('There was a problem with the request.');
             }
