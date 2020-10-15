@@ -61,8 +61,8 @@
             <label class="form-check-label" for="audioGen1Check">Audio generator 1</label>
           </div>
           <div>
-            <label for="audioGen1Frequency">Frequency:</label> <input id="audioGen1Frequency" value="1000"/>
-            <label for="audioGen1Amplitude">Amplitude:</label> <input id="audioGen1Amplitude" value="0"/>
+            <label for="audioGen1Frequency">Frequency:</label> <input type="number" id="audioGen1Frequency" value="1000" min="1" max="96000"/>
+            <label for="audioGen1Amplitude">Amplitude:</label> <input type="number" id="audioGen1Amplitude" value="0" min="-120" max="6"/>
             <button id="audioGen1Btn" type="button" class="btn btn-secondary">Set</button>
           </div>
         </div>
@@ -73,8 +73,8 @@
             <label class="form-check-label" for="audioGen2Check">Audio generator 2</label>
           </div>
           <div>
-            <label for="audioGen2Frequency">Frequency:</label> <input id="audioGen2Frequency" value="4500"/>
-            <label for="audioGen2Amplitude">Amplitude:</label> <input id="audioGen2Amplitude" value="-80"/>
+            <label for="audioGen2Frequency">Frequency:</label> <input type="number" id="audioGen2Frequency" value="4500" min="1" max="96000"/>
+            <label for="audioGen2Amplitude">Amplitude:</label> <input type="number" id="audioGen2Amplitude" value="-80" min="-120" max="6"/>
             <button id="audioGen2Btn" type="button" class="btn btn-secondary">Set</button>
           </div>
         </div>
