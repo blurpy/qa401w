@@ -28,7 +28,17 @@
         <h2>Acquire</h2>
 
         <div>
-          <label for="bufferSize">Buffer size:</label> <input id="bufferSize" value="32768"/>
+          <label for="bufferSizeSelect" class="col-form-label">Buffer size:</label>
+          <select name="bufferSizeSelect" id="bufferSizeSelect">
+            <option value="2048">2048</option>
+            <option value="4096">4096</option>
+            <option value="8192">8192</option>
+            <option value="16384">16384</option>
+            <option value="32768" selected>32768</option>
+            <option value="65536">65536</option>
+            <option value="131072">131072</option>
+            <option value="262144">262144</option>
+          </select>
           <button id="bufferSizeBtn" type="button" class="btn btn-secondary">Set</button>
         </div>
 

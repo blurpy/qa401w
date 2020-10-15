@@ -26,8 +26,8 @@ function clickRefresh() {
 }
 
 function clickBufferSize() {
-    const bufferSize =  document.getElementById("bufferSize").value;
-    makeRequest("PUT", "/Settings/BufferSize/" + bufferSize, function() {});
+    const bufferSizeChoice = document.querySelector('#bufferSizeSelect option:checked').value;
+    makeRequest("PUT", "/Settings/BufferSize/" + bufferSizeChoice, function() {});
 }
 
 function clickAttenuator() {
