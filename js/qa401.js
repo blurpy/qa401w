@@ -99,50 +99,50 @@ function refreshStatusConnection(httpRequest) {
 
 function refreshThd(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdLeft").innerText = response.Left;
-    document.getElementById("thdRight").innerText = response.Right;
+    document.getElementById("thdLeft").innerText = Number(response.Left).toFixed(3);
+    document.getElementById("thdRight").innerText = Number(response.Right).toFixed(3);
 }
 
 function refreshThdPct(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdPctLeft").innerText = response.Left;
-    document.getElementById("thdPctRight").innerText = response.Right;
+    document.getElementById("thdPctLeft").innerText = Number(response.Left).toFixed(6);
+    document.getElementById("thdPctRight").innerText = Number(response.Right).toFixed(6);
 }
 
 function refreshThdN(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdnLeft").innerText = response.Left;
-    document.getElementById("thdnRight").innerText = response.Right;
+    document.getElementById("thdnLeft").innerText = Number(response.Left).toFixed(3);
+    document.getElementById("thdnRight").innerText = Number(response.Right).toFixed(3);
 }
 
 function refreshThdNPct(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("thdnPctLeft").innerText = response.Left;
-    document.getElementById("thdnPctRight").innerText = response.Right;
+    document.getElementById("thdnPctLeft").innerText = Number(response.Left).toFixed(6);
+    document.getElementById("thdnPctRight").innerText = Number(response.Right).toFixed(6);
 }
 
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("rmsLeft").innerText = response.Left;
-    document.getElementById("rmsRight").innerText = response.Right;
+    document.getElementById("rmsLeft").innerText = Number(response.Left).toFixed(3);
+    document.getElementById("rmsRight").innerText = Number(response.Right).toFixed(3);
 }
 
 function refreshPeak(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("peakLeft").innerText = response.Left;
-    document.getElementById("peakRight").innerText = response.Right;
+    document.getElementById("peakLeft").innerText = Number(response.Left).toFixed(3);
+    document.getElementById("peakRight").innerText = Number(response.Right).toFixed(3);
 }
 
 function refreshPhaseDegrees(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("phaseDegreeLeft").innerText = response.Left;
-    document.getElementById("phaseDegreeRight").innerText = response.Right;
+    document.getElementById("phaseDegreeLeft").innerText = Number(response.Left).toFixed(3);
+    document.getElementById("phaseDegreeRight").innerText = Number(response.Right).toFixed(3);
 }
 
 function refreshPhaseSeconds(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("phaseSecondLeft").innerText = response.Left;
-    document.getElementById("phaseSecondRight").innerText = response.Right;
+    document.getElementById("phaseSecondLeft").innerText = Number(response.Left).toFixed(6);
+    document.getElementById("phaseSecondRight").innerText = Number(response.Right).toFixed(6);
 }
 
 function refreshAcquisition() {

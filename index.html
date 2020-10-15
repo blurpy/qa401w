@@ -61,8 +61,8 @@
             <label class="form-check-label" for="audioGen1Check">Audio generator 1</label>
           </div>
           <div>
-            <label for="audioGen1Frequency">Frequency:</label> <input type="number" id="audioGen1Frequency" value="1000" min="1" max="96000"/>
-            <label for="audioGen1Amplitude">Amplitude:</label> <input type="number" id="audioGen1Amplitude" value="0" min="-120" max="6"/>
+            <label for="audioGen1Frequency">Frequency (Hz):</label> <input type="number" id="audioGen1Frequency" value="1000" min="1" max="96000"/>
+            <label for="audioGen1Amplitude">Amplitude (dBV):</label> <input type="number" id="audioGen1Amplitude" value="0" min="-120" max="6"/>
             <button id="audioGen1Btn" type="button" class="btn btn-secondary">Set</button>
           </div>
         </div>
@@ -73,8 +73,8 @@
             <label class="form-check-label" for="audioGen2Check">Audio generator 2</label>
           </div>
           <div>
-            <label for="audioGen2Frequency">Frequency:</label> <input type="number" id="audioGen2Frequency" value="4500" min="1" max="96000"/>
-            <label for="audioGen2Amplitude">Amplitude:</label> <input type="number" id="audioGen2Amplitude" value="-80" min="-120" max="6"/>
+            <label for="audioGen2Frequency">Frequency (Hz):</label> <input type="number" id="audioGen2Frequency" value="4500" min="1" max="96000"/>
+            <label for="audioGen2Amplitude">Amplitude (dBV):</label> <input type="number" id="audioGen2Amplitude" value="-80" min="-120" max="6"/>
             <button id="audioGen2Btn" type="button" class="btn btn-secondary">Set</button>
           </div>
         </div>
@@ -133,23 +133,23 @@
             <tbody>
               <tr>
                 <td class="font-weight-bold">THD</td>
-                <td><span id="thdLeft"></span> / <span id="thdPctLeft"></span>%</td>
-                <td><span id="thdRight"></span> / <span id="thdPctRight"></span>%</td>
+                <td><span id="thdLeft"></span> dB / <span id="thdPctLeft"></span>%</td>
+                <td><span id="thdRight"></span> dB / <span id="thdPctRight"></span>%</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">THD+N</td>
-                <td><span id="thdnLeft"></span> / <span id="thdnPctLeft"></span>%</td>
-                <td><span id="thdnRight"></span> / <span id="thdnPctRight"></span>%</td>
+                <td><span id="thdnLeft"></span> dB / <span id="thdnPctLeft"></span>%</td>
+                <td><span id="thdnRight"></span> dB / <span id="thdnPctRight"></span>%</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">RMS</td>
-                <td><span id="rmsLeft"></span></td>
-                <td><span id="rmsRight"></span></td>
+                <td><span id="rmsLeft"></span> dBV</td>
+                <td><span id="rmsRight"></span> dBV</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">Peak</td>
-                <td><span id="peakLeft"></span></td>
-                <td><span id="peakRight"></span></td>
+                <td><span id="peakLeft"></span> dBV</td>
+                <td><span id="peakRight"></span> dBV</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">Phase</td>
