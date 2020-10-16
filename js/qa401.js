@@ -4,6 +4,7 @@ const basePath = "http://localhost:8080/http://localhost:9401";
 
 onDOMContentLoaded = (function() {
     registerButtons();
+    initializeChart();
 })();
 
 function registerButtons() {
@@ -145,6 +146,23 @@ function refreshPhaseSeconds(httpRequest) {
     document.getElementById("phaseSecondRight").innerText = Number(response.Right).toFixed(6);
 }
 
+function refreshCharts(httpRequest) {
+    const attenuatorChoice = document.querySelector('input[name="attenuatorChoice"]:checked').value;
+    const attenuation = (attenuatorChoice === "26" ? 20 : 0);
+
+    const response = JSON.parse(httpRequest.responseText);
+    const dx = response.Dx;
+    const leftArray = base64ToFloat64Array(response.Left);
+    let leftDataPoints = [];
+
+    for (let i = 0; i < leftArray.length; i++) {
+        leftDataPoints.push( {x: i * dx, y: amplitudeTodBV(leftArray[i]) + attenuation} );
+    }
+
+    leftChart.data.datasets[0].data = leftDataPoints;
+    leftChart.update();
+}
+
 function refreshAcquisition() {
     document.getElementById("acquireLeftImg").src = basePath + "/Graph/Frequency/In/0#" + new Date().getTime();
     document.getElementById("acquireRightImg").src = basePath + "/Graph/Frequency/In/1#" + new Date().getTime();
@@ -158,6 +176,7 @@ function refreshAcquisition() {
     makeRequest("GET", "/PeakDbv/20/20000", refreshPeak)
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees)
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
+    makeRequest("GET", "/Data/Freq", refreshCharts)
 }
 
 function requestsComplete() {
@@ -194,4 +213,20 @@ function makeRequest(method, path, callback) {
 
     httpRequest.open(method, basePath + path);
     httpRequest.send();
+}
+
+function amplitudeTodBV(amplitude) {
+    return 20 * Math.log(amplitude) / Math.LN10;
+}
+
+function base64ToFloat64Array(base64) {
+    const binaryString = window.atob(base64);
+    const length = binaryString.length;
+    const bytes = new Uint8Array(length);
+
+    for (let i = 0; i < length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return new Float64Array(bytes.buffer);
 }
