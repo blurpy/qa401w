@@ -17,6 +17,7 @@ function registerButtons() {
     document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
     document.getElementById("roundFrequenciesBtn").addEventListener('click', clickRoundFrequencies);
     document.getElementById("graphBtn").addEventListener('click', clickGraph);
+    document.getElementById("resetZoomBtn").addEventListener('click', clickResetZoom);
     document.getElementById("channelBtn").addEventListener('click', clickChannel);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
@@ -78,6 +79,10 @@ function clickGraph() {
     } else if (graph === "time") {
         showTimeChart();
     }
+}
+
+function clickResetZoom() {
+    resetZoom();
 }
 
 function clickChannel() {

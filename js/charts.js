@@ -10,14 +10,12 @@ function updateFrequencyChart(leftDataPoints, rightDataPoints) {
     frequencyChart.data.datasets[0].data = leftDataPoints;
     frequencyChart.data.datasets[1].data = rightDataPoints;
     frequencyChart.update();
-    frequencyChart.resetZoom();
 }
 
 function updateTimeChart(leftDataPoints, rightDataPoints) {
     timeChart.data.datasets[0].data = leftDataPoints;
     timeChart.data.datasets[1].data = rightDataPoints;
     timeChart.update();
-    timeChart.resetZoom();
 }
 
 function setChannels(leftChannel, rightChannel) {
@@ -38,6 +36,11 @@ function showFrequencyChart() {
 function showTimeChart() {
     document.getElementById("frequencyChart").classList.add("d-none");
     document.getElementById("timeChart").classList.remove("d-none");
+}
+
+function resetZoom() {
+    frequencyChart.resetZoom();
+    timeChart.resetZoom();
 }
 
 function initializeFrequencyChart(chartId) {
@@ -222,8 +225,8 @@ function initializeTimeChart(chartId) {
                 yAxes: [{
                     type: 'linear',
                     ticks: {
-                        min: -1,
-                        max: 1,
+                        // min: -1,
+                        // max: 1,
                         fontColor: "rgba(255, 255, 255, 0.9)"
                     },
                     scaleLabel: {
