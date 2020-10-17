@@ -159,8 +159,8 @@ function refreshCharts(httpRequest) {
 }
 
 function refreshAcquisition() {
-    document.getElementById("acquireLeftImg").src = basePath + "/Graph/Frequency/In/0#" + new Date().getTime();
-    document.getElementById("acquireRightImg").src = basePath + "/Graph/Frequency/In/1#" + new Date().getTime();
+    // document.getElementById("acquireLeftImg").src = basePath + "/Graph/Frequency/In/0#" + new Date().getTime();
+    // document.getElementById("acquireRightImg").src = basePath + "/Graph/Frequency/In/1#" + new Date().getTime();
 
     const frequency =  document.getElementById("audioGen1Frequency").value;
     makeRequest("GET", "/ThdDb/" + frequency + "/20000", refreshThd);
