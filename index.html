@@ -115,6 +115,40 @@
           <button id="roundFrequenciesBtn" type="button" class="btn btn-secondary">Set</button>
         </div>
 
+        <div class="pt-1 pb-1">
+          Graph:
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="graphChoice" id="graphFrequency" value="frequency" checked>
+            <label class="form-check-label" for="graphFrequency">Frequency</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="graphChoice" id="graphTime" value="time">
+            <label class="form-check-label" for="graphTime">Time</label>
+          </div>
+          <div class="d-inline-block">
+            <button id="graphBtn" type="button" class="btn btn-secondary">Show</button>
+          </div>
+        </div>
+
+        <div class="pt-1 pb-1">
+          Channel:
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="channelChoice" id="channelLeft" value="left" checked>
+            <label class="form-check-label" for="channelLeft">Left</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="channelChoice" id="channelRight" value="right">
+            <label class="form-check-label" for="channelRight">Right</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="channelChoice" id="channelBoth" value="both">
+            <label class="form-check-label" for="channelBoth">Both</label>
+          </div>
+          <div class="d-inline-block">
+            <button id="channelBtn" type="button" class="btn btn-secondary">Show</button>
+          </div>
+        </div>
+
         <div class="pt-3 pb-5">
           <button id="acquireBtn" type="button" class="btn btn-secondary">Single acquire</button>
           <button id="runBtn" type="button" class="btn btn-success">Run</button>
@@ -163,12 +197,10 @@
 <!--              </tr>-->
               <tr>
                 <td></td>
-                <td><canvas id="leftChart" style="background-color: black; width: 640px; height: 480px;"></canvas></td>
-                <td><canvas id="rightChart" style="background-color: black; width: 640px; height: 480px;"></canvas></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td><canvas id="leftTimeChart" style="background-color: black; width: 640px; height: 480px;"></canvas></td>
+                <td>
+                  <canvas id="frequencyChart" style="background-color: black; width: 640px; height: 480px;"></canvas>
+                  <canvas id="timeChart" class="d-none" style="background-color: black; width: 640px; height: 480px;"></canvas>
+                </td>
                 <td></td>
               </tr>
             </tbody>

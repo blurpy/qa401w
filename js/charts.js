@@ -1,51 +1,73 @@
-let leftChart;
-let rightChart;
-let leftTimeChart;
+let frequencyChart;
+let timeChart;
 
 function initializeCharts() {
-    leftChart = initializeChart('leftChart', "Left");
-    rightChart = initializeChart('rightChart', "Right");
-    leftTimeChart = initializeTimeChart('leftTimeChart', "Left");
+    frequencyChart = initializeFrequencyChart('frequencyChart');
+    timeChart = initializeTimeChart('timeChart');
 }
 
-function updateLeftChart(dataPoints) {
-    leftChart.data.datasets[0].data = dataPoints;
-    leftChart.update();
-    leftChart.resetZoom();
+function updateFrequencyChart(leftDataPoints, rightDataPoints) {
+    frequencyChart.data.datasets[0].data = leftDataPoints;
+    frequencyChart.data.datasets[1].data = rightDataPoints;
+    frequencyChart.update();
+    frequencyChart.resetZoom();
 }
 
-function updateRightChart(dataPoints) {
-    rightChart.data.datasets[0].data = dataPoints;
-    rightChart.update();
-    rightChart.resetZoom();
+function updateTimeChart(leftDataPoints, rightDataPoints) {
+    timeChart.data.datasets[0].data = leftDataPoints;
+    timeChart.data.datasets[1].data = rightDataPoints;
+    timeChart.update();
+    timeChart.resetZoom();
 }
 
-function updateLeftTimeChart(dataPoints) {
-    leftTimeChart.data.datasets[0].data = dataPoints;
-    leftTimeChart.update();
-    leftTimeChart.resetZoom();
+function setChannels(leftChannel, rightChannel) {
+    frequencyChart.data.datasets[0].hidden = !leftChannel;
+    frequencyChart.data.datasets[1].hidden = !rightChannel;
+    frequencyChart.update();
+
+    timeChart.data.datasets[0].hidden = !leftChannel;
+    timeChart.data.datasets[1].hidden = !rightChannel;
+    timeChart.update();
 }
 
-function initializeChart(chartId, title) {
+function showFrequencyChart() {
+    document.getElementById("frequencyChart").classList.remove("d-none");
+    document.getElementById("timeChart").classList.add("d-none");
+}
+
+function showTimeChart() {
+    document.getElementById("frequencyChart").classList.add("d-none");
+    document.getElementById("timeChart").classList.remove("d-none");
+}
+
+function initializeFrequencyChart(chartId) {
     const ctx = document.getElementById(chartId);
 
     const chart = new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
-                label: "Left channel",
+                label: "Left",
                 fill: false,
                 pointRadius: 0,
                 borderWidth: 1,
                 borderColor: 'rgb(255,227,21)',
-                data: [{ x: 20, y: 0 }, { x: 20000, y: -160 }],
+                // data: [{ x: 20, y: 0 }, { x: 20000, y: -160 }],
+            }, {
+                label: "Right",
+                hidden: true,
+                fill: false,
+                pointRadius: 0,
+                borderWidth: 1,
+                borderColor: 'rgb(255,21,21)',
+                // data: [{ x: 20000, y: 0 }, { x: 20, y: -160 }],
             }]
         },
         options: {
             responsive: false,
             title: {
-                display: true,
-                text: title,
+                display: false,
+                text: "title",
                 fontColor: "rgba(255, 255, 255, 0.9)"
             },
             animation: {
@@ -57,7 +79,7 @@ function initializeChart(chartId, title) {
                 }
             },
             legend: {
-                display: false,
+                display: true,
                 position: 'top',
                 labels: {
                     fontColor: "rgba(255, 255, 255, 0.9)"
@@ -125,26 +147,34 @@ function initializeChart(chartId, title) {
     return chart;
 }
 
-function initializeTimeChart(chartId, title) {
+function initializeTimeChart(chartId) {
     const ctx = document.getElementById(chartId);
 
     const chart = new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
-                label: "Left channel",
+                label: "Left",
                 fill: false,
                 pointRadius: 0,
                 borderWidth: 1,
                 borderColor: 'rgb(255,227,21)',
+                // data: [{ x: 20, y: 0 }, { x: 20000, y: -160 }],
+            }, {
+                label: "Right",
+                hidden: true,
+                fill: false,
+                pointRadius: 0,
+                borderWidth: 1,
+                borderColor: 'rgb(255,21,21)',
                 // data: [{ x: 20, y: 0 }, { x: 20000, y: -160 }],
             }]
         },
         options: {
             responsive: false,
             title: {
-                display: true,
-                text: title,
+                display: false,
+                text: "title",
                 fontColor: "rgba(255, 255, 255, 0.9)"
             },
             animation: {
@@ -156,7 +186,7 @@ function initializeTimeChart(chartId, title) {
                 }
             },
             legend: {
-                display: false,
+                display: true,
                 position: 'top',
                 labels: {
                     fontColor: "rgba(255, 255, 255, 0.9)"

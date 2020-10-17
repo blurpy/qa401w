@@ -16,6 +16,8 @@ function registerButtons() {
     document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
     document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
     document.getElementById("roundFrequenciesBtn").addEventListener('click', clickRoundFrequencies);
+    document.getElementById("graphBtn").addEventListener('click', clickGraph);
+    document.getElementById("channelBtn").addEventListener('click', clickChannel);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
@@ -66,6 +68,28 @@ function clickRoundFrequencies() {
     const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
     const enabled = (checked ? "On" : "Off");
     makeRequest("PUT", "/Settings/RoundFrequencies/" + enabled, function() {});
+}
+
+function clickGraph() {
+    const graph = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graph === "frequency") {
+        showFrequencyChart();
+    } else if (graph === "time") {
+        showTimeChart();
+    }
+}
+
+function clickChannel() {
+    const channel = document.querySelector('input[name="channelChoice"]:checked').value;
+
+    if (channel === "left") {
+        setChannels(true, false);
+    } else if (channel === "right") {
+        setChannels(false, true);
+    } else if (channel === "both") {
+        setChannels(true, true);
+    }
 }
 
 function clickAcquire() {
@@ -154,15 +178,15 @@ function refreshCharts(httpRequest) {
     const leftDataPoints = base64ToDataPoints(response.Left, response.Dx, attenuation);
     const rightDataPoints = base64ToDataPoints(response.Right, response.Dx, attenuation);
 
-    updateLeftChart(leftDataPoints);
-    updateRightChart(rightDataPoints);
+    updateFrequencyChart(leftDataPoints, rightDataPoints);
 }
 
 function refreshTimeCharts(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     const leftDataPoints = base64ToTimeDataPoints(response.Left, response.Dx);
+    const rightDataPoints = base64ToTimeDataPoints(response.Right, response.Dx);
 
-    updateLeftTimeChart(leftDataPoints);
+    updateTimeChart(leftDataPoints, rightDataPoints);
 }
 
 function refreshAcquisition() {
