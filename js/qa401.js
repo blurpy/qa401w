@@ -158,6 +158,13 @@ function refreshCharts(httpRequest) {
     updateRightChart(rightDataPoints);
 }
 
+function refreshTimeCharts(httpRequest) {
+    const response = JSON.parse(httpRequest.responseText);
+    const leftDataPoints = base64ToTimeDataPoints(response.Left, response.Dx);
+
+    updateLeftTimeChart(leftDataPoints);
+}
+
 function refreshAcquisition() {
     // document.getElementById("acquireLeftImg").src = basePath + "/Graph/Frequency/In/0#" + new Date().getTime();
     // document.getElementById("acquireRightImg").src = basePath + "/Graph/Frequency/In/1#" + new Date().getTime();
@@ -172,6 +179,7 @@ function refreshAcquisition() {
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees)
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
     makeRequest("GET", "/Data/Freq", refreshCharts)
+    makeRequest("GET", "/Data/Time", refreshTimeCharts)
 }
 
 function requestsComplete() {
@@ -236,6 +244,19 @@ function base64ToDataPoints(base64, dx, attenuation) {
         if (frequency >= 19 && frequency <= 20000) {
             dataPoints.push( {x: frequency, y: amplitudeTodBV(floatArray[i]) + attenuation} );
         }
+    }
+
+    return dataPoints;
+}
+
+function base64ToTimeDataPoints(base64, dx) {
+    const floatArray = base64ToFloat64Array(base64);
+    let dataPoints = [];
+
+    for (let i = 0; i < floatArray.length; i++) {
+        const time = i * dx;
+
+        dataPoints.push( {x: time, y: floatArray[i]} );
     }
 
     return dataPoints;
