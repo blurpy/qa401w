@@ -67,7 +67,7 @@ function initializeFrequencyChart(chartId) {
             }]
         },
         options: {
-            responsive: false,
+            responsive: true,
             title: {
                 display: false,
                 text: "title",
@@ -174,7 +174,7 @@ function initializeTimeChart(chartId) {
             }]
         },
         options: {
-            responsive: false,
+            responsive: true,
             title: {
                 display: false,
                 text: "title",
