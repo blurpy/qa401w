@@ -4,7 +4,7 @@ const basePath = "http://localhost:8080/http://localhost:9401";
 
 onDOMContentLoaded = (function() {
     registerButtons();
-    initializeChart();
+    initializeCharts();
 })();
 
 function registerButtons() {
@@ -151,16 +151,11 @@ function refreshCharts(httpRequest) {
     const attenuation = (attenuatorChoice === "26" ? 20 : 0);
 
     const response = JSON.parse(httpRequest.responseText);
-    const dx = response.Dx;
-    const leftArray = base64ToFloat64Array(response.Left);
-    let leftDataPoints = [];
+    const leftDataPoints = base64ToDataPoints(response.Left, response.Dx, attenuation);
+    const rightDataPoints = base64ToDataPoints(response.Right, response.Dx, attenuation);
 
-    for (let i = 0; i < leftArray.length; i++) {
-        leftDataPoints.push( {x: i * dx, y: amplitudeTodBV(leftArray[i]) + attenuation} );
-    }
-
-    leftChart.data.datasets[0].data = leftDataPoints;
-    leftChart.update();
+    updateLeftChart(leftDataPoints);
+    updateRightChart(rightDataPoints);
 }
 
 function refreshAcquisition() {
@@ -229,4 +224,15 @@ function base64ToFloat64Array(base64) {
     }
 
     return new Float64Array(bytes.buffer);
+}
+
+function base64ToDataPoints(base64, dx, attenuation) {
+    const floatArray = base64ToFloat64Array(base64);
+    let dataPoints = [];
+
+    for (let i = 0; i < floatArray.length; i++) {
+        dataPoints.push( {x: i * dx, y: amplitudeTodBV(floatArray[i]) + attenuation} );
+    }
+
+    return dataPoints;
 }

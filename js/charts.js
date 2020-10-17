@@ -1,9 +1,25 @@
 let leftChart;
+let rightChart;
 
-function initializeChart() {
-    const ctx = document.getElementById('leftChart');
+function initializeCharts() {
+    leftChart = initializeChart('leftChart', "Left");
+    rightChart = initializeChart('rightChart', "Right");
+}
 
-    leftChart = new Chart(ctx, {
+function updateLeftChart(dataPoints) {
+    leftChart.data.datasets[0].data = dataPoints;
+    leftChart.update();
+}
+
+function updateRightChart(dataPoints) {
+    rightChart.data.datasets[0].data = dataPoints;
+    rightChart.update();
+}
+
+function initializeChart(chartId, title) {
+    const ctx = document.getElementById(chartId);
+
+    const chart = new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
@@ -19,7 +35,7 @@ function initializeChart() {
             responsive: false,
             title: {
                 display: true,
-                text: 'Left',
+                text: title,
                 fontColor: "rgba(255, 255, 255, 0.9)"
             },
             animation: {
@@ -81,4 +97,6 @@ function initializeChart() {
             }
         }
     });
+
+    return chart;
 }
