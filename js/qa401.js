@@ -231,7 +231,11 @@ function base64ToDataPoints(base64, dx, attenuation) {
     let dataPoints = [];
 
     for (let i = 0; i < floatArray.length; i++) {
-        dataPoints.push( {x: i * dx, y: amplitudeTodBV(floatArray[i]) + attenuation} );
+        const frequency = i * dx;
+
+        if (frequency >= 19 && frequency <= 20000) {
+            dataPoints.push( {x: frequency, y: amplitudeTodBV(floatArray[i]) + attenuation} );
+        }
     }
 
     return dataPoints;

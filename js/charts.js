@@ -28,7 +28,7 @@ function initializeChart(chartId, title) {
                 pointRadius: 0,
                 borderWidth: 1,
                 borderColor: 'rgb(255,227,21)',
-                data: [{ x: 1, y: 0 }, { x: 24000, y: -150 }],
+                data: [{ x: 20, y: 0 }, { x: 20000, y: -160 }],
             }]
         },
         options: {
@@ -65,6 +65,8 @@ function initializeChart(chartId, title) {
                             }
                             return '';
                         },
+                        min: 20,
+                        max: 20000,
                         fontColor: "rgba(255, 255, 255, 0.9)"
                     },
                     scaleLabel: {
