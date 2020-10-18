@@ -1,5 +1,7 @@
 let run = false;
 let currentRequests = 0;
+let fetchFrequencyData = true;
+let fetchTimeData = false;
 const basePath = "http://localhost:8080/http://localhost:9401";
 
 onDOMContentLoaded = (function() {
@@ -26,6 +28,7 @@ function clickAcquireSettings() {
     setWindowType();
     setSampleRate();
     setRoundFrequencies();
+    setFetchData();
 }
 
 function setBufferSize() {
@@ -68,6 +71,19 @@ function setRoundFrequencies() {
     const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
     const enabled = (checked ? "On" : "Off");
     makeRequest("PUT", "/Settings/RoundFrequencies/" + enabled, function() {});
+}
+
+function setFetchData() {
+    fetchFrequencyData = document.querySelector('input[name="fetchFrequencyCheck"]').checked;
+    fetchTimeData = document.querySelector('input[name="fetchTimeCheck"]').checked;
+
+    if (!fetchFrequencyData) {
+        updateFrequencyChart([], []);
+    }
+
+    if (!fetchTimeData) {
+        updateTimeChart([], []);
+    }
 }
 
 function clickUpdateView() {
@@ -211,8 +227,14 @@ function refreshAcquisition() {
     makeRequest("GET", "/PeakDbv/20/20000", refreshPeak)
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees)
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
-    makeRequest("GET", "/Data/Freq", refreshCharts)
-    makeRequest("GET", "/Data/Time", refreshTimeCharts)
+
+    if (fetchFrequencyData) {
+        makeRequest("GET", "/Data/Freq", refreshCharts)
+    }
+
+    if (fetchTimeData) {
+        makeRequest("GET", "/Data/Time", refreshTimeCharts)
+    }
 }
 
 function requestsComplete() {
