@@ -30,8 +30,8 @@
         <div class="col-3 order-2">
           <h3>Acquire</h3>
 
-          <div>
-            <label for="bufferSizeSelect" class="col-form-label">Buffer size:</label>
+          <div class="pb-1">
+            <label for="bufferSizeSelect" class="pr-2">Buffer size:</label>
             <select name="bufferSizeSelect" id="bufferSizeSelect">
               <option value="2048">2048</option>
               <option value="4096">4096</option>
@@ -44,8 +44,8 @@
             </select>
           </div>
 
-          <div>
-            Attenuator:
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline align-top">Attenuator:</div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOff" value="6">
               <label class="form-check-label" for="attenuatorOff">+6 dBV</label>
@@ -62,8 +62,12 @@
               <label class="form-check-label" for="audioGen1Check">Audio generator 1</label>
             </div>
             <div>
-              <label for="audioGen1Frequency">Frequency (Hz):</label> <input type="number" id="audioGen1Frequency" value="1000" min="1" max="96000"/>
-              <label for="audioGen1Amplitude">Amplitude (dBV):</label> <input type="number" id="audioGen1Amplitude" value="0" min="-120" max="6"/>
+              <label for="audioGen1Frequency" class="pr-2">Frequency (Hz):</label>
+              <input type="number" id="audioGen1Frequency" size="10" value="1000" min="1" max="96000"/>
+            </div>
+            <div>
+              <label for="audioGen1Amplitude">Amplitude (dBV):</label>
+              <input type="number" id="audioGen1Amplitude" size="10" value="0" min="-120" max="6"/>
             </div>
           </div>
 
@@ -73,13 +77,17 @@
               <label class="form-check-label" for="audioGen2Check">Audio generator 2</label>
             </div>
             <div>
-              <label for="audioGen2Frequency">Frequency (Hz):</label> <input type="number" id="audioGen2Frequency" value="4500" min="1" max="96000"/>
-              <label for="audioGen2Amplitude">Amplitude (dBV):</label> <input type="number" id="audioGen2Amplitude" value="-80" min="-120" max="6"/>
+              <label for="audioGen2Frequency" class="pr-2">Frequency (Hz):</label>
+              <input type="number" id="audioGen2Frequency" size="10" value="4500" min="1" max="96000"/>
+            </div>
+            <div>
+              <label for="audioGen2Amplitude">Amplitude (dBV):</label>
+              <input type="number" id="audioGen2Amplitude" size="10" value="-80" min="-120" max="6"/>
             </div>
           </div>
 
-          <div>
-            <label for="windowTypeSelect" class="col-form-label">Window type:</label>
+          <div class="pt-1 pb-1">
+            <label for="windowTypeSelect" class="pr-2">Window type:</label>
             <select name="windowTypeSelect" id="windowTypeSelect">
               <option value="Rectangle">Rectangle</option>
               <option value="Bartlett">Bartlett</option>
@@ -91,7 +99,7 @@
           </div>
 
           <div class="pt-1 pb-1">
-            Sample rate:
+            <div class="form-check-inline align-top">Sample rate:</div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="sampleRateChoice" id="sampleRate48" value="48000" checked>
               <label class="form-check-label" for="sampleRate48">48 KHz</label>
@@ -102,14 +110,14 @@
             </div>
           </div>
 
-          <div>
+          <div class="pt-1 pb-1">
             <div class="form-check-inline">
               <input class="form-check-input" type="checkbox" name="roundFrequenciesCheck" id="roundFrequenciesCheck" checked>
               <label class="form-check-label" for="roundFrequenciesCheck">Round frequencies</label>
             </div>
           </div>
 
-          <div>
+          <div class="pt-1">
             <button id="acquireSettingsBtn" type="button" class="btn btn-secondary">Set</button>
           </div>
 
@@ -118,7 +126,7 @@
           <h3>View</h3>
 
           <div class="pt-1 pb-1">
-            Graph:
+            <div class="form-check-inline align-top pr-3">Graph:</div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="graphChoice" id="graphFrequency" value="frequency" checked>
               <label class="form-check-label" for="graphFrequency">Frequency</label>
@@ -130,7 +138,7 @@
           </div>
 
           <div class="pt-1 pb-1">
-            Channel:
+            <div class="form-check-inline align-top">Channel:</div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="channelChoice" id="channelLeft" value="left" checked>
               <label class="form-check-label" for="channelLeft">Left</label>
@@ -145,7 +153,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="pt-1">
             <button id="updateViewBtn" type="button" class="btn btn-secondary">Update</button>
             <button id="resetZoomBtn" type="button" class="btn btn-secondary">Reset zoom</button>
           </div>
