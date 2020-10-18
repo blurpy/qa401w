@@ -10,13 +10,7 @@ onDOMContentLoaded = (function() {
 })();
 
 function registerButtons() {
-    document.getElementById("bufferSizeBtn").addEventListener('click', clickBufferSize);
-    document.getElementById("attenuatorBtn").addEventListener('click', clickAttenuator);
-    document.getElementById("audioGen1Btn").addEventListener('click', clickGenerator1);
-    document.getElementById("audioGen2Btn").addEventListener('click', clickGenerator2);
-    document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
-    document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
-    document.getElementById("roundFrequenciesBtn").addEventListener('click', clickRoundFrequencies);
+    document.getElementById("acquireSettingsBtn").addEventListener('click', clickAcquireSettings);
     document.getElementById("updateViewBtn").addEventListener('click', clickUpdateView);
     document.getElementById("resetZoomBtn").addEventListener('click', clickResetZoom);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
@@ -24,17 +18,27 @@ function registerButtons() {
     document.getElementById("stopBtn").addEventListener('click', clickStop);
 }
 
-function clickBufferSize() {
+function clickAcquireSettings() {
+    setBufferSize();
+    setAttenuator();
+    setGenerator1();
+    setGenerator2();
+    setWindowType();
+    setSampleRate();
+    setRoundFrequencies();
+}
+
+function setBufferSize() {
     const bufferSizeChoice = document.querySelector('#bufferSizeSelect option:checked').value;
     makeRequest("PUT", "/Settings/BufferSize/" + bufferSizeChoice, function() {});
 }
 
-function clickAttenuator() {
+function setAttenuator() {
     const attenuatorChoice = document.querySelector('input[name="attenuatorChoice"]:checked').value;
     makeRequest("PUT", "/Settings/Input/Max/" + attenuatorChoice, function() {});
 }
 
-function clickGenerator1() {
+function setGenerator1() {
     const checked = document.querySelector('input[name="audioGen1Check"]').checked;
     const enabled = (checked ? "On" : "Off");
     const frequency =  document.getElementById("audioGen1Frequency").value;
@@ -42,7 +46,7 @@ function clickGenerator1() {
     makeRequest("PUT", "/Settings/AudioGen/Gen1/" + enabled + "/" + frequency + "/" + amplitude, function() {});
 }
 
-function clickGenerator2() {
+function setGenerator2() {
     const checked = document.querySelector('input[name="audioGen2Check"]').checked;
     const enabled = (checked ? "On" : "Off");
     const frequency =  document.getElementById("audioGen2Frequency").value;
@@ -50,17 +54,17 @@ function clickGenerator2() {
     makeRequest("PUT", "/Settings/AudioGen/Gen2/" + enabled + "/" + frequency + "/" + amplitude, function() {});
 }
 
-function clickWindowType() {
+function setWindowType() {
     const windowTypeChoice = document.querySelector('#windowTypeSelect option:checked').value;
     makeRequest("PUT", "/Settings/Window/" + windowTypeChoice, function() {});
 }
 
-function clickSampleRate() {
+function setSampleRate() {
     const sampleRate = document.querySelector('input[name="sampleRateChoice"]:checked').value;
     makeRequest("PUT", "/Settings/SampleRate/" + sampleRate, function() {});
 }
 
-function clickRoundFrequencies() {
+function setRoundFrequencies() {
     const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
     const enabled = (checked ? "On" : "Off");
     makeRequest("PUT", "/Settings/RoundFrequencies/" + enabled, function() {});
