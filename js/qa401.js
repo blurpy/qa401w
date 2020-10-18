@@ -190,18 +190,18 @@ function refreshPhaseSeconds(httpRequest) {
     document.getElementById("phaseSecondRight").innerText = Number(response.Right).toFixed(6);
 }
 
-function refreshCharts(httpRequest) {
+function refreshFrequencyChart(httpRequest) {
     const attenuatorChoice = document.querySelector('input[name="attenuatorChoice"]:checked').value;
     const attenuation = (attenuatorChoice === "26" ? 20 : 0);
 
     const response = JSON.parse(httpRequest.responseText);
-    const leftDataPoints = base64ToDataPoints(response.Left, response.Dx, attenuation);
-    const rightDataPoints = base64ToDataPoints(response.Right, response.Dx, attenuation);
+    const leftDataPoints = base64ToFrequencyDataPoints(response.Left, response.Dx, attenuation);
+    const rightDataPoints = base64ToFrequencyDataPoints(response.Right, response.Dx, attenuation);
 
     updateFrequencyChart(leftDataPoints, rightDataPoints);
 }
 
-function refreshTimeCharts(httpRequest) {
+function refreshTimeChart(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     const leftDataPoints = base64ToTimeDataPoints(response.Left, response.Dx);
     const rightDataPoints = base64ToTimeDataPoints(response.Right, response.Dx);
@@ -221,11 +221,11 @@ function refreshAcquisition() {
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
 
     if (fetchFrequencyData) {
-        makeRequest("GET", "/Data/Freq", refreshCharts)
+        makeRequest("GET", "/Data/Freq", refreshFrequencyChart)
     }
 
     if (fetchTimeData) {
-        makeRequest("GET", "/Data/Time", refreshTimeCharts)
+        makeRequest("GET", "/Data/Time", refreshTimeChart)
     }
 }
 
@@ -281,7 +281,7 @@ function base64ToFloat64Array(base64) {
     return new Float64Array(bytes.buffer);
 }
 
-function base64ToDataPoints(base64, dx, attenuation) {
+function base64ToFrequencyDataPoints(base64, dx, attenuation) {
     const floatArray = base64ToFloat64Array(base64);
     let dataPoints = [];
 
