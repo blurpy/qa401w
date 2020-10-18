@@ -17,9 +17,8 @@ function registerButtons() {
     document.getElementById("windowTypeBtn").addEventListener('click', clickWindowType);
     document.getElementById("sampleRateBtn").addEventListener('click', clickSampleRate);
     document.getElementById("roundFrequenciesBtn").addEventListener('click', clickRoundFrequencies);
-    document.getElementById("graphBtn").addEventListener('click', clickGraph);
+    document.getElementById("updateViewBtn").addEventListener('click', clickUpdateView);
     document.getElementById("resetZoomBtn").addEventListener('click', clickResetZoom);
-    document.getElementById("channelBtn").addEventListener('click', clickChannel);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
@@ -67,7 +66,16 @@ function clickRoundFrequencies() {
     makeRequest("PUT", "/Settings/RoundFrequencies/" + enabled, function() {});
 }
 
-function clickGraph() {
+function clickUpdateView() {
+    updateGraph();
+    updateChannel();
+}
+
+function clickResetZoom() {
+    resetZoom();
+}
+
+function updateGraph() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graph === "frequency") {
@@ -77,11 +85,7 @@ function clickGraph() {
     }
 }
 
-function clickResetZoom() {
-    resetZoom();
-}
-
-function clickChannel() {
+function updateChannel() {
     const channel = document.querySelector('input[name="channelChoice"]:checked').value;
 
     if (channel === "left") {
