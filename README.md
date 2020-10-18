@@ -2,6 +2,8 @@
 
 Simple web interface for usage with the [QA401H](https://github.com/QuantAsylum/QA401H) REST API for the [QA401 Audio Analyzer](https://quantasylum.com/products/qa401-audio-analyzer). This allows a visual interface on Linux.
 
+![Screenshot](img/qa401w.png)
+
 Due to missing CORS headers in the REST API it will not work by default. I currently use a [proxy](https://github.com/Shivam010/bypass-cors/) as a workaround.
 
 ## How to use
