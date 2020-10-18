@@ -142,11 +142,6 @@ function refreshStatusVersion(httpRequest) {
     document.getElementById("statusVersion").innerText = response.Value;
 }
 
-function refreshStatusConnection(httpRequest) {
-    const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("statusConnection").innerText = response.Value;
-}
-
 function refreshThd(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("thdLeft").innerText = Number(response.Left).toFixed(3);
@@ -215,9 +210,6 @@ function refreshTimeCharts(httpRequest) {
 }
 
 function refreshAcquisition() {
-    // document.getElementById("acquireLeftImg").src = basePath + "/Graph/Frequency/In/0#" + new Date().getTime();
-    // document.getElementById("acquireRightImg").src = basePath + "/Graph/Frequency/In/1#" + new Date().getTime();
-
     const frequency =  document.getElementById("audioGen1Frequency").value;
     makeRequest("GET", "/ThdDb/" + frequency + "/20000", refreshThd);
     makeRequest("GET", "/ThdPct/" + frequency + "/20000", refreshThdPct);
