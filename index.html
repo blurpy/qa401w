@@ -11,7 +11,9 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-2 mb-2">
       <h1 class="text-white m-0">QA401 Web</h1>
 
-      <div class="mr-auto"></div>
+      <div class="mr-auto">
+        <p class="text-white-50 ml-4 mt-auto mb-auto">Backend: v<span id="statusVersion">0.0</span></p>
+      </div>
 
       <div class="mt-auto mb-auto">
         <button id="acquireBtn" type="button" class="btn btn-secondary mr-2">Single acquire</button>
@@ -25,17 +27,6 @@
 
         <!-- Right column -->
         <div class="col-3 order-2">
-          <div>
-            <h2>Status</h2>
-            <p>
-              Version: <span id="statusVersion"></span><br/>
-              Connection: <span id="statusConnection"></span>
-            </p>
-            <button id="refreshBtn" type="button" class="btn btn-secondary">Refresh</button>
-          </div>
-
-          <hr/>
-
           <div>
             <h2>Acquire</h2>
 

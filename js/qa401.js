@@ -5,10 +5,11 @@ const basePath = "http://localhost:8080/http://localhost:9401";
 onDOMContentLoaded = (function() {
     registerButtons();
     initializeCharts();
+
+    makeRequest("GET", "/Status/Version", refreshStatusVersion);
 })();
 
 function registerButtons() {
-    document.getElementById("refreshBtn").addEventListener('click', clickRefresh);
     document.getElementById("bufferSizeBtn").addEventListener('click', clickBufferSize);
     document.getElementById("attenuatorBtn").addEventListener('click', clickAttenuator);
     document.getElementById("audioGen1Btn").addEventListener('click', clickGenerator1);
@@ -22,11 +23,6 @@ function registerButtons() {
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
-}
-
-function clickRefresh() {
-    makeRequest("GET", "/Status/Version", refreshStatusVersion);
-    makeRequest("GET", "/Status/Connection", refreshStatusConnection);
 }
 
 function clickBufferSize() {
