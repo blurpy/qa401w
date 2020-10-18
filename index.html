@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/qa401.css">
     <title>QA401 Web</title>
   </head>
 
@@ -152,10 +153,10 @@
 
         <!-- Left column -->
         <div class="col-9 order-1">
-          <table class="table">
+          <table class="table-responsive-sm table-bordered mt-1 mb-3">
             <thead>
               <tr>
-                <th>Metric</th>
+                <th></th>
                 <th>Left</th>
                 <th>Right</th>
               </tr>
@@ -191,14 +192,13 @@
               <!--                <td><img id="acquireLeftImg" src=""/></td>-->
               <!--                <td><img id="acquireRightImg" src=""/></td>-->
               <!--              </tr>-->
-              <tr>
-                <td colspan="3">
-                  <canvas id="frequencyChart" style="background-color: black;"></canvas>
-                  <canvas id="timeChart" class="d-none" style="background-color: black;"></canvas>
-                </td>
-              </tr>
             </tbody>
           </table>
+
+          <div>
+            <canvas id="frequencyChart"></canvas>
+            <canvas id="timeChart" class="d-none"></canvas>
+          </div>
         </div>
 
       </div>

@@ -1,0 +1,11 @@
+.table-responsive-sm td {
+  padding: 2px 14px;
+}
+
+.table-responsive-sm th {
+  padding: 2px 14px;
+}
+
+canvas {
+  background-color: black;
+}
