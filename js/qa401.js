@@ -1,8 +1,13 @@
+const basePath = "http://localhost:8080/http://localhost:9401";
+
 let run = false;
 let currentRequests = 0;
 let fetchFrequencyData = true;
 let fetchTimeData = false;
-const basePath = "http://localhost:8080/http://localhost:9401";
+let thdAvgLeft = [];
+let thdAvgRight = [];
+let thdNAvgLeft = [];
+let thdNAvgRight = [];
 
 onDOMContentLoaded = (function() {
     registerButtons();
@@ -120,12 +125,22 @@ function updateChannel() {
 function clickAcquire() {
     run = false;
     currentRequests = 0;
+    thdAvgLeft = [];
+    thdAvgRight = [];
+    thdNAvgLeft = [];
+    thdNAvgRight = [];
+
     doAcquire();
 }
 
 function clickRun() {
     run = true;
     currentRequests = 0;
+    thdAvgLeft = [];
+    thdAvgRight = [];
+    thdNAvgLeft = [];
+    thdNAvgRight = [];
+
     doAcquire();
 }
 
@@ -146,6 +161,8 @@ function refreshThd(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("thdLeft").innerText = Number(response.Left).toFixed(3);
     document.getElementById("thdRight").innerText = Number(response.Right).toFixed(3);
+
+    refreshThdAverage(response);
 }
 
 function refreshThdPct(httpRequest) {
@@ -154,16 +171,46 @@ function refreshThdPct(httpRequest) {
     document.getElementById("thdPctRight").innerText = Number(response.Right).toFixed(6);
 }
 
+function refreshThdAverage(response) {
+    addToAverageListOf100(thdAvgLeft, response.Left);
+    addToAverageListOf100(thdAvgRight, response.Right);
+
+    let leftAvg = getAverageValueFromList(thdAvgLeft);
+    let rightAvg = getAverageValueFromList(thdAvgRight);
+
+    document.getElementById("thdAvgLeft").innerText = leftAvg.toFixed(3);
+    document.getElementById("thdAvgRight").innerText = rightAvg.toFixed(3);
+
+    document.getElementById("thdPctAvgLeft").innerText = dbToPercent(leftAvg).toFixed(6);
+    document.getElementById("thdPctAvgRight").innerText = dbToPercent(rightAvg).toFixed(6);
+}
+
 function refreshThdN(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("thdnLeft").innerText = Number(response.Left).toFixed(3);
     document.getElementById("thdnRight").innerText = Number(response.Right).toFixed(3);
+
+    refreshThdNAverage(response);
 }
 
 function refreshThdNPct(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("thdnPctLeft").innerText = Number(response.Left).toFixed(6);
     document.getElementById("thdnPctRight").innerText = Number(response.Right).toFixed(6);
+}
+
+function refreshThdNAverage(response) {
+    addToAverageListOf100(thdNAvgLeft, response.Left);
+    addToAverageListOf100(thdNAvgRight, response.Right);
+
+    let leftAvg = getAverageValueFromList(thdNAvgLeft);
+    let rightAvg = getAverageValueFromList(thdNAvgRight);
+
+    document.getElementById("thdnAvgLeft").innerText = leftAvg.toFixed(3);
+    document.getElementById("thdnAvgRight").innerText = rightAvg.toFixed(3);
+
+    document.getElementById("thdnPctAvgLeft").innerText = dbToPercent(leftAvg).toFixed(6);
+    document.getElementById("thdnPctAvgRight").innerText = dbToPercent(rightAvg).toFixed(6);
 }
 
 function refreshRms(httpRequest) {
@@ -265,6 +312,10 @@ function makeRequest(method, path, callback) {
     httpRequest.send();
 }
 
+function dbToPercent(db) {
+    return Math.pow(10, db / 20) * 100;
+}
+
 function amplitudeTodBV(amplitude) {
     return 20 * Math.log(amplitude) / Math.LN10;
 }
@@ -307,4 +358,22 @@ function base64ToTimeDataPoints(base64, dx) {
     }
 
     return dataPoints;
+}
+
+function addToAverageListOf100(list, item) {
+    list.push(item);
+
+    if (list.length > 100) {
+        list.shift();
+    }
+}
+
+function getAverageValueFromList(list) {
+    let sum = 0.0;
+
+    for (let i = 0; i < list.length; i++) {
+        sum += Number(list[i]);
+    }
+
+    return sum / list.length;
 }
