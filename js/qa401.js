@@ -4,6 +4,7 @@ let run = false;
 let currentRequests = 0;
 let fetchFrequencyData = true;
 let fetchTimeData = false;
+let showAverageThd = false;
 let thdAvgLeft = [];
 let thdAvgRight = [];
 let thdNAvgLeft = [];
@@ -94,6 +95,7 @@ function setFetchData() {
 function clickUpdateView() {
     updateGraph();
     updateChannel();
+    updateAverageThd();
 }
 
 function clickResetZoom() {
@@ -119,6 +121,18 @@ function updateChannel() {
         setChannels(false, true);
     } else if (channel === "both") {
         setChannels(true, true);
+    }
+}
+
+function updateAverageThd() {
+    showAverageThd = document.querySelector('input[name="averageThdCheck"]').checked;
+
+    if (showAverageThd) {
+        document.getElementById("thdAvgRow").classList.remove("d-none");
+        document.getElementById("thdnAvgRow").classList.remove("d-none");
+    } else {
+        document.getElementById("thdAvgRow").classList.add("d-none");
+        document.getElementById("thdnAvgRow").classList.add("d-none");
     }
 }
 
@@ -162,7 +176,9 @@ function refreshThd(httpRequest) {
     document.getElementById("thdLeft").innerText = Number(response.Left).toFixed(3);
     document.getElementById("thdRight").innerText = Number(response.Right).toFixed(3);
 
-    refreshThdAverage(response);
+    if (showAverageThd) {
+        refreshThdAverage(response);
+    }
 }
 
 function refreshThdPct(httpRequest) {
@@ -190,7 +206,9 @@ function refreshThdN(httpRequest) {
     document.getElementById("thdnLeft").innerText = Number(response.Left).toFixed(3);
     document.getElementById("thdnRight").innerText = Number(response.Right).toFixed(3);
 
-    refreshThdNAverage(response);
+    if (showAverageThd) {
+        refreshThdNAverage(response);
+    }
 }
 
 function refreshThdNPct(httpRequest) {

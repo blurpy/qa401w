@@ -164,6 +164,13 @@
             </div>
           </div>
 
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline">
+              <input class="form-check-input" type="checkbox" name="averageThdCheck" id="averageThdCheck">
+              <label class="form-check-label" for="averageThdCheck">Show average THD</label>
+            </div>
+          </div>
+
           <div class="pt-1">
             <button id="updateViewBtn" type="button" class="btn btn-secondary">Update</button>
             <button id="resetZoomBtn" type="button" class="btn btn-secondary">Reset zoom</button>
@@ -186,7 +193,7 @@
                 <td><span id="thdLeft"></span> dB / <span id="thdPctLeft"></span>%</td>
                 <td><span id="thdRight"></span> dB / <span id="thdPctRight"></span>%</td>
               </tr>
-              <tr>
+              <tr class="d-none" id="thdAvgRow">
                 <td class="font-weight-bold">THD avg</td>
                 <td><span id="thdAvgLeft"></span> dB / <span id="thdPctAvgLeft"></span>%</td>
                 <td><span id="thdAvgRight"></span> dB / <span id="thdPctAvgRight"></span>%</td>
@@ -196,7 +203,7 @@
                 <td><span id="thdnLeft"></span> dB / <span id="thdnPctLeft"></span>%</td>
                 <td><span id="thdnRight"></span> dB / <span id="thdnPctRight"></span>%</td>
               </tr>
-              <tr>
+              <tr class="d-none" id="thdnAvgRow">
                 <td class="font-weight-bold">THD+N avg</td>
                 <td><span id="thdnAvgLeft"></span> dB / <span id="thdnPctAvgLeft"></span>%</td>
                 <td><span id="thdnAvgRight"></span> dB / <span id="thdnPctAvgRight"></span>%</td>
