@@ -144,6 +144,7 @@ function clickAcquire() {
     thdNAvgLeft = [];
     thdNAvgRight = [];
 
+    disableButtonsDuringAcquire();
     doAcquire();
 }
 
@@ -155,6 +156,7 @@ function clickRun() {
     thdNAvgLeft = [];
     thdNAvgRight = [];
 
+    disableButtonsDuringAcquire();
     doAcquire();
 }
 
@@ -297,6 +299,8 @@ function refreshAcquisition() {
 function requestsComplete() {
     if (run) {
         doAcquire();
+    } else {
+        enableButtonsAfterAcquire();
     }
 }
 
@@ -394,4 +398,16 @@ function getAverageValueFromList(list) {
     }
 
     return sum / list.length;
+}
+
+function disableButtonsDuringAcquire() {
+    document.getElementById("acquireSettingsBtn").disabled = true;
+    document.getElementById("acquireBtn").disabled = true;
+    document.getElementById("runBtn").disabled = true;
+}
+
+function enableButtonsAfterAcquire() {
+    document.getElementById("acquireSettingsBtn").disabled = false;
+    document.getElementById("acquireBtn").disabled = false;
+    document.getElementById("runBtn").disabled = false;
 }
