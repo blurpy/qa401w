@@ -1,5 +1,6 @@
 let frequencyChart;
 let timeChart;
+Chart.platform.disableCSSInjection = true;
 
 function initializeCharts() {
     frequencyChart = initializeFrequencyChart('frequencyChart');
