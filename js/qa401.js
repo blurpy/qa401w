@@ -325,6 +325,7 @@ function makeRequest(method, path, callback) {
                     requestsComplete();
                 }
             } else {
+                run = false;
                 alert('There was a problem with the request.');
             }
         }
