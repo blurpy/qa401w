@@ -27,6 +27,8 @@ function registerButtons() {
 }
 
 function clickAcquireSettings() {
+    document.getElementById("acquireSettingsBtn").disabled = true;
+
     setBufferSize();
     setAttenuator();
     setGenerator1();
