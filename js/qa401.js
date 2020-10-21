@@ -235,8 +235,22 @@ function refreshThdNAverage(response) {
 
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("rmsLeft").innerText = Number(response.Left).toFixed(3);
-    document.getElementById("rmsRight").innerText = Number(response.Right).toFixed(3);
+
+    let rmsLeft = Number(response.Left);
+    let rmsVoltLeft = dbToVolt(rmsLeft);
+    let rmsVppLeft = rmsVoltToVpp(rmsVoltLeft);
+
+    document.getElementById("rmsLeft").innerText = rmsLeft.toFixed(3);
+    document.getElementById("rmsVoltLeft").innerText = rmsVoltLeft.toFixed(3);
+    document.getElementById("rmsVppLeft").innerText = rmsVppLeft.toFixed(3);
+
+    let rmsRight = Number(response.Right);
+    let rmsVoltRight = dbToVolt(rmsRight);
+    let rmsVppRight = rmsVoltToVpp(rmsVoltRight);
+
+    document.getElementById("rmsRight").innerText = rmsRight.toFixed(3);
+    document.getElementById("rmsVoltRight").innerText = rmsVoltRight.toFixed(3);
+    document.getElementById("rmsVppRight").innerText = rmsVppRight.toFixed(3);
 }
 
 function refreshPeak(httpRequest) {
@@ -339,8 +353,16 @@ function dbToPercent(db) {
     return Math.pow(10, db / 20) * 100;
 }
 
+function dbToVolt(db) {
+    return Math.pow(10, db / 20);
+}
+
 function amplitudeTodBV(amplitude) {
     return 20 * Math.log(amplitude) / Math.LN10;
+}
+
+function rmsVoltToVpp(rmsVolt) {
+    return 2 * Math.sqrt(2) * rmsVolt;
 }
 
 function base64ToFloat64Array(base64) {
