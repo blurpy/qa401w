@@ -22,7 +22,7 @@ onDOMContentLoaded = (function() {
 })();
 
 function registerButtons() {
-    document.getElementById("acquireSettingsBtn").addEventListener('click', clickAcquireSettings);
+    document.getElementById("setSettingsBtn").addEventListener('click', clickSetSettings);
     document.getElementById("updateViewBtn").addEventListener('click', clickUpdateView);
     document.getElementById("resetZoomBtn").addEventListener('click', clickResetZoom);
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
@@ -30,8 +30,8 @@ function registerButtons() {
     document.getElementById("stopBtn").addEventListener('click', clickStop);
 }
 
-function clickAcquireSettings() {
-    document.getElementById("acquireSettingsBtn").disabled = true;
+function clickSetSettings() {
+    document.getElementById("setSettingsBtn").disabled = true;
 
     setBufferSize();
     setAttenuator();
@@ -494,13 +494,13 @@ function getAverageValueFromList(list) {
 }
 
 function disableButtonsDuringAcquire() {
-    document.getElementById("acquireSettingsBtn").disabled = true;
+    document.getElementById("setSettingsBtn").disabled = true;
     document.getElementById("acquireBtn").disabled = true;
     document.getElementById("runBtn").disabled = true;
 }
 
 function enableButtonsAfterAcquire() {
-    document.getElementById("acquireSettingsBtn").disabled = false;
+    document.getElementById("setSettingsBtn").disabled = false;
     document.getElementById("acquireBtn").disabled = false;
     document.getElementById("runBtn").disabled = false;
 }
