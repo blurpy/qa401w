@@ -1,4 +1,7 @@
 const basePath = "http://localhost:8080/http://localhost:9401";
+const measureFrequencyStart = 20;
+const measureFrequencyStop = 20000;
+const avgLimit = 100;
 
 let run = false;
 let currentRequests = 0;
@@ -229,8 +232,8 @@ function refreshThdPct(httpRequest) {
 }
 
 function refreshThdAverage(response) {
-    addToAverageListOf100(thdAvgLeft, response.Left);
-    addToAverageListOf100(thdAvgRight, response.Right);
+    addToAverageList(thdAvgLeft, response.Left);
+    addToAverageList(thdAvgRight, response.Right);
 
     let leftAvg = getAverageValueFromList(thdAvgLeft);
     let rightAvg = getAverageValueFromList(thdAvgRight);
@@ -261,8 +264,8 @@ function refreshThdNPct(httpRequest) {
 }
 
 function refreshThdNAverage(response) {
-    addToAverageListOf100(thdNAvgLeft, response.Left);
-    addToAverageListOf100(thdNAvgRight, response.Right);
+    addToAverageList(thdNAvgLeft, response.Left);
+    addToAverageList(thdNAvgRight, response.Right);
 
     let leftAvg = getAverageValueFromList(thdNAvgLeft);
     let rightAvg = getAverageValueFromList(thdNAvgRight);
@@ -355,13 +358,13 @@ function refreshTimeChart(httpRequest) {
 
 function refreshAcquisition() {
     const frequency =  document.getElementById("audioGen1Frequency").value;
-    makeRequest("GET", "/ThdDb/" + frequency + "/20000", refreshThd);
-    makeRequest("GET", "/ThdPct/" + frequency + "/20000", refreshThdPct);
-    makeRequest("GET", "/ThdnDb/" + frequency + "/20/20000", refreshThdN)
-    makeRequest("GET", "/ThdnPct/" + frequency + "/20/20000", refreshThdNPct)
-    makeRequest("GET", "/SnrDb/" + frequency + "/20/20000", refreshSnr);
-    makeRequest("GET", "/RmsDbv/20/20000", refreshRms)
-    makeRequest("GET", "/PeakDbv/20/20000", refreshPeak)
+    makeRequest("GET", "/ThdDb/" + frequency + "/" + measureFrequencyStop, refreshThd);
+    makeRequest("GET", "/ThdPct/" + frequency + "/" + measureFrequencyStop, refreshThdPct);
+    makeRequest("GET", "/ThdnDb/" + frequency + "/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshThdN)
+    makeRequest("GET", "/ThdnPct/" + frequency + "/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshThdNPct)
+    makeRequest("GET", "/SnrDb/" + frequency + "/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshSnr);
+    makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshRms)
+    makeRequest("GET", "/PeakDbv/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshPeak)
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees)
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
 
@@ -451,7 +454,7 @@ function base64ToFrequencyDataPoints(base64, dx, attenuation) {
     for (let i = 0; i < floatArray.length; i++) {
         const frequency = i * dx;
 
-        if (frequency >= 19 && frequency <= 20000) {
+        if (frequency >= (measureFrequencyStart -1) && frequency <= measureFrequencyStop) {
             dataPoints.push( {x: frequency, y: amplitudeTodBV(floatArray[i]) + attenuation} );
         }
     }
@@ -472,10 +475,10 @@ function base64ToTimeDataPoints(base64, dx) {
     return dataPoints;
 }
 
-function addToAverageListOf100(list, item) {
+function addToAverageList(list, item) {
     list.push(item);
 
-    if (list.length > 100) {
+    if (list.length > avgLimit) {
         list.shift();
     }
 }
