@@ -2,9 +2,6 @@ const basePath = "http://localhost:8080/http://localhost:9401";
 
 let run = false;
 let currentRequests = 0;
-let fetchFrequencyData = true;
-let fetchTimeData = false;
-let showAverageThd = false;
 let thdAvgLeft = [];
 let thdAvgRight = [];
 let thdNAvgLeft = [];
@@ -13,6 +10,7 @@ let thdNAvgRight = [];
 onDOMContentLoaded = (function() {
     registerButtons();
     initializeCharts();
+    clickUpdateView();
 
     makeRequest("GET", "/Status/Version", refreshStatusVersion);
 })();
@@ -82,8 +80,8 @@ function setRoundFrequencies() {
 }
 
 function setFetchData() {
-    fetchFrequencyData = document.querySelector('input[name="fetchFrequencyCheck"]').checked;
-    fetchTimeData = document.querySelector('input[name="fetchTimeCheck"]').checked;
+    const fetchFrequencyData = document.querySelector('input[name="fetchFrequencyCheck"]').checked;
+    const fetchTimeData = document.querySelector('input[name="fetchTimeCheck"]').checked;
 
     if (!fetchFrequencyData) {
         updateFrequencyChart([], []);
@@ -127,7 +125,7 @@ function updateChannel() {
 }
 
 function updateAverageThd() {
-    showAverageThd = document.querySelector('input[name="averageThdCheck"]').checked;
+    const showAverageThd = document.querySelector('input[name="averageThdCheck"]').checked;
 
     if (showAverageThd) {
         document.getElementById("thdAvgRow").classList.remove("d-none");
@@ -180,6 +178,8 @@ function refreshThd(httpRequest) {
     document.getElementById("thdLeft").innerText = Number(response.Left).toFixed(3);
     document.getElementById("thdRight").innerText = Number(response.Right).toFixed(3);
 
+    const showAverageThd = document.querySelector('input[name="averageThdCheck"]').checked;
+
     if (showAverageThd) {
         refreshThdAverage(response);
     }
@@ -209,6 +209,8 @@ function refreshThdN(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("thdnLeft").innerText = Number(response.Left).toFixed(3);
     document.getElementById("thdnRight").innerText = Number(response.Right).toFixed(3);
+
+    const showAverageThd = document.querySelector('input[name="averageThdCheck"]').checked;
 
     if (showAverageThd) {
         refreshThdNAverage(response);
@@ -302,6 +304,9 @@ function refreshAcquisition() {
     makeRequest("GET", "/PeakDbv/20/20000", refreshPeak)
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees)
     makeRequest("GET", "/Phase/Seconds", refreshPhaseSeconds)
+
+    const fetchFrequencyData = document.querySelector('input[name="fetchFrequencyCheck"]').checked;
+    const fetchTimeData = document.querySelector('input[name="fetchTimeCheck"]').checked;
 
     if (fetchFrequencyData) {
         makeRequest("GET", "/Data/Freq", refreshFrequencyChart)
