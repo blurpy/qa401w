@@ -261,6 +261,22 @@ function refreshRms(httpRequest) {
     document.getElementById("rmsRight").innerText = rmsRight.toFixed(3);
     document.getElementById("rmsVoltRight").innerText = rmsVoltRight.toFixed(3);
     document.getElementById("rmsVppRight").innerText = rmsVppRight.toFixed(3);
+
+    refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight);
+}
+
+function refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight) {
+    const amplitude = document.getElementById("audioGen1Amplitude").value;
+
+    const gainLeft = rmsLeft - amplitude;
+    const gainTimesLeft = rmsVoltLeft / dbToVolt(amplitude);
+    document.getElementById("gainLeft").innerText = gainLeft.toFixed(1);
+    document.getElementById("gainTimesLeft").innerText = gainTimesLeft.toFixed(1);
+
+    const gainRight = rmsRight - amplitude;
+    const gainTimesRight = rmsVoltRight / dbToVolt(amplitude);
+    document.getElementById("gainRight").innerText = gainRight.toFixed(1);
+    document.getElementById("gainTimesRight").innerText = gainTimesRight.toFixed(1);
 }
 
 function refreshPeak(httpRequest) {
