@@ -4,11 +4,14 @@ Simple web interface for usage with the [QA401H](https://github.com/QuantAsylum/
 
 ![Screenshot](img/qa401w.png)
 
-Due to missing CORS headers in the REST API it will not work by default. I currently use a [proxy](https://github.com/Shivam010/bypass-cors/) as a workaround.
+Example shows the left channel in loopback on the QA401 and the right channel through a preamp.
+
 
 ## How to use
 
-1. Download and start QA401H
+Due to missing CORS support in the REST API it will not work by default. I currently use a [proxy](https://github.com/Shivam010/bypass-cors/) as a workaround. This will be fixed in the next release of QA401H.
+
+1. Download and start QA401H v0.996 or newer
 2. Download/build/start a CORS bypass proxy
 3. Open [index.html](index.html) in the browser
 
