@@ -13,6 +13,9 @@ onDOMContentLoaded = (function() {
     clickUpdateView();
 
     makeRequest("GET", "/Status/Version", refreshStatusVersion);
+
+    updateGenerator1Output();
+    updateGenerator2Output();
 })();
 
 function registerButtons() {
@@ -35,6 +38,8 @@ function clickAcquireSettings() {
     setSampleRate();
     setRoundFrequencies();
     setFetchData();
+    updateGenerator1Output();
+    updateGenerator2Output();
 }
 
 function setBufferSize() {
@@ -89,6 +94,38 @@ function setFetchData() {
 
     if (!fetchTimeData) {
         updateTimeChart([], []);
+    }
+}
+
+function updateGenerator1Output() {
+    const generatorEnabled = document.querySelector('input[name="audioGen1Check"]').checked;
+    const amplitude =  document.getElementById("audioGen1Amplitude").value;
+    const volt = dbToVolt(amplitude);
+
+    document.getElementById("audioGen1OutputDbv").innerText = amplitude;
+    document.getElementById("audioGen1OutputVrms").innerText = volt.toFixed(3);
+    document.getElementById("audioGen1OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
+
+    if (generatorEnabled) {
+        document.getElementById("audioGen1OutputText").classList.remove("text-black-50");
+    } else {
+        document.getElementById("audioGen1OutputText").classList.add("text-black-50");
+    }
+}
+
+function updateGenerator2Output() {
+    const generatorEnabled = document.querySelector('input[name="audioGen2Check"]').checked;
+    const amplitude =  document.getElementById("audioGen2Amplitude").value;
+    const volt = dbToVolt(amplitude);
+
+    document.getElementById("audioGen2OutputDbv").innerText = amplitude;
+    document.getElementById("audioGen2OutputVrms").innerText = volt.toFixed(3);
+    document.getElementById("audioGen2OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
+
+    if (generatorEnabled) {
+        document.getElementById("audioGen2OutputText").classList.remove("text-black-50");
+    } else {
+        document.getElementById("audioGen2OutputText").classList.add("text-black-50");
     }
 }
 

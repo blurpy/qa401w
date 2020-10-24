@@ -180,7 +180,7 @@
 
         <!-- Left column -->
         <div class="col-9 order-1">
-          <table class="table-responsive-sm table-bordered mt-1 mb-3">
+          <table class="table-responsive-sm table-bordered d-inline-block mt-1 mb-3">
             <thead>
               <tr>
                 <th></th>
@@ -236,6 +236,21 @@
               </tr>
             </tbody>
           </table>
+
+          <div class="d-inline-block align-top pl-3 pt-2">
+            <p id="audioGen1OutputText" class="text-black-50 mb-1">
+              Gen1:
+              <span id="audioGen1OutputDbv">0</span> dBV /
+              <span id="audioGen1OutputVrms">0</span> V /
+              <span id="audioGen1OutputVpp">0</span> Vpp
+            </p>
+            <p id="audioGen2OutputText" class="text-black-50">
+              Gen2:
+              <span id="audioGen2OutputDbv">0</span> dBV /
+              <span id="audioGen2OutputVrms">0</span> V /
+              <span id="audioGen2OutputVpp">0</span> Vpp
+            </p>
+          </div>
 
           <div>
             <canvas id="frequencyChart"></canvas>
