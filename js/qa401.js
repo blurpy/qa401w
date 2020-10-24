@@ -237,6 +237,12 @@ function refreshThdNAverage(response) {
     document.getElementById("thdnPctAvgRight").innerText = dbToPercent(rightAvg).toFixed(6);
 }
 
+function refreshSnr(httpRequest) {
+    const response = JSON.parse(httpRequest.responseText);
+    document.getElementById("snrLeft").innerText = Number(response.Left).toFixed(3);
+    document.getElementById("snrRight").innerText = Number(response.Right).toFixed(3);
+}
+
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
@@ -300,6 +306,7 @@ function refreshAcquisition() {
     makeRequest("GET", "/ThdPct/" + frequency + "/20000", refreshThdPct);
     makeRequest("GET", "/ThdnDb/" + frequency + "/20/20000", refreshThdN)
     makeRequest("GET", "/ThdnPct/" + frequency + "/20/20000", refreshThdNPct)
+    makeRequest("GET", "/SnrDb/" + frequency + "/20/20000", refreshSnr);
     makeRequest("GET", "/RmsDbv/20/20000", refreshRms)
     makeRequest("GET", "/PeakDbv/20/20000", refreshPeak)
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees)
