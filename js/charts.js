@@ -47,7 +47,7 @@ function resetZoom() {
 function initializeFrequencyChart(chartId) {
     const ctx = document.getElementById(chartId);
 
-    const chart = new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
@@ -95,7 +95,7 @@ function initializeFrequencyChart(chartId) {
                     position: 'bottom',
                     ticks: {
                         userCallback: function(tick) {
-                            const remain = tick / (Math.pow(10, Math.floor(Chart.helpers.log10(tick))));
+                            const remain = tick / (Math.pow(10, Math.floor(Chart.helpers.math.log10(tick))));
                             if (remain === 1 || remain === 2 || remain === 5) {
                                 return tick.toString();
                             }
@@ -147,14 +147,12 @@ function initializeFrequencyChart(chartId) {
             }
         }
     });
-
-    return chart;
 }
 
 function initializeTimeChart(chartId) {
     const ctx = document.getElementById(chartId);
 
-    const chart = new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
@@ -256,6 +254,4 @@ function initializeTimeChart(chartId) {
             }
         }
     });
-
-    return chart;
 }
