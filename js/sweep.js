@@ -17,6 +17,8 @@ let thdLeftArray = [];
 let thdRightArray = [];
 let thdNLeftArray = [];
 let thdNRightArray = [];
+let snrLeftArray = [];
+let snrRightArray = [];
 
 onDOMContentLoaded = (function() {
     registerButtons();
@@ -112,6 +114,8 @@ function updateGraph() {
         showData("dB", thdLeftArray, thdRightArray);
     } else if (graph === "thdN") {
         showData("dB", thdNLeftArray, thdNRightArray);
+    } else if (graph === "snr") {
+        showData("dB", snrLeftArray, snrRightArray);
     }
 }
 
@@ -192,6 +196,23 @@ function refreshThdN(httpRequest) {
     }
 }
 
+function refreshSnr(httpRequest) {
+    const response = JSON.parse(httpRequest.responseText);
+
+    const snrLeft = toPoint(currentFrequency, Number(response.Left));
+    const snrRight = toPoint(currentFrequency, Number(response.Right));
+
+    snrLeftArray.push(snrLeft);
+    snrRightArray.push(snrRight);
+
+    const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graphChoice === "snr") {
+        addToLeft(snrLeft);
+        addToRight(snrRight);
+    }
+}
+
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
@@ -232,6 +253,7 @@ function refreshGain(rmsLeft, rmsRight) {
 function refreshAcquisition() {
     makeRequest("GET", "/ThdDb/" + currentFrequency + "/" + (measureFrequencyStop + 10), refreshThd);
     makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshThdN)
+    makeRequest("GET", "/SnrDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshSnr);
     makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshRms)
 }
 
@@ -313,6 +335,8 @@ function resetMeasurements() {
     thdRightArray = [];
     thdNLeftArray = [];
     thdNRightArray = [];
+    snrLeftArray = [];
+    snrRightArray = [];
 }
 
 function disableButtonsDuringAcquire() {
