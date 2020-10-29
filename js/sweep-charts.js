@@ -17,8 +17,9 @@ function setChannels(leftChannel, rightChannel) {
     frequencyChart.update();
 }
 
-function showData(label, leftChannelData, rightChannelData) {
-    frequencyChart.options.scales.yAxes[0].scaleLabel.labelString = label;
+function showData(title, yLabel, leftChannelData, rightChannelData) {
+    frequencyChart.options.title.text = title;
+    frequencyChart.options.scales.yAxes[0].scaleLabel.labelString = yLabel;
     frequencyChart.data.datasets[0].data = leftChannelData;
     frequencyChart.data.datasets[1].data = rightChannelData;
     frequencyChart.update();
@@ -65,8 +66,8 @@ function initializeFrequencyChart(chartId) {
         options: {
             responsive: true,
             title: {
-                display: false,
-                text: "title",
+                display: true,
+                text: "Gain",
                 fontColor: "rgba(255, 255, 255, 0.9)"
             },
             animation: {

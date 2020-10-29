@@ -110,17 +110,17 @@ function updateGraph() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graph === "gain") {
-        showData("dB", gainLeftArray, gainRightArray);
+        showData("Gain", "dB", gainLeftArray, gainRightArray);
     } else if (graph === "rms") {
-        showData("dBV", rmsLeftArray, rmsRightArray);
+        showData("RMS", "dBV", rmsLeftArray, rmsRightArray);
     } else if (graph === "thd") {
-        showData("dB", thdLeftArray, thdRightArray);
+        showData("THD", "dB", thdLeftArray, thdRightArray);
     } else if (graph === "thdN") {
-        showData("dB", thdNLeftArray, thdNRightArray);
+        showData("THD+N", "dB", thdNLeftArray, thdNRightArray);
     } else if (graph === "snr") {
-        showData("dB", snrLeftArray, snrRightArray);
+        showData("SNR", "dB", snrLeftArray, snrRightArray);
     } else if (graph === "phase") {
-        showData("degrees", phaseLeftArray, phaseRightArray);
+        showData("Phase", "Degrees", phaseLeftArray, phaseRightArray);
     }
 }
 
