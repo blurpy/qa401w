@@ -343,12 +343,10 @@ function disableButtonsDuringAcquire() {
     document.getElementById("setSettingsBtn").disabled = true;
     document.getElementById("runBtn").disabled = true;
     document.getElementById("updateViewBtn").disabled = true;
-    document.getElementById("resetZoomBtn").disabled = true;
 }
 
 function enableButtonsAfterAcquire() {
     document.getElementById("setSettingsBtn").disabled = false;
     document.getElementById("runBtn").disabled = false;
     document.getElementById("updateViewBtn").disabled = false;
-    document.getElementById("resetZoomBtn").disabled = false;
 }
