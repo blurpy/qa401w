@@ -15,6 +15,8 @@ let rmsLeftArray = [];
 let rmsRightArray = [];
 let thdLeftArray = [];
 let thdRightArray = [];
+let thdNLeftArray = [];
+let thdNRightArray = [];
 
 onDOMContentLoaded = (function() {
     registerButtons();
@@ -108,6 +110,8 @@ function updateGraph() {
         showData("dBV", rmsLeftArray, rmsRightArray);
     } else if (graph === "thd") {
         showData("dB", thdLeftArray, thdRightArray);
+    } else if (graph === "thdN") {
+        showData("dB", thdNLeftArray, thdNRightArray);
     }
 }
 
@@ -171,6 +175,23 @@ function refreshThd(httpRequest) {
     }
 }
 
+function refreshThdN(httpRequest) {
+    const response = JSON.parse(httpRequest.responseText);
+
+    const thdNLeft = toPoint(currentFrequency, Number(response.Left));
+    const thdNRight = toPoint(currentFrequency, Number(response.Right));
+
+    thdNLeftArray.push(thdNLeft);
+    thdNRightArray.push(thdNRight);
+
+    const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graphChoice === "thdN") {
+        addToLeft(thdNLeft);
+        addToRight(thdNRight);
+    }
+}
+
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
@@ -210,6 +231,7 @@ function refreshGain(rmsLeft, rmsRight) {
 
 function refreshAcquisition() {
     makeRequest("GET", "/ThdDb/" + currentFrequency + "/" + (measureFrequencyStop + 10), refreshThd);
+    makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshThdN)
     makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshRms)
 }
 
@@ -289,6 +311,8 @@ function resetMeasurements() {
     rmsRightArray = [];
     thdLeftArray = [];
     thdRightArray = [];
+    thdNLeftArray = [];
+    thdNRightArray = [];
 }
 
 function disableButtonsDuringAcquire() {
