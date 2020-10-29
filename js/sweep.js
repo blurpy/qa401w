@@ -19,6 +19,8 @@ let thdNLeftArray = [];
 let thdNRightArray = [];
 let snrLeftArray = [];
 let snrRightArray = [];
+let phaseLeftArray = [];
+let phaseRightArray = [];
 
 onDOMContentLoaded = (function() {
     registerButtons();
@@ -117,6 +119,8 @@ function updateGraph() {
         showData("dB", thdNLeftArray, thdNRightArray);
     } else if (graph === "snr") {
         showData("dB", snrLeftArray, snrRightArray);
+    } else if (graph === "phase") {
+        showData("degrees", phaseLeftArray, phaseRightArray);
     }
 }
 
@@ -252,11 +256,29 @@ function refreshGain(rmsLeft, rmsRight) {
     }
 }
 
+function refreshPhaseDegrees(httpRequest) {
+    const response = JSON.parse(httpRequest.responseText);
+
+    const phaseLeft = toPoint(currentFrequency, Number(response.Left));
+    const phaseRight = toPoint(currentFrequency, Number(response.Right));
+
+    phaseLeftArray.push(phaseLeft);
+    phaseRightArray.push(phaseRight);
+
+    const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graphChoice === "phase") {
+        addToLeft(phaseLeft);
+        addToRight(phaseRight);
+    }
+}
+
 function refreshAcquisition() {
     makeRequest("GET", "/ThdDb/" + currentFrequency + "/" + (measureFrequencyStop + 10), refreshThd);
-    makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshThdN)
+    makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshThdN);
     makeRequest("GET", "/SnrDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshSnr);
-    makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshRms)
+    makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshRms);
+    makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees);
     updateGenerator1Output();
 }
 
@@ -340,6 +362,8 @@ function resetMeasurements() {
     thdNRightArray = [];
     snrLeftArray = [];
     snrRightArray = [];
+    phaseLeftArray = [];
+    phaseRightArray = [];
 }
 
 function disableButtonsDuringAcquire() {
