@@ -180,8 +180,7 @@ function refreshThd(httpRequest) {
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "thd") {
-        addToLeft(thdLeft);
-        addToRight(thdRight);
+        addPoint(thdLeft, thdRight);
     }
 }
 
@@ -197,8 +196,7 @@ function refreshThdN(httpRequest) {
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "thdN") {
-        addToLeft(thdNLeft);
-        addToRight(thdNRight);
+        addPoint(thdNLeft, thdNRight);
     }
 }
 
@@ -214,8 +212,7 @@ function refreshSnr(httpRequest) {
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "snr") {
-        addToLeft(snrLeft);
-        addToRight(snrRight);
+        addPoint(snrLeft, snrRight);
     }
 }
 
@@ -234,8 +231,7 @@ function refreshRms(httpRequest) {
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "rms") {
-        addToLeft(rmsLeftPoint);
-        addToRight(rmsRightPoint);
+        addPoint(rmsLeftPoint, rmsRightPoint);
     }
 
     refreshGain(rmsLeft, rmsRight);
@@ -251,8 +247,7 @@ function refreshGain(rmsLeft, rmsRight) {
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "gain") {
-        addToLeft(gainLeft);
-        addToRight(gainRight);
+        addPoint(gainLeft, gainRight);
     }
 }
 
@@ -268,8 +263,7 @@ function refreshPhaseDegrees(httpRequest) {
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "phase") {
-        addToLeft(phaseLeft);
-        addToRight(phaseRight);
+        addPoint(phaseLeft, phaseRight);
     }
 }
 

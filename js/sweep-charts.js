@@ -5,13 +5,9 @@ function initializeCharts() {
     frequencyChart = initializeFrequencyChart('frequencyChart');
 }
 
-function addToLeft(point) {
-    frequencyChart.data.datasets[0].data.push(point);
-    frequencyChart.update();
-}
-
-function addToRight(point) {
-    frequencyChart.data.datasets[1].data.push(point);
+function addPoint(leftPoint, rightPoint) {
+    frequencyChart.data.datasets[0].data.push(leftPoint);
+    frequencyChart.data.datasets[1].data.push(rightPoint);
     frequencyChart.update();
 }
 
