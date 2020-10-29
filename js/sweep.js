@@ -89,6 +89,7 @@ function setRoundFrequencies() {
 function updateGenerator1Output() {
     const volt = dbToVolt(currentAmplitude);
 
+    document.getElementById("audioGen1OutputFrequency").innerText = currentFrequency;
     document.getElementById("audioGen1OutputDbv").innerText = currentAmplitude;
     document.getElementById("audioGen1OutputVrms").innerText = volt.toFixed(3);
     document.getElementById("audioGen1OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
@@ -139,6 +140,7 @@ function clickRun() {
     steps = generateSteps(measureFrequencyStart, measureFrequencyStop);
     currentFrequency = steps[stepPosition];
 
+    updateGenerator1Output();
     resetMeasurements();
     resetCharts();
     disableButtonsDuringAcquire();
@@ -255,6 +257,7 @@ function refreshAcquisition() {
     makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshThdN)
     makeRequest("GET", "/SnrDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshSnr);
     makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshRms)
+    updateGenerator1Output();
 }
 
 function requestsComplete() {
