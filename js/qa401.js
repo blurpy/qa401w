@@ -2,6 +2,7 @@ const basePath = "http://localhost:8080/http://localhost:9401";
 const measureFrequencyStart = 20;
 const measureFrequencyStop = 20000;
 const avgLimit = 100;
+const maxTimeData = 0.3; // Seconds - to avoid extreme slowdown of the browser
 
 let run = false;
 let currentRequests = 0;
@@ -468,6 +469,10 @@ function base64ToTimeDataPoints(base64, dx) {
 
     for (let i = 0; i < floatArray.length; i++) {
         const time = i * dx;
+
+        if (time > maxTimeData) {
+            break;
+        }
 
         dataPoints.push( {x: time, y: floatArray[i]} );
     }
