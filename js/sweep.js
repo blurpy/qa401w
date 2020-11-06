@@ -1,4 +1,4 @@
-const basePath = "http://localhost:8080/http://localhost:9401";
+const basePath = "http://localhost:9401";
 
 let run = false;
 let currentRequests = 0;

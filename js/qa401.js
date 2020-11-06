@@ -1,4 +1,4 @@
-const basePath = "http://localhost:8080/http://localhost:9401";
+const basePath = "http://localhost:9401";
 const measureFrequencyStart = 20;
 const measureFrequencyStop = 20000;
 const avgLimit = 100;
