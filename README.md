@@ -36,5 +36,5 @@ Run frequency sweeps and record data at predefined steps along the way.
 
 ## How to use
 
-1. Download and start [QA401H](https://github.com/QuantAsylum/QA401H/releases) v0.998 or newer.
-2. Download the code from this repository and open [analyze.html](analyze.html) in the browser.
+1. [Download](https://github.com/QuantAsylum/QA401H/releases) and start QA401H v0.998 or newer.
+2. [Download](https://github.com/blurpy/qa401w/archive/main.zip) the code from this repository and open [analyze.html](analyze.html) in the browser.
