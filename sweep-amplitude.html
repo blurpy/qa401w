@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; connect-src http://localhost:*;">
+    <link rel="stylesheet" href="css/bootstrap-4.5.3.min.css">
+    <link rel="stylesheet" href="css/chart-2.9.4.min.css">
+    <link rel="stylesheet" href="css/qa401w.css">
+    <title>QA401 Web - Amplitude Sweep</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-2 mb-2">
+      <h1 class="text-white m-0">QA401 Web</h1>
+
+      <div class="navbar-nav pl-4 pr-4">
+        <a class="nav-item nav-link" href="analyze.html">Analyze</a>
+        <a class="nav-item nav-link active" href="sweep.html">Sweep</a>
+      </div>
+
+      <div class="mr-auto">
+        <a class="text-white-50 small ml-4 mt-auto mb-auto" href="http://localhost:9401/">Backend: v<span id="statusVersion">0.0</span></a>
+      </div>
+
+      <div class="mt-auto mb-auto">
+        <button id="runBtn" type="button" class="btn btn-success">Run</button>
+        <button id="stopBtn" type="button" class="btn btn-danger">Stop</button>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <!-- Right column -->
+        <div class="col-3 order-2">
+          <h3>Acquire</h3>
+
+          <div class="pt-1 pb-1">
+            <label for="bufferSizeSelect" class="pr-2">Buffer size:</label>
+            <select name="bufferSizeSelect" id="bufferSizeSelect">
+              <option value="2048">2048</option>
+              <option value="4096">4096</option>
+              <option value="8192">8192</option>
+              <option value="16384">16384</option>
+              <option value="32768" selected>32768</option>
+              <option value="65536">65536</option>
+              <option value="131072">131072</option>
+              <option value="262144">262144</option>
+            </select>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline align-top">Attenuator:</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOff" value="6">
+              <label class="form-check-label" for="attenuatorOff">+6 dBV</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOn" value="26" checked>
+              <label class="form-check-label" for="attenuatorOn">+26 dBV</label>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div>
+              <label for="audioGen1Frequency" class="pr-1">Frequency (Hz):</label>
+              <input type="number" id="audioGen1Frequency" size="10" value="1000" min="1" max="96000"/>
+            </div>
+            <div>
+              <label for="measureAmplitudeStart">Start amplitude:</label>
+              <input type="number" id="measureAmplitudeStart" size="10" value="-10" min="-120" max="5.8" step="any"/>
+            </div>
+            <div>
+              <label for="measureAmplitudeStop">Stop amplitude:</label>
+              <input type="number" id="measureAmplitudeStop" size="10" value="0" min="-120" max="5.8" step="any"/>
+            </div>
+            <div>
+              <label for="measureAmplitudeStep">Amplitude step:</label>
+              <input type="number" id="measureAmplitudeStep" size="10" value="1" min="0.1" max="5" step="any"/>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <label for="windowTypeSelect" class="pr-2">Window type:</label>
+            <select name="windowTypeSelect" id="windowTypeSelect">
+              <option value="Rectangle">Rectangle</option>
+              <option value="Bartlett">Bartlett</option>
+              <option value="Hamming">Hamming</option>
+              <option value="Hann" selected>Hann</option>
+              <option value="FlatTop">FlatTop</option>
+            </select>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline align-top">Sample rate:</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="sampleRateChoice" id="sampleRate48" value="48000" checked>
+              <label class="form-check-label" for="sampleRate48">48 KHz</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="sampleRateChoice" id="sampleRate192" value="192000">
+              <label class="form-check-label" for="sampleRate192">192 KHz</label>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline">
+              <input class="form-check-input" type="checkbox" name="roundFrequenciesCheck" id="roundFrequenciesCheck" checked>
+              <label class="form-check-label" for="roundFrequenciesCheck">Round frequencies</label>
+            </div>
+          </div>
+
+          <div class="pt-1">
+            <button id="setSettingsBtn" type="button" class="btn btn-secondary">Set</button>
+          </div>
+
+          <hr/>
+
+          <h3>View</h3>
+
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline align-top pr-3">Graph:</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="graphChoice" id="graphGain" value="gain" checked>
+              <label class="form-check-label" for="graphGain">Gain</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="graphChoice" id="graphRms" value="rms">
+              <label class="form-check-label" for="graphRms">RMS</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="graphChoice" id="graphThd" value="thd">
+              <label class="form-check-label" for="graphThd">THD</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="graphChoice" id="graphThdN" value="thdN">
+              <label class="form-check-label" for="graphThdN">THD+N</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="graphChoice" id="graphSnr" value="snr">
+              <label class="form-check-label" for="graphSnr">SNR</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="graphChoice" id="graphPhase" value="phase">
+              <label class="form-check-label" for="graphPhase">Phase</label>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div class="form-check-inline align-top">Channel:</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="channelChoice" id="channelLeft" value="left" checked>
+              <label class="form-check-label" for="channelLeft">Left</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="channelChoice" id="channelRight" value="right">
+              <label class="form-check-label" for="channelRight">Right</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="channelChoice" id="channelBoth" value="both">
+              <label class="form-check-label" for="channelBoth">Both</label>
+            </div>
+          </div>
+
+          <div class="pt-1">
+            <button id="updateViewBtn" type="button" class="btn btn-secondary">Update</button>
+            <button id="resetZoomBtn" type="button" class="btn btn-secondary">Reset zoom</button>
+          </div>
+        </div>
+
+        <!-- Left column -->
+        <div class="col-9 order-1">
+          <div class="d-inline-block align-top pt-2 pb-2">
+            <p id="audioGen1OutputText">
+              Gen1:
+              <span id="audioGen1OutputFrequency">0</span> Hz @
+              <span id="audioGen1OutputDbv">0</span> dBV /
+              <span id="audioGen1OutputVrms">0</span> V /
+              <span id="audioGen1OutputVpp">0</span> Vpp
+            </p>
+          </div>
+
+          <div>
+            <canvas id="amplitudeChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="js/chart-2.9.4.min.js"></script>
+    <script src="js/hammer-2.0.8.min.js"></script>
+    <script src="js/chartjs-plugin-zoom-0.7.7.min.js"></script>
+    <script src="js/sweep-amplitude-charts.js"></script>
+    <script src="js/sweep-amplitude.js"></script>
+  </body>
+</html>
