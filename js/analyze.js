@@ -304,6 +304,7 @@ function refreshRms(httpRequest) {
     document.getElementById("rmsVppRight").innerText = rmsVppRight.toFixed(3);
 
     refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight);
+    refreshPower(rmsVoltLeft, rmsVoltRight);
 }
 
 function refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight) {
@@ -318,6 +319,20 @@ function refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight) {
     const gainTimesRight = rmsVoltRight / dbToVolt(amplitude);
     document.getElementById("gainRight").innerText = gainRight.toFixed(1);
     document.getElementById("gainTimesRight").innerText = gainTimesRight.toFixed(1);
+}
+
+function refreshPower(rmsVoltLeft, rmsVoltRight) {
+    const squareLeft = Math.pow(rmsVoltLeft, 2);
+    const power4Left = squareLeft / 4;
+    const power8Left = squareLeft / 8;
+    document.getElementById("power4Left").innerText = power4Left.toFixed(2);
+    document.getElementById("power8Left").innerText = power8Left.toFixed(2);
+
+    const squareRight = Math.pow(rmsVoltRight, 2);
+    const power4Right = squareRight / 4;
+    const power8Right = squareRight / 8;
+    document.getElementById("power4Right").innerText = power4Right.toFixed(2);
+    document.getElementById("power8Right").innerText = power8Right.toFixed(2);
 }
 
 function refreshPeak(httpRequest) {
