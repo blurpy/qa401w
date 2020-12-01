@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; connect-src http://localhost:*;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src http://localhost:*;">
     <link rel="stylesheet" href="css/bootstrap-4.5.3.min.css">
     <link rel="stylesheet" href="css/chart-2.9.4.min.css">
     <link rel="stylesheet" href="css/qa401w.css">
@@ -38,9 +38,9 @@
         <div class="col-3 order-2">
           <h3>Acquire</h3>
 
-          <div class="pb-1">
-            <label for="bufferSizeSelect" class="pr-2">Buffer size:</label>
-            <select name="bufferSizeSelect" id="bufferSizeSelect">
+          <div class="row pb-1">
+            <label for="bufferSizeSelect" class="col-form-label col-auto pr-4 mr-3">Buffer size:&nbsp;</label>
+            <select name="bufferSizeSelect" id="bufferSizeSelect" class="custom-select col-5">
               <option value="2048">2048</option>
               <option value="4096">4096</option>
               <option value="8192">8192</option>
@@ -53,50 +53,50 @@
           </div>
 
           <div class="pt-1 pb-1">
-            <div class="form-check-inline align-top">Attenuator:</div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOff" value="6">
-              <label class="form-check-label" for="attenuatorOff">+6 dBV</label>
+            <div class="custom-control-inline align-top mr-2">Attenuator:</div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="attenuatorChoice" id="attenuatorOff" value="6">
+              <label class="custom-control-label" for="attenuatorOff">+6 dBV</label>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="attenuatorChoice" id="attenuatorOn" value="26" checked>
-              <label class="form-check-label" for="attenuatorOn">+26 dBV</label>
-            </div>
-          </div>
-
-          <div class="pt-1 pb-1">
-            <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" name="audioGen1Check" id="audioGen1Check">
-              <label class="form-check-label" for="audioGen1Check">Audio generator 1</label>
-            </div>
-            <div>
-              <label for="audioGen1Frequency" class="pr-2">Frequency (Hz):</label>
-              <input type="number" id="audioGen1Frequency" size="10" value="1000" min="1" max="96000"/>
-            </div>
-            <div>
-              <label for="audioGen1Amplitude">Amplitude (dBV):</label>
-              <input type="number" id="audioGen1Amplitude" size="10" value="0" min="-120" max="5.8" step="any"/>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="attenuatorChoice" id="attenuatorOn" value="26" checked>
+              <label class="custom-control-label" for="attenuatorOn">+26 dBV</label>
             </div>
           </div>
 
           <div class="pt-1 pb-1">
-            <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" name="audioGen2Check" id="audioGen2Check">
-              <label class="form-check-label" for="audioGen2Check">Audio generator 2</label>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="audioGen1Check" id="audioGen1Check">
+              <label class="custom-control-label" for="audioGen1Check">Audio generator 1</label>
             </div>
-            <div>
-              <label for="audioGen2Frequency" class="pr-2">Frequency (Hz):</label>
-              <input type="number" id="audioGen2Frequency" size="10" value="4500" min="1" max="96000"/>
+            <div class="row pt-1">
+              <label for="audioGen1Frequency" class="col-form-label col-auto pr-2">Frequency (Hz):&nbsp;</label>
+              <input type="number" id="audioGen1Frequency" class="form-control col-5" value="1000" min="1" max="96000"/>
             </div>
-            <div>
-              <label for="audioGen2Amplitude">Amplitude (dBV):</label>
-              <input type="number" id="audioGen2Amplitude" size="10" value="-40" min="-120" max="5.8" step="any"/>
+            <div class="row pt-1">
+              <label for="audioGen1Amplitude" class="col-form-label col-auto pr-1">Amplitude (dBV):</label>
+              <input type="number" id="audioGen1Amplitude" class="form-control col-5" value="0" min="-120" max="5.8" step="any"/>
             </div>
           </div>
 
           <div class="pt-1 pb-1">
-            <label for="windowTypeSelect" class="pr-2">Window type:</label>
-            <select name="windowTypeSelect" id="windowTypeSelect">
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="audioGen2Check" id="audioGen2Check">
+              <label class="custom-control-label" for="audioGen2Check">Audio generator 2</label>
+            </div>
+            <div class="row pt-1">
+              <label for="audioGen2Frequency" class="col-form-label col-auto pr-2">Frequency (Hz):&nbsp;</label>
+              <input type="number" id="audioGen2Frequency" class="form-control col-5" value="4500" min="1" max="96000"/>
+            </div>
+            <div class="row pt-1">
+              <label for="audioGen2Amplitude" class="col-form-label col-auto pr-1">Amplitude (dBV):</label>
+              <input type="number" id="audioGen2Amplitude" class="form-control col-5" value="-40" min="-120" max="5.8" step="any"/>
+            </div>
+          </div>
+
+          <div class="row pt-1 pb-1">
+            <label for="windowTypeSelect" class="col-form-label col-auto pr-4">Window type:&nbsp;</label>
+            <select name="windowTypeSelect" id="windowTypeSelect" class="custom-select col-5">
               <option value="Rectangle">Rectangle</option>
               <option value="Bartlett">Bartlett</option>
               <option value="Hamming">Hamming</option>
@@ -106,32 +106,32 @@
           </div>
 
           <div class="pt-1 pb-1">
-            <div class="form-check-inline align-top">Sample rate:</div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="sampleRateChoice" id="sampleRate48" value="48000" checked>
-              <label class="form-check-label" for="sampleRate48">48 KHz</label>
+            <div class="custom-control-inline align-top mr-2">Sample rate:</div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="sampleRateChoice" id="sampleRate48" value="48000" checked>
+              <label class="custom-control-label" for="sampleRate48">48 KHz</label>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="sampleRateChoice" id="sampleRate192" value="192000">
-              <label class="form-check-label" for="sampleRate192">192 KHz</label>
-            </div>
-          </div>
-
-          <div class="pt-1 pb-1">
-            <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" name="roundFrequenciesCheck" id="roundFrequenciesCheck" checked>
-              <label class="form-check-label" for="roundFrequenciesCheck">Round frequencies</label>
+            <div class="custom-control custom-radio custom-control-inline mr-1">
+              <input class="custom-control-input" type="radio" name="sampleRateChoice" id="sampleRate192" value="192000">
+              <label class="custom-control-label" for="sampleRate192">192 KHz</label>
             </div>
           </div>
 
           <div class="pt-1 pb-1">
-            <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" name="fetchFrequencyCheck" id="fetchFrequencyCheck" checked>
-              <label class="form-check-label" for="fetchFrequencyCheck">Fetch frequency data</label>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="roundFrequenciesCheck" id="roundFrequenciesCheck" checked>
+              <label class="custom-control-label" for="roundFrequenciesCheck">Round frequencies</label>
             </div>
-            <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" name="fetchTimeCheck" id="fetchTimeCheck">
-              <label class="form-check-label" for="fetchTimeCheck">Fetch time data</label>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="fetchFrequencyCheck" id="fetchFrequencyCheck" checked>
+              <label class="custom-control-label" for="fetchFrequencyCheck">Fetch frequency data</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="fetchTimeCheck" id="fetchTimeCheck">
+              <label class="custom-control-label" for="fetchTimeCheck">Fetch time data</label>
             </div>
           </div>
 
@@ -144,41 +144,41 @@
           <h3>View</h3>
 
           <div class="pt-1 pb-1">
-            <div class="form-check-inline align-top pr-3">Graph:</div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="graphChoice" id="graphFrequency" value="frequency" checked>
-              <label class="form-check-label" for="graphFrequency">Frequency</label>
+            <div class="custom-control-inline align-top mr-4">Graph:</div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="graphChoice" id="graphFrequency" value="frequency" checked>
+              <label class="custom-control-label" for="graphFrequency">Frequency</label>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="graphChoice" id="graphTime" value="time">
-              <label class="form-check-label" for="graphTime">Time</label>
-            </div>
-          </div>
-
-          <div class="pt-1 pb-1">
-            <div class="form-check-inline align-top">Channel:</div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="channelChoice" id="channelLeft" value="left" checked>
-              <label class="form-check-label" for="channelLeft">Left</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="channelChoice" id="channelRight" value="right">
-              <label class="form-check-label" for="channelRight">Right</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="channelChoice" id="channelBoth" value="both">
-              <label class="form-check-label" for="channelBoth">Both</label>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="graphChoice" id="graphTime" value="time">
+              <label class="custom-control-label" for="graphTime">Time</label>
             </div>
           </div>
 
           <div class="pt-1 pb-1">
-            <div class="form-check-inline">
-              <input class="form-check-input" type="checkbox" name="averageThdCheck" id="averageThdCheck">
-              <label class="form-check-label" for="averageThdCheck">Show average THD</label>
+            <div class="custom-control-inline align-top mr-2">Channel:</div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="channelChoice" id="channelLeft" value="left" checked>
+              <label class="custom-control-label" for="channelLeft">Left</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="channelChoice" id="channelRight" value="right">
+              <label class="custom-control-label" for="channelRight">Right</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline mr-1">
+              <input class="custom-control-input" type="radio" name="channelChoice" id="channelBoth" value="both">
+              <label class="custom-control-label" for="channelBoth">Both</label>
             </div>
           </div>
 
-          <div class="pt-1">
+          <div class="pt-1 pb-1">
+            <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="averageThdCheck" id="averageThdCheck">
+              <label class="custom-control-label" for="averageThdCheck">Show average THD</label>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
             <button id="updateViewBtn" type="button" class="btn btn-secondary">Update</button>
             <button id="resetZoomBtn" type="button" class="btn btn-secondary">Reset zoom</button>
           </div>
