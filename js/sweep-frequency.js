@@ -137,12 +137,17 @@ function updateChannel() {
 }
 
 function clickRun() {
-    run = true;
     stepPosition = 0;
     measureFrequencyStart = Number(document.getElementById("measureFrequencyStart").value);
     measureFrequencyStop = Number(document.getElementById("measureFrequencyStop").value);
     steps = generateSteps(measureFrequencyStart, measureFrequencyStop);
     currentFrequency = steps[stepPosition];
+
+    if (steps.length === 0) {
+        return;
+    }
+
+    run = true;
 
     updateGenerator1Output();
     resetMeasurements();
@@ -328,6 +333,12 @@ function rmsVoltToVpp(rmsVolt) {
 
 function generateSteps(min, max) {
     const steps = [];
+
+    if (max <= min) {
+        alert("Start frequency must be lower than stop frequency");
+        return steps;
+    }
+
     let step = min;
 
     while (step <= max) {

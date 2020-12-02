@@ -141,7 +141,6 @@ function updateChannel() {
 }
 
 function clickRun() {
-    run = true;
     stepPosition = 0;
     measureAmplitudeStart = Number(document.getElementById("measureAmplitudeStart").value);
     measureAmplitudeStop = Number(document.getElementById("measureAmplitudeStop").value);
@@ -149,6 +148,12 @@ function clickRun() {
     steps = generateSteps(measureAmplitudeStart, measureAmplitudeStop, measureAmplitudeStep);
     currentAmplitude = steps[stepPosition];
     currentFrequency = Number(document.getElementById("audioGen1Frequency").value);
+
+    if (steps.length === 0) {
+        return;
+    }
+
+    run = true;
 
     updateGenerator1Output();
     resetMeasurements();
@@ -334,6 +339,17 @@ function rmsVoltToVpp(rmsVolt) {
 
 function generateSteps(min, max, stepValue) {
     const steps = [];
+
+    if (max <= min) {
+        alert("Start amplitude must be lower than stop amplitude");
+        return steps;
+    }
+
+    if (stepValue < 0.1) {
+        alert("Amplitude step must be at least 0.1");
+        return steps;
+    }
+
     let step = min;
 
     while (step <= max) {
