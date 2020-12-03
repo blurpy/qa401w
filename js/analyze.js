@@ -48,12 +48,20 @@ function clickSetSettings() {
 
 function setBufferSize() {
     const bufferSizeChoice = document.querySelector('#bufferSizeSelect option:checked').value;
-    makeRequest("PUT", "/Settings/BufferSize/" + bufferSizeChoice, function() {});
+    makeRequest("PUT", "/Settings/BufferSize/" + bufferSizeChoice, updateSetBufferSize.bind(null, bufferSizeChoice));
+}
+
+function updateSetBufferSize(bufferSizeChoice) {
+    document.getElementById("setBufferSize").innerText = bufferSizeChoice;
 }
 
 function setAttenuator() {
-    const attenuatorChoice = document.querySelector('input[name="attenuatorChoice"]:checked').value;
-    makeRequest("PUT", "/Settings/Input/Max/" + attenuatorChoice, function() {});
+    const attenuatorChoice = document.querySelector('input[name="attenuatorChoice"]:checked');
+    makeRequest("PUT", "/Settings/Input/Max/" + attenuatorChoice.value, updateSetAttenuator.bind(null, attenuatorChoice.dataset.label));
+}
+
+function updateSetAttenuator(attenuatorChoice) {
+    document.getElementById("setAttenuator").innerText = attenuatorChoice;
 }
 
 function setGenerator1() {
@@ -74,12 +82,20 @@ function setGenerator2() {
 
 function setWindowType() {
     const windowTypeChoice = document.querySelector('#windowTypeSelect option:checked').value;
-    makeRequest("PUT", "/Settings/Window/" + windowTypeChoice, function() {});
+    makeRequest("PUT", "/Settings/Window/" + windowTypeChoice, updateSetWindowType.bind(null, windowTypeChoice));
+}
+
+function updateSetWindowType(windowTypeChoice) {
+    document.getElementById("setWindowType").innerText = windowTypeChoice;
 }
 
 function setSampleRate() {
-    const sampleRate = document.querySelector('input[name="sampleRateChoice"]:checked').value;
-    makeRequest("PUT", "/Settings/SampleRate/" + sampleRate, function() {});
+    const sampleRate = document.querySelector('input[name="sampleRateChoice"]:checked');
+    makeRequest("PUT", "/Settings/SampleRate/" + sampleRate.value, updateSetSampleRate.bind(null, sampleRate.dataset.label));
+}
+
+function updateSetSampleRate(sampleRate) {
+    document.getElementById("setSampleRate").innerText = sampleRate;
 }
 
 function setRoundFrequencies() {
