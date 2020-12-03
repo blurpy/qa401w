@@ -42,8 +42,6 @@ function clickSetSettings() {
     setSampleRate();
     setRoundFrequencies();
     setFetchData();
-    updateGenerator1Output();
-    updateGenerator2Output();
 }
 
 function setBufferSize() {
@@ -69,7 +67,7 @@ function setGenerator1() {
     const enabled = (checked ? "On" : "Off");
     const frequency =  document.getElementById("audioGen1Frequency").value;
     const amplitude =  document.getElementById("audioGen1Amplitude").value;
-    makeRequest("PUT", "/Settings/AudioGen/Gen1/" + enabled + "/" + frequency + "/" + amplitude, function() {});
+    makeRequest("PUT", "/Settings/AudioGen/Gen1/" + enabled + "/" + frequency + "/" + amplitude, updateGenerator1Output);
 }
 
 function setGenerator2() {
@@ -77,7 +75,7 @@ function setGenerator2() {
     const enabled = (checked ? "On" : "Off");
     const frequency =  document.getElementById("audioGen2Frequency").value;
     const amplitude =  document.getElementById("audioGen2Amplitude").value;
-    makeRequest("PUT", "/Settings/AudioGen/Gen2/" + enabled + "/" + frequency + "/" + amplitude, function() {});
+    makeRequest("PUT", "/Settings/AudioGen/Gen2/" + enabled + "/" + frequency + "/" + amplitude, updateGenerator2Output);
 }
 
 function setWindowType() {
