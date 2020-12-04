@@ -28,7 +28,7 @@ Analyze acquisitions over a frequency range of 20Hz to 20KHz using static settin
 
 Run frequency sweeps and record data at predefined steps along the way.
 
-![Screenshot of sweep mode](img/qa401w-sweep-thdn.png)
+![Screenshot of sweep mode](img/qa401w-sweep-frequency.png)
 
 * Choose one graph to follow in real time while sweep runs.
 * Switch between the different graphs after sweep is finished to view recorded results.
