@@ -1,6 +1,6 @@
 # QA401 Web
 
-Simple (unofficial) web interface for usage with the [QA401H](https://github.com/QuantAsylum/QA401H) REST API for the [QA401 Audio Analyzer](https://quantasylum.com/products/qa401-audio-analyzer). This allows a visual interface on Linux.
+Simple (unofficial) web interface for usage with the [QA401H](https://github.com/QuantAsylum/QA401H) REST API for the [QA401 Audio Analyzer](https://quantasylum.com/products/qa401-audio-analyzer). This allows a visual interface on Linux and macOS.
 
 
 ## Features
@@ -24,11 +24,21 @@ Analyze acquisitions over a frequency range of 20Hz to 20KHz using static settin
 ![Screenshot of time series analysis](img/qa401w-analyze-time.png)
 
 
-### Sweep mode
+### Frequency sweep mode
 
 Run frequency sweeps and record data at predefined steps along the way.
 
-![Screenshot of sweep mode](img/qa401w-sweep-frequency.png)
+![Screenshot of frequency sweep mode](img/qa401w-sweep-frequency.png)
+
+* Choose one graph to follow in real time while sweep runs.
+* Switch between the different graphs after sweep is finished to view recorded results.
+
+
+### Amplitude sweep mode
+
+Run amplitude sweeps and record data at defined steps along the way.
+
+![Screenshot of amplitude sweep mode](img/qa401w-sweep-amplitude.png)
 
 * Choose one graph to follow in real time while sweep runs.
 * Switch between the different graphs after sweep is finished to view recorded results.
