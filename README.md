@@ -48,3 +48,8 @@ Run amplitude sweeps and record data at defined steps along the way.
 
 1. [Download](https://github.com/QuantAsylum/QA401H/releases) and start QA401H v0.998 or newer.
 2. [Download](https://github.com/blurpy/qa401w/archive/main.zip) the code from this repository and open [analyze.html](analyze.html) in the browser.
+
+
+### Notes
+
+Settings (like buffer size, frequency, ...) are configured on the QA401 device itself. If you use this app in multiple tabs it's recommended to click the "Set" button before starting acquisition to avoid running with the settings from the previous tab instead of the current one.
