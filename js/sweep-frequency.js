@@ -125,17 +125,18 @@ function updateGraph() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graph === "gain") {
-        showData("Gain", "dB", gainLeftArray, gainRightArray);
+        showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
     } else if (graph === "rms") {
-        showData("RMS", "dBV", rmsLeftArray, rmsRightArray);
+        showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
     } else if (graph === "thd") {
-        showData("THD", "dB", thdLeftArray, thdRightArray);
+        showData("THD", "dB", "Percent", thdLeftArray, thdRightArray, dbToPercentFixed);
     } else if (graph === "thdN") {
-        showData("THD+N", "dB", thdNLeftArray, thdNRightArray);
+        showData("THD+N", "dB", "Percent", thdNLeftArray, thdNRightArray, dbToPercentFixed);
     } else if (graph === "snr") {
-        showData("SNR", "dB", snrLeftArray, snrRightArray);
+        showData("SNR", "dB", null, snrLeftArray, snrRightArray, null);
     } else if (graph === "phase") {
-        showData("Phase", "Degrees", phaseLeftArray, phaseRightArray);
+        // Phase changes too much with frequency to show "seconds"
+        showData("Phase", "Degrees", null, phaseLeftArray, phaseRightArray, null);
     }
 }
 
@@ -340,6 +341,28 @@ function makeRequest(method, path, callback) {
 
 function dbToVolt(db) {
     return Math.pow(10, db / 20);
+}
+
+function dbToVoltFixed(db) {
+    return dbToVolt(db).toFixed(3);
+}
+
+function dbToPercent(db) {
+    return Math.pow(10, db / 20) * 100;
+}
+
+function dbToPercentFixed(db) {
+    return dbToPercent(db).toFixed(4);
+}
+
+function gainDbToTimes(gainDb) {
+    // gainDb = rms (measured) - amplitude (signal out)
+    const rms = Number(currentAmplitude) + Number(gainDb);
+    return dbToVolt(rms) / dbToVolt(currentAmplitude);
+}
+
+function gainDbToTimesFixed(gainDb) {
+    return gainDbToTimes(gainDb).toFixed(1);
 }
 
 function rmsVoltToVpp(rmsVolt) {

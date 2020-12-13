@@ -129,17 +129,17 @@ function updateGraph() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graph === "gain") {
-        showData("Gain", "dB", gainLeftArray, gainRightArray);
+        showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
     } else if (graph === "rms") {
-        showData("RMS", "dBV", rmsLeftArray, rmsRightArray);
+        showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
     } else if (graph === "thd") {
-        showData("THD", "dB", thdLeftArray, thdRightArray);
+        showData("THD", "dB", "Percent", thdLeftArray, thdRightArray, dbToPercentFixed);
     } else if (graph === "thdN") {
-        showData("THD+N", "dB", thdNLeftArray, thdNRightArray);
+        showData("THD+N", "dB", "Percent", thdNLeftArray, thdNRightArray, dbToPercentFixed);
     } else if (graph === "snr") {
-        showData("SNR", "dB", snrLeftArray, snrRightArray);
+        showData("SNR", "dB", null, snrLeftArray, snrRightArray, null);
     } else if (graph === "phase") {
-        showData("Phase", "Degrees", phaseLeftArray, phaseRightArray);
+        showData("Phase", "Degrees", "Milliseconds", phaseLeftArray, phaseRightArray, degreeToMillisecondsFixed);
     }
 }
 
@@ -346,6 +346,51 @@ function makeRequest(method, path, callback) {
 
 function dbToVolt(db) {
     return Math.pow(10, db / 20);
+}
+
+function dbToVoltFixed(db) {
+    return dbToVolt(db).toFixed(3);
+}
+
+function dbToPercent(db) {
+    return Math.pow(10, db / 20) * 100;
+}
+
+function dbToPercentFixed(db) {
+    return dbToPercent(db).toFixed(4);
+}
+
+function gainDbToTimes(gainDb) {
+    // gainDb = rms (measured) - amplitude (signal out)
+    const rms = Number(currentAmplitude) + Number(gainDb);
+    return dbToVolt(rms) / dbToVolt(currentAmplitude);
+}
+
+function gainDbToTimesFixed(gainDb) {
+    return gainDbToTimes(gainDb).toFixed(1);
+}
+
+/**
+ * Note: the degree from QA401 needs to be modified somewhat before the regular calculation to seconds,
+ * since it's "behind" instead of "ahead", to get a calculation that matches what is reported by the api.
+ *
+ * @matt (QA): A lag of 166 degrees is the same as a lead of 194 degrees (and vice versa). 360-166 = 194.
+ *
+ * Example calculations for both degrees to seconds, and seconds to degrees,
+ * using values from the QA401 as input, and the mentioned modification to get it to match both ways:
+ *
+ * time delay = degree / 360 * frequency (1/Hz)
+ * (360 - 165.02559759207662) / 360 * 0.001 = 0.0005415955622442316
+ *
+ * degree = 360 * time delay / frequency (1/Hz)
+ * 360 - (360 * 0.0005415955622442316 / 0.001) = 165.0255975920766
+ */
+function degreeToSeconds(degree) {
+    return (360 - degree) / 360 * (1 / currentFrequency);
+}
+
+function degreeToMillisecondsFixed(degree) {
+    return (degreeToSeconds(degree) * 1000).toFixed(3);
 }
 
 function rmsVoltToVpp(rmsVolt) {

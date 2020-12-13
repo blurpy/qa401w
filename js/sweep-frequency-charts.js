@@ -17,9 +17,12 @@ function setChannels(leftChannel, rightChannel) {
     frequencyChart.update();
 }
 
-function showData(title, yLabel, leftChannelData, rightChannelData) {
+function showData(title, yLabelLeft, yLabelRight, leftChannelData, rightChannelData, yLabelRightCallback) {
     frequencyChart.options.title.text = title;
-    frequencyChart.options.scales.yAxes[0].scaleLabel.labelString = yLabel;
+    frequencyChart.options.scales.yAxes[0].scaleLabel.labelString = yLabelLeft;
+    frequencyChart.options.scales.yAxes[1].scaleLabel.labelString = yLabelRight;
+    frequencyChart.options.scales.yAxes[1].ticks.userCallback = yLabelRightCallback;
+    frequencyChart.options.scales.yAxes[1].display = yLabelRight !== null;
     frequencyChart.data.datasets[0].data = leftChannelData;
     frequencyChart.data.datasets[1].data = rightChannelData;
     frequencyChart.update();
@@ -78,6 +81,26 @@ function initializeFrequencyChart(chartId) {
                 //     tension: 0 // disables bezier curves
                 // }
             },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        let label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+
+                        label += tooltipItem.yLabel;
+
+                        if (typeof frequencyChart.options.scales.yAxes[1].ticks.userCallback === "function") {
+                            label += " / ";
+                            label += frequencyChart.options.scales.yAxes[1].ticks.userCallback(tooltipItem.yLabel);
+                        }
+
+                        return label;
+                    }
+                }
+            },
             legend: {
                 display: true,
                 position: 'top',
@@ -113,13 +136,38 @@ function initializeFrequencyChart(chartId) {
                     },
                 }],
                 yAxes: [{
+                    id:"y-axis-1",
                     type: 'linear',
+                    position: 'left',
                     ticks: {
                         fontColor: "rgba(255, 255, 255, 0.9)"
                     },
                     scaleLabel: {
                         display: true,
                         labelString: 'dB',
+                        fontColor: "rgba(255, 255, 255, 0.9)"
+                    },
+                    gridLines: {
+                        display: true,
+                        borderDash: [2],
+                        color: "rgba(255, 255, 255, 0.5)"
+                    },
+                }, {
+                    id:"y-axis-2",
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    afterDataLimits: function (axis) {
+                        // Copy values from left to right to sync labels
+                        axis.min = axis.chart.scales['y-axis-1'].min;
+                        axis.max = axis.chart.scales['y-axis-1'].max;
+                    },
+                    ticks: {
+                        fontColor: "rgba(255, 255, 255, 0.9)"
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: '%',
                         fontColor: "rgba(255, 255, 255, 0.9)"
                     },
                     gridLines: {
