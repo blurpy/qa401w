@@ -14,6 +14,8 @@ let measureAmplitudeStep = 1;
 
 let gainLeftArray = [];
 let gainRightArray = [];
+let powerLeftArray = [];
+let powerRightArray = [];
 let rmsLeftArray = [];
 let rmsRightArray = [];
 let thdLeftArray = [];
@@ -130,6 +132,8 @@ function updateGraph() {
 
     if (graph === "gain") {
         showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
+    } else if (graph === "power") {
+        showData("Power", "Watt 4Ω", "Watt 8Ω", powerLeftArray, powerRightArray, power4ToPower8Fixed);
     } else if (graph === "rms") {
         showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
     } else if (graph === "thd") {
@@ -261,6 +265,7 @@ function refreshRms(httpRequest) {
     }
 
     refreshGain(rmsLeft, rmsRight);
+    refreshPower(rmsLeft, rmsRight);
 }
 
 function refreshGain(rmsLeft, rmsRight) {
@@ -274,6 +279,23 @@ function refreshGain(rmsLeft, rmsRight) {
 
     if (graphChoice === "gain") {
         addPoint(gainLeft, gainRight);
+    }
+}
+
+function refreshPower(rmsLeft, rmsRight) {
+    const squareLeft = Math.pow(dbToVolt(rmsLeft), 2);
+    const squareRight = Math.pow(dbToVolt(rmsRight), 2);
+
+    const power4Left = toPoint(currentAmplitude, squareLeft / 4);
+    const power4Right = toPoint(currentAmplitude, squareRight / 4);
+
+    powerLeftArray.push(power4Left);
+    powerRightArray.push(power4Right);
+
+    const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graphChoice === "power") {
+        addPoint(power4Left, power4Right);
     }
 }
 
@@ -393,6 +415,14 @@ function degreeToMillisecondsFixed(degree) {
     return (degreeToSeconds(degree) * 1000).toFixed(3);
 }
 
+function power4ToPower8(power4) {
+    return power4 / 2;
+}
+
+function power4ToPower8Fixed(power4) {
+    return power4ToPower8(power4).toFixed(2);
+}
+
 function rmsVoltToVpp(rmsVolt) {
     return 2 * Math.sqrt(2) * rmsVolt;
 }
@@ -433,6 +463,8 @@ function toFixedNumber(number) {
 function resetMeasurements() {
     gainLeftArray = [];
     gainRightArray = [];
+    powerLeftArray = [];
+    powerRightArray = [];
     rmsLeftArray = [];
     rmsRightArray = [];
     thdLeftArray = [];
