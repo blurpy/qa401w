@@ -117,9 +117,11 @@ function setFetchData() {
 
 function updateGenerator1Output() {
     const generatorEnabled = document.querySelector('input[name="audioGen1Check"]').checked;
+    const frequency =  document.getElementById("audioGen1Frequency").value;
     const amplitude =  document.getElementById("audioGen1Amplitude").value;
     const volt = dbToVolt(amplitude);
 
+    document.getElementById("audioGen1OutputFrequency").innerText = frequency;
     document.getElementById("audioGen1OutputDbv").innerText = amplitude;
     document.getElementById("audioGen1OutputVrms").innerText = volt.toFixed(3);
     document.getElementById("audioGen1OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
@@ -133,9 +135,11 @@ function updateGenerator1Output() {
 
 function updateGenerator2Output() {
     const generatorEnabled = document.querySelector('input[name="audioGen2Check"]').checked;
+    const frequency =  document.getElementById("audioGen2Frequency").value;
     const amplitude =  document.getElementById("audioGen2Amplitude").value;
     const volt = dbToVolt(amplitude);
 
+    document.getElementById("audioGen2OutputFrequency").innerText = frequency;
     document.getElementById("audioGen2OutputDbv").innerText = amplitude;
     document.getElementById("audioGen2OutputVrms").innerText = volt.toFixed(3);
     document.getElementById("audioGen2OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
