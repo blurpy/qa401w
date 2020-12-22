@@ -29,6 +29,7 @@ function registerButtons() {
     document.getElementById("acquireBtn").addEventListener('click', clickAcquire);
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
+    document.getElementById("menuBtn").addEventListener('click', clickMenu);
 }
 
 function clickSetSettings() {
@@ -221,6 +222,12 @@ function clickRun() {
 
 function clickStop() {
     run = false;
+}
+
+function clickMenu() {
+    document.getElementById("menuColumn").classList.toggle("collapsed");
+    document.getElementById("contentColumn").classList.toggle("col-9");
+    document.getElementById("contentColumn").classList.toggle("col-12");
 }
 
 function doAcquire() {

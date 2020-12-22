@@ -9,3 +9,23 @@
 canvas {
   background-color: black;
 }
+
+#container {
+  overflow-x: hidden;
+}
+
+#contentColumn {
+  transition: .18s ease;
+}
+
+#menuColumn {
+  transition: .18s ease;
+}
+
+#menuColumn.collapsed {
+  margin-right: -25%;
+}
+
+.navbar-toggler-icon {
+  background-image: url("../img/menu.svg") !important;
+}
