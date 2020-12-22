@@ -1,6 +1,6 @@
 # QA401 Web
 
-Simple (unofficial) web interface for usage with the [QA401H](https://github.com/QuantAsylum/QA401H) REST API for the [QA401 Audio Analyzer](https://quantasylum.com/products/qa401-audio-analyzer). This allows a visual interface on Linux and macOS.
+Unofficial web interface for usage with the [QA401H](https://github.com/QuantAsylum/QA401H) REST API for the [QA401 Audio Analyzer](https://quantasylum.com/products/qa401-audio-analyzer). This allows a visual interface on Linux and macOS.
 
 
 ## Features
@@ -47,7 +47,7 @@ Run amplitude sweeps and record data at defined steps along the way.
 ## How to use
 
 1. [Download](https://github.com/QuantAsylum/QA401H/releases) and start QA401H v0.998 or newer.
-2. [Download](https://github.com/blurpy/qa401w/archive/main.zip) the code from this repository and open [analyze.html](analyze.html) in the browser.
+2. [Download](https://github.com/blurpy/qa401w/releases) the code from this repository and open [analyze.html](analyze.html) in the browser.
 
 
 ### Notes
