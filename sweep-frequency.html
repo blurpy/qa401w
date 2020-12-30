@@ -27,14 +27,15 @@
       <div class="mt-auto mb-auto">
         <button id="runBtn" type="button" class="btn btn-success">Run</button>
         <button id="stopBtn" type="button" class="btn btn-danger">Stop</button>
+        <button id="menuBtn" type="button" class="btn btn-secondary ml-2"><span class="navbar-toggler-icon"/></button>
       </div>
     </nav>
 
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" id="container">
 
         <!-- Right column -->
-        <div class="col-3 order-2">
+        <div class="col-3 order-2" id="menuColumn">
           <h3>Acquire</h3>
 
           <div class="row pb-1">
@@ -175,7 +176,7 @@
         </div>
 
         <!-- Left column -->
-        <div class="col-9 order-1">
+        <div class="col-9 order-1" id="contentColumn">
           <div class="d-inline-block align-top pt-2 pb-2">
             <p id="audioGen1OutputText" class="mb-1">
               Gen1:
