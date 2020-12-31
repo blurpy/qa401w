@@ -386,22 +386,6 @@ function makeRequest(method, path, callback) {
     httpRequest.send();
 }
 
-function dbToVolt(db) {
-    return Math.pow(10, db / 20);
-}
-
-function dbToVoltFixed(db) {
-    return dbToVolt(db).toFixed(3);
-}
-
-function dbToPercent(db) {
-    return Math.pow(10, db / 20) * 100;
-}
-
-function dbToPercentFixed(db) {
-    return dbToPercent(db).toFixed(4);
-}
-
 function gainDbToTimes(gainDb) {
     // gainDb = rms (measured) - amplitude (signal out)
     const rms = Number(currentAmplitude) + Number(gainDb);
@@ -433,18 +417,6 @@ function degreeToSeconds(degree) {
 
 function degreeToMillisecondsFixed(degree) {
     return (degreeToSeconds(degree) * 1000).toFixed(3);
-}
-
-function power4ToPower8(power4) {
-    return power4 / 2;
-}
-
-function power4ToPower8Fixed(power4) {
-    return power4ToPower8(power4).toFixed(2);
-}
-
-function rmsVoltToVpp(rmsVolt) {
-    return 2 * Math.sqrt(2) * rmsVolt;
 }
 
 function generateSteps(min, max, stepValue) {

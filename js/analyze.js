@@ -473,22 +473,6 @@ function makeRequest(method, path, callback) {
     httpRequest.send();
 }
 
-function dbToPercent(db) {
-    return Math.pow(10, db / 20) * 100;
-}
-
-function dbToVolt(db) {
-    return Math.pow(10, db / 20);
-}
-
-function amplitudeTodBV(amplitude) {
-    return 20 * Math.log(amplitude) / Math.LN10;
-}
-
-function rmsVoltToVpp(rmsVolt) {
-    return 2 * Math.sqrt(2) * rmsVolt;
-}
-
 function base64ToFloat64Array(base64) {
     const binaryString = window.atob(base64);
     const length = binaryString.length;
