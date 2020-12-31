@@ -30,6 +30,8 @@ function registerButtons() {
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
     document.getElementById("menuBtn").addEventListener('click', clickMenu);
+
+    document.getElementById("menuColumn").addEventListener('transitionend', hideMenu);
 }
 
 function clickSetSettings() {
@@ -225,9 +227,20 @@ function clickStop() {
 }
 
 function clickMenu() {
+    document.getElementById("menuColumn").classList.remove("d-none");
+    document.getElementById("menuColumn").clientWidth; // Force browser to update visibility now
+
     document.getElementById("menuColumn").classList.toggle("collapsed");
     document.getElementById("contentColumn").classList.toggle("col-9");
     document.getElementById("contentColumn").classList.toggle("col-12");
+}
+
+function hideMenu() {
+    const collapsed = document.getElementById("menuColumn").classList.contains("collapsed");
+
+    if (collapsed) {
+        document.getElementById("menuColumn").classList.add("d-none");
+    }
 }
 
 function doAcquire() {
