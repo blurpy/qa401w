@@ -29,3 +29,13 @@ function amplitudeTodBV(amplitude) {
 function rmsVoltToVpp(rmsVolt) {
     return 2 * Math.sqrt(2) * rmsVolt;
 }
+
+function selectNextRadioButton(radioButtons) {
+    for (let i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked === true) {
+            const nextRadioIndex = (i + 1) % radioButtons.length;
+            radioButtons[nextRadioIndex].checked = true;
+            break;
+        }
+    }
+}

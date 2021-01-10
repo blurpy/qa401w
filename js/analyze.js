@@ -32,9 +32,14 @@ function registerButtons() {
     document.getElementById("menuBtn").addEventListener('click', clickMenu);
 
     document.getElementById("menuColumn").addEventListener('transitionend', hideMenu);
+    document.addEventListener('keyup', handleKeyboardShortcuts);
 }
 
 function clickSetSettings() {
+    if (run) {
+        return;
+    }
+
     document.getElementById("setSettingsBtn").disabled = true;
 
     setBufferSize();
@@ -199,6 +204,10 @@ function updateAverageThd() {
 }
 
 function clickAcquire() {
+    if (run) {
+        return;
+    }
+
     run = false;
     currentRequests = 0;
     thdAvgLeft = [];
@@ -211,6 +220,10 @@ function clickAcquire() {
 }
 
 function clickRun() {
+    if (run) {
+        return;
+    }
+
     run = true;
     currentRequests = 0;
     thdAvgLeft = [];
@@ -241,6 +254,37 @@ function hideMenu() {
     if (collapsed) {
         document.getElementById("menuColumn").classList.add("d-none");
     }
+}
+
+// Using Shift+Letter
+function handleKeyboardShortcuts(event) {
+    if (event.key === "M") {
+        clickMenu();
+    } else if (event.key === "A") {
+        clickAcquire();
+    } else if (event.key === "R") {
+        clickRun();
+    } else if (event.key === "S") {
+        clickStop();
+    } else if (event.key === "E") {
+        clickSetSettings();
+    } else if (event.key === "G") {
+        changeGraph();
+    } else if (event.key === "C") {
+        changeChannel();
+    }
+}
+
+function changeGraph() {
+    const graphChoices = document.getElementsByName("graphChoice");
+    selectNextRadioButton(graphChoices);
+    clickUpdateView();
+}
+
+function changeChannel() {
+    const channelChoices = document.getElementsByName("channelChoice");
+    selectNextRadioButton(channelChoices);
+    clickUpdateView();
 }
 
 function doAcquire() {
