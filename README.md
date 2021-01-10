@@ -44,6 +44,19 @@ Run amplitude sweeps and record data at defined steps along the way.
 * Switch between the different graphs after sweep is finished to view recorded results.
 
 
+### Keyboard shortcuts
+
+* Shift + M - Show/hide the settings menu on the right
+* Shift + A - Do a single acquisition (only Analyze page)
+* Shift + R - Run continuous acquisition or sweep
+* Shift + S - Stop continuous acquisition or sweep
+* Shift + E - Set current acquisition settings
+* Shift + G - Cycle through the graph choices
+* Shift + C - Cycle through the channel choices
+
+Tip: hide the menu when taking screenshots and then use the keyboard shortcuts.
+
+
 ## How to use
 
 1. [Download](https://github.com/QuantAsylum/QA401H/releases) and start QA401H v0.998 or newer.
