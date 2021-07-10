@@ -423,6 +423,14 @@ function refreshPeak(httpRequest) {
     document.getElementById("peakRight").innerText = Number(response.Right).toFixed(3);
 }
 
+function refreshPeakFrequency(leftDataPoints, rightDataPoints) {
+    const peakLeftFrequency = findPeakFrequency(leftDataPoints);
+    const peakRightFrequency = findPeakFrequency(rightDataPoints);
+
+    document.getElementById("peakLeftFrequency").innerText = Number(peakLeftFrequency).toFixed(1);
+    document.getElementById("peakRightFrequency").innerText = Number(peakRightFrequency).toFixed(1);
+}
+
 function refreshPhaseDegrees(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
     document.getElementById("phaseDegreeLeft").innerText = Number(response.Left).toFixed(3);
@@ -444,6 +452,7 @@ function refreshFrequencyChart(httpRequest) {
     const rightDataPoints = base64ToFrequencyDataPoints(response.Right, response.Dx, attenuation);
 
     updateFrequencyChart(leftDataPoints, rightDataPoints);
+    refreshPeakFrequency(leftDataPoints, rightDataPoints)
 }
 
 function refreshTimeChart(httpRequest) {
@@ -577,6 +586,22 @@ function getAverageValueFromList(list) {
     }
 
     return sum / list.length;
+}
+
+function findPeakFrequency(dataPoints) {
+    let peakAmplitude = -1000;
+    let peakFrequency = 0;
+
+    for (let i = 0; i < dataPoints.length; i++) {
+        const dataPoint = dataPoints[i];
+
+        if (dataPoint.y > peakAmplitude) {
+            peakAmplitude = dataPoint.y;
+            peakFrequency = dataPoint.x;
+        }
+    }
+
+    return peakFrequency;
 }
 
 function disableButtonsDuringAcquire() {
