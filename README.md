@@ -53,6 +53,7 @@ Run amplitude sweeps and record data at defined steps along the way.
 * Shift + E - Set current acquisition settings
 * Shift + G - Cycle through the graph choices
 * Shift + C - Cycle through the channel choices
+* Shift + Z - Reset graph zoom
 
 Tip: hide the menu when taking screenshots and then use the keyboard shortcuts.
 

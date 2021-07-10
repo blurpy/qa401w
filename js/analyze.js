@@ -272,6 +272,8 @@ function handleKeyboardShortcuts(event) {
         changeGraph();
     } else if (event.key === "C") {
         changeChannel();
+    } else if (event.key === "Z") {
+        resetZoom();
     }
 }
 
