@@ -1,6 +1,6 @@
 const basePath = "http://localhost:9401";
 const measureFrequencyStart = 20;
-const measureFrequencyStop = 20000;
+let measureFrequencyStop = 20000;
 const avgLimit = 100;
 const maxTimeData = 0.3; // Seconds - to avoid extreme slowdown of the browser
 
@@ -48,6 +48,7 @@ function clickSetSettings() {
     setGenerator2();
     setWindowType();
     setSampleRate();
+    setMeasureFrequencyStop();
     setRoundFrequencies();
     setFetchData();
 }
@@ -102,6 +103,11 @@ function setSampleRate() {
 
 function updateSetSampleRate(sampleRate) {
     document.getElementById("setSampleRate").innerText = sampleRate;
+}
+
+function setMeasureFrequencyStop() {
+    measureFrequencyStop = Number(document.getElementById("measureFrequencyStop").value);
+    document.getElementById("setMeasureFrequencyStop").innerText = measureFrequencyStop;
 }
 
 function setRoundFrequencies() {

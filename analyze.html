@@ -119,6 +119,13 @@
           </div>
 
           <div class="pt-1 pb-1">
+            <div class="row pt-1">
+              <label for="measureFrequencyStop" class="col-form-label col-auto pr-2">Measure to <span class="small">(Hz)</span>:</label>
+              <input type="number" id="measureFrequencyStop" class="form-control col-5" value="20000" min="1" max="95000"/>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
             <div class="custom-control custom-checkbox">
               <input class="custom-control-input" type="checkbox" name="roundFrequenciesCheck" id="roundFrequenciesCheck" checked>
               <label class="custom-control-label" for="roundFrequenciesCheck">Round frequencies</label>
@@ -267,7 +274,8 @@
             <p class="mb-1">Buffer size: <span id="setBufferSize">32768</span></p>
             <p class="mb-1">Attenuator: <span id="setAttenuator">+26 dBV</span></p>
             <p class="mb-1">Window type: <span id="setWindowType">Hann</span></p>
-            <p>Sample rate: <span id="setSampleRate">48 KHz</span></p>
+            <p class="mb-1">Sample rate: <span id="setSampleRate">48 KHz</span></p>
+            <p>Measure range: 20 Hz - <span id="setMeasureFrequencyStop">20000</span> Hz</p>
           </div>
 
           <div class="pb-1">
