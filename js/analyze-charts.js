@@ -29,6 +29,11 @@ function setChannels(leftChannel, rightChannel) {
     timeChart.update();
 }
 
+function updateFrequencyChartStopFrequency(measureFrequencyStop) {
+    frequencyChart.options.scales.xAxes[0].ticks.max = measureFrequencyStop;
+    frequencyChart.update();
+}
+
 function showFrequencyChart() {
     document.getElementById("frequencyChart").classList.remove("d-none");
     document.getElementById("timeChart").classList.add("d-none");

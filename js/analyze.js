@@ -108,6 +108,8 @@ function updateSetSampleRate(sampleRate) {
 function setMeasureFrequencyStop() {
     measureFrequencyStop = Number(document.getElementById("measureFrequencyStop").value);
     document.getElementById("setMeasureFrequencyStop").innerText = measureFrequencyStop;
+
+    updateFrequencyChartStopFrequency(measureFrequencyStop);
 }
 
 function setRoundFrequencies() {
