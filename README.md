@@ -10,7 +10,7 @@ Please read the manual for the Windows software to understand how to use the QA4
 
 ### Analyze mode
 
-Analyze acquisitions over a frequency range of 20Hz to 20KHz using static settings.
+Analyze acquisitions over a frequency range from 20Hz to a specified stop frequency, using static settings.
 
 ![Screenshot of frequency analysis](img/qa401w-analyze-frequency.png)
 
