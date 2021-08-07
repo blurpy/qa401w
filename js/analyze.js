@@ -474,8 +474,10 @@ function refreshFrequencyChart(httpRequest) {
 
 function refreshTimeChart(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    const leftDataPoints = base64ToTimeDataPoints(response.Left, response.Dx);
-    const rightDataPoints = base64ToTimeDataPoints(response.Right, response.Dx);
+    const externalGain = Number(document.getElementById("externalGain").value);
+
+    const leftDataPoints = base64ToTimeDataPoints(response.Left, response.Dx, (externalGain * -1));
+    const rightDataPoints = base64ToTimeDataPoints(response.Right, response.Dx, (externalGain * -1));
 
     updateTimeChart(leftDataPoints, rightDataPoints);
 }
@@ -570,7 +572,8 @@ function base64ToFrequencyDataPoints(base64, dx, attenuation) {
     return dataPoints;
 }
 
-function base64ToTimeDataPoints(base64, dx) {
+function base64ToTimeDataPoints(base64, dx, attenuation) {
+    const ratio = dbToVolt(attenuation);
     const floatArray = base64ToFloat64Array(base64);
     let dataPoints = [];
 
@@ -581,7 +584,7 @@ function base64ToTimeDataPoints(base64, dx) {
             break;
         }
 
-        dataPoints.push( {x: time, y: floatArray[i]} );
+        dataPoints.push( {x: time, y: floatArray[i] * ratio} );
     }
 
     return dataPoints;
