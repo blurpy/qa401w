@@ -378,8 +378,9 @@ function refreshSnr(httpRequest) {
 
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
+    const externalGain = Number(document.getElementById("externalGain").value);
 
-    let rmsLeft = Number(response.Left);
+    let rmsLeft = Number(response.Left) + (externalGain * -1);
     let rmsVoltLeft = dbToVolt(rmsLeft);
     let rmsVppLeft = rmsVoltToVpp(rmsVoltLeft);
 
@@ -387,7 +388,7 @@ function refreshRms(httpRequest) {
     document.getElementById("rmsVoltLeft").innerText = rmsVoltLeft.toFixed(3);
     document.getElementById("rmsVppLeft").innerText = rmsVppLeft.toFixed(3);
 
-    let rmsRight = Number(response.Right);
+    let rmsRight = Number(response.Right) + (externalGain * -1);
     let rmsVoltRight = dbToVolt(rmsRight);
     let rmsVppRight = rmsVoltToVpp(rmsVoltRight);
 
@@ -429,8 +430,13 @@ function refreshPower(rmsVoltLeft, rmsVoltRight) {
 
 function refreshPeak(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
-    document.getElementById("peakLeft").innerText = Number(response.Left).toFixed(3);
-    document.getElementById("peakRight").innerText = Number(response.Right).toFixed(3);
+    const externalGain = Number(document.getElementById("externalGain").value);
+
+    const peakLeft = Number(response.Left) + (externalGain * -1);
+    const peakRight = Number(response.Right) + (externalGain * -1);
+
+    document.getElementById("peakLeft").innerText = peakLeft.toFixed(3);
+    document.getElementById("peakRight").innerText = peakRight.toFixed(3);
 }
 
 function refreshPeakFrequency(leftDataPoints, rightDataPoints) {
@@ -455,7 +461,8 @@ function refreshPhaseSeconds(httpRequest) {
 
 function refreshFrequencyChart(httpRequest) {
     const attenuatorChoice = document.querySelector('input[name="attenuatorChoice"]:checked').value;
-    const attenuation = (attenuatorChoice === "26" ? 20 : 0);
+    const externalGain = Number(document.getElementById("externalGain").value);
+    const attenuation = (attenuatorChoice === "26" ? 20 : 0) + (externalGain * -1);
 
     const response = JSON.parse(httpRequest.responseText);
     const leftDataPoints = base64ToFrequencyDataPoints(response.Left, response.Dx, attenuation);
