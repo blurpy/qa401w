@@ -44,6 +44,7 @@ function clickSetSettings() {
 
     setBufferSize();
     setAttenuator();
+    setExternalGain();
     setGenerator1();
     setGenerator2();
     setWindowType();
@@ -69,6 +70,11 @@ function setAttenuator() {
 
 function updateSetAttenuator(attenuatorChoice) {
     document.getElementById("setAttenuator").innerText = attenuatorChoice;
+}
+
+function setExternalGain() {
+    const externalGain = document.getElementById("externalGain").value;
+    document.getElementById("setExternalGain").innerText = externalGain;
 }
 
 function setGenerator1() {
