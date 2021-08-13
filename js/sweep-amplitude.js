@@ -58,6 +58,7 @@ function clickSetSettings() {
 
     setBufferSize();
     setAttenuator();
+    setExternalGain();
     setGenerator1();
     setGenerator2();
     setWindowType();
@@ -81,6 +82,11 @@ function setAttenuator() {
 
 function updateSetAttenuator(attenuatorChoice) {
     document.getElementById("setAttenuator").innerText = attenuatorChoice;
+}
+
+function setExternalGain() {
+    const externalGain = document.getElementById("externalGain").value;
+    document.getElementById("setExternalGain").innerText = externalGain;
 }
 
 function setGenerator1() {
@@ -316,9 +322,10 @@ function refreshSnr(httpRequest) {
 
 function refreshRms(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
+    const externalGain = Number(document.getElementById("externalGain").value);
 
-    const rmsLeft = Number(response.Left);
-    const rmsRight = Number(response.Right);
+    const rmsLeft = Number(response.Left) + (externalGain * -1);
+    const rmsRight = Number(response.Right) + (externalGain * -1);
 
     const rmsLeftPoint = toPoint(currentAmplitude, rmsLeft);
     const rmsRightPoint = toPoint(currentAmplitude, rmsRight);

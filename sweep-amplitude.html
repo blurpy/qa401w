@@ -62,6 +62,10 @@
               <input class="custom-control-input" type="radio" name="attenuatorChoice" id="attenuatorOn" value="26" data-label="+26 dBV" checked>
               <label class="custom-control-label" for="attenuatorOn">+26 dBV</label>
             </div>
+            <div class="row pt-1">
+              <label for="externalGain" class="col-form-label col-auto mr-1 pr-4">External gain <span class="small">(dB)</span>:</label>
+              <input type="number" id="externalGain" class="form-control col-5" value="0" step="any"/>
+            </div>
           </div>
 
           <div class="pt-1 pb-1">
@@ -191,6 +195,7 @@
             </p>
             <p class="mb-1">Buffer size: <span id="setBufferSize">32768</span></p>
             <p class="mb-1">Attenuator: <span id="setAttenuator">+26 dBV</span></p>
+            <p class="mb-1">External gain: <span id="setExternalGain">0</span> dB</p>
             <p class="mb-1">Window type: <span id="setWindowType">Hann</span></p>
             <p>Sample rate: <span id="setSampleRate">48 kHz</span></p>
           </div>
