@@ -73,8 +73,14 @@ function updateSetAttenuator(attenuatorChoice) {
 }
 
 function setExternalGain() {
-    const externalGain = document.getElementById("externalGain").value;
+    const externalGain = Number(document.getElementById("externalGain").value);
     document.getElementById("setExternalGain").innerText = externalGain;
+
+    if (externalGain === 0) {
+        document.getElementById("rmsInputRow").classList.add("d-none");
+    } else {
+        document.getElementById("rmsInputRow").classList.remove("d-none");
+    }
 }
 
 function setGenerator1() {
@@ -402,8 +408,27 @@ function refreshRms(httpRequest) {
     document.getElementById("rmsVoltRight").innerText = rmsVoltRight.toFixed(3);
     document.getElementById("rmsVppRight").innerText = rmsVppRight.toFixed(3);
 
+    refreshRmsInput(response);
     refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight);
     refreshPower(rmsVoltLeft, rmsVoltRight);
+}
+
+function refreshRmsInput(response) {
+    const rmsInputLeft = Number(response.Left);
+    const rmsInputVoltLeft = dbToVolt(rmsInputLeft);
+    const rmsInputVppLeft = rmsVoltToVpp(rmsInputVoltLeft);
+
+    document.getElementById("rmsInputLeft").innerText = rmsInputLeft.toFixed(3);
+    document.getElementById("rmsInputVoltLeft").innerText = rmsInputVoltLeft.toFixed(3);
+    document.getElementById("rmsInputVppLeft").innerText = rmsInputVppLeft.toFixed(3);
+
+    const rmsInputRight = Number(response.Right);
+    const rmsInputVoltRight = dbToVolt(rmsInputRight);
+    const rmsInputVppRight = rmsVoltToVpp(rmsInputVoltRight);
+
+    document.getElementById("rmsInputRight").innerText = rmsInputRight.toFixed(3);
+    document.getElementById("rmsInputVoltRight").innerText = rmsInputVoltRight.toFixed(3);
+    document.getElementById("rmsInputVppRight").innerText = rmsInputVppRight.toFixed(3);
 }
 
 function refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight) {
