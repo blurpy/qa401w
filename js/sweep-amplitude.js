@@ -574,10 +574,24 @@ function enableButtonsAfterAcquire() {
 }
 
 function showTable() {
-    document.getElementById('amplitudeTableLeft').classList.remove("d-none");
-    document.getElementById('amplitudeTableLeft').classList.add("d-inline-block");
-    document.getElementById('amplitudeTableRight').classList.remove("d-none");
-    document.getElementById('amplitudeTableRight').classList.add("d-inline-block");
+    const channel = document.querySelector('input[name="channelChoice"]:checked').value;
+
+    if (channel === "both" || channel === "left") {
+        document.getElementById('amplitudeTableLeft').classList.remove("d-none");
+        document.getElementById('amplitudeTableLeft').classList.add("d-inline-block");
+    } else {
+        document.getElementById('amplitudeTableLeft').classList.add("d-none");
+        document.getElementById('amplitudeTableLeft').classList.remove("d-inline-block");
+    }
+
+    if (channel === "both" || channel === "right") {
+        document.getElementById('amplitudeTableRight').classList.remove("d-none");
+        document.getElementById('amplitudeTableRight').classList.add("d-inline-block");
+    } else {
+        document.getElementById('amplitudeTableRight').classList.add("d-none");
+        document.getElementById('amplitudeTableRight').classList.remove("d-inline-block");
+    }
+
     document.getElementById('amplitudeChart').classList.add("d-none");
 }
 
