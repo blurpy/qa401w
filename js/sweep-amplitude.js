@@ -436,6 +436,7 @@ function refreshAcquisition() {
 }
 
 function requestsComplete() {
+    updateTableIfVisible();
     stepPosition++;
 
     if (run && stepPosition < steps.length) {
@@ -636,4 +637,12 @@ function addTableTow(tBody, rowNr, gainArray, powerArray, rmsArray, thdArray, th
 function addTableCell(row, value) {
     const newCell = row.insertCell();
     newCell.appendChild(document.createTextNode(value));
+}
+
+function updateTableIfVisible() {
+    const graph = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graph === "table") {
+        fillTable();
+    }
 }
