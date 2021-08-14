@@ -152,6 +152,7 @@ function updateGraph() {
 
     if (graph === "table") {
         showTable();
+        resetTable();
         fillTable();
     }
 
@@ -210,6 +211,7 @@ function clickRun() {
     updateGenerator1Output();
     resetMeasurements();
     resetCharts();
+    resetTable();
     disableButtonsDuringAcquire();
     doMeasurement();
 }
@@ -604,7 +606,7 @@ function showGraph() {
     document.getElementById('amplitudeChart').classList.remove("d-none");
 }
 
-function fillTable() {
+function resetTable() {
     const tBodyLeft = document.getElementById('amplitudeTableLeft').getElementsByTagName('tbody')[0];
     const tBodyRight = document.getElementById('amplitudeTableRight').getElementsByTagName('tbody')[0];
 
@@ -615,11 +617,25 @@ function fillTable() {
     for (let i = 0; i< tBodyRight.rows.length;){
         tBodyRight.deleteRow(i);
     }
+}
+
+function fillTable() {
+    const tBodyLeft = document.getElementById('amplitudeTableLeft').getElementsByTagName('tbody')[0];
+    const tBodyRight = document.getElementById('amplitudeTableRight').getElementsByTagName('tbody')[0];
 
     for (let i = 0; i < gainLeftArray.length; i++) {
         addTableTow(tBodyLeft, i, gainLeftArray, powerLeftArray, rmsLeftArray, thdLeftArray, thdNLeftArray, snrLeftArray);
         addTableTow(tBodyRight, i, gainRightArray, powerRightArray, rmsRightArray, thdRightArray, thdNRightArray, snrRightArray);
     }
+}
+
+function addLastMeasurementToTable() {
+    const tBodyLeft = document.getElementById('amplitudeTableLeft').getElementsByTagName('tbody')[0];
+    const tBodyRight = document.getElementById('amplitudeTableRight').getElementsByTagName('tbody')[0];
+
+    const rowNr = gainLeftArray.length - 1;
+    addTableTow(tBodyLeft, rowNr, gainLeftArray, powerLeftArray, rmsLeftArray, thdLeftArray, thdNLeftArray, snrLeftArray);
+    addTableTow(tBodyRight, rowNr, gainRightArray, powerRightArray, rmsRightArray, thdRightArray, thdNRightArray, snrRightArray);
 }
 
 function addTableTow(tBody, rowNr, gainArray, powerArray, rmsArray, thdArray, thdNArray, snrArray) {
@@ -643,6 +659,6 @@ function updateTableIfVisible() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graph === "table") {
-        fillTable();
+        addLastMeasurementToTable();
     }
 }
