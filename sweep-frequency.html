@@ -159,6 +159,10 @@
               <input class="custom-control-input" type="radio" name="graphChoice" id="graphPhase" value="phase">
               <label class="custom-control-label" for="graphPhase">Phase</label>
             </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input class="custom-control-input" type="radio" name="graphChoice" id="graphTable" value="table">
+              <label class="custom-control-label" for="graphTable">Table</label>
+            </div>
           </div>
 
           <div class="pt-1 pb-1">
@@ -214,6 +218,40 @@
 
           <div>
             <canvas id="frequencyChart"></canvas>
+            <table class="table-responsive-sm table-bordered d-none mr-4 mb-3" id="frequencyTableLeft">
+              <thead>
+                <tr>
+                  <td colspan="7" class="text-center">Left</td>
+                </tr>
+                <tr>
+                  <th>Frequency (Hz)</th>
+                  <th>Gain (dB)</th>
+                  <th>Power (W)</th>
+                  <th>RMS (V)</th>
+                  <th>THD (%)</th>
+                  <th>THD+N (%)</th>
+                  <th>SNR (dB)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <table class="table-responsive-sm table-bordered d-none mb-3" id="frequencyTableRight">
+              <thead>
+                <tr>
+                  <td colspan="7" class="text-center">Right</td>
+                </tr>
+                <tr>
+                  <th>Frequency (Hz)</th>
+                  <th>Gain (dB)</th>
+                  <th>Power (W)</th>
+                  <th>RMS (V)</th>
+                  <th>THD (%)</th>
+                  <th>THD+N (%)</th>
+                  <th>SNR (dB)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
         </div>
 

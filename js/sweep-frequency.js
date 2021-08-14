@@ -146,21 +146,31 @@ function clickResetZoom() {
 function updateGraph() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
-    if (graph === "gain") {
-        showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
-    } else if (graph === "power") {
-        showData("Power", "Watt", null, powerLeftArray, powerRightArray, null);
-    } else if (graph === "rms") {
-        showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
-    } else if (graph === "thd") {
-        showData("THD", "dB", "Percent", thdLeftArray, thdRightArray, dbToPercentFixed);
-    } else if (graph === "thdN") {
-        showData("THD+N", "dB", "Percent", thdNLeftArray, thdNRightArray, dbToPercentFixed);
-    } else if (graph === "snr") {
-        showData("SNR", "dB", null, snrLeftArray, snrRightArray, null);
-    } else if (graph === "phase") {
-        // Phase changes too much with frequency to show "seconds"
-        showData("Phase", "Degrees", null, phaseLeftArray, phaseRightArray, null);
+    if (graph === "table") {
+        showTable();
+        resetTable();
+        fillTable();
+    }
+
+    else {
+        showGraph();
+
+        if (graph === "gain") {
+            showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
+        } else if (graph === "power") {
+            showData("Power", "Watt", null, powerLeftArray, powerRightArray, null);
+        } else if (graph === "rms") {
+            showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
+        } else if (graph === "thd") {
+            showData("THD", "dB", "Percent", thdLeftArray, thdRightArray, dbToPercentFixed);
+        } else if (graph === "thdN") {
+            showData("THD+N", "dB", "Percent", thdNLeftArray, thdNRightArray, dbToPercentFixed);
+        } else if (graph === "snr") {
+            showData("SNR", "dB", null, snrLeftArray, snrRightArray, null);
+        } else if (graph === "phase") {
+            // Phase changes too much with frequency to show "seconds"
+            showData("Phase", "Degrees", null, phaseLeftArray, phaseRightArray, null);
+        }
     }
 }
 
@@ -196,6 +206,7 @@ function clickRun() {
     updateGenerator1Output();
     resetMeasurements();
     resetCharts();
+    resetTable();
     disableButtonsDuringAcquire();
     doMeasurement();
 }
@@ -422,6 +433,7 @@ function refreshAcquisition() {
 }
 
 function requestsComplete() {
+    updateTableIfVisible();
     stepPosition++;
 
     if (run && stepPosition < steps.length) {
@@ -526,4 +538,94 @@ function enableButtonsAfterAcquire() {
     document.getElementById("setSettingsBtn").disabled = false;
     document.getElementById("runBtn").disabled = false;
     document.getElementById("updateViewBtn").disabled = false;
+}
+
+function showTable() {
+    const channel = document.querySelector('input[name="channelChoice"]:checked').value;
+
+    if (channel === "both" || channel === "left") {
+        document.getElementById('frequencyTableLeft').classList.remove("d-none");
+        document.getElementById('frequencyTableLeft').classList.add("d-inline-block");
+    } else {
+        document.getElementById('frequencyTableLeft').classList.add("d-none");
+        document.getElementById('frequencyTableLeft').classList.remove("d-inline-block");
+    }
+
+    if (channel === "both" || channel === "right") {
+        document.getElementById('frequencyTableRight').classList.remove("d-none");
+        document.getElementById('frequencyTableRight').classList.add("d-inline-block");
+    } else {
+        document.getElementById('frequencyTableRight').classList.add("d-none");
+        document.getElementById('frequencyTableRight').classList.remove("d-inline-block");
+    }
+
+    document.getElementById('frequencyChart').classList.add("d-none");
+}
+
+function showGraph() {
+    document.getElementById('frequencyTableLeft').classList.add("d-none");
+    document.getElementById('frequencyTableLeft').classList.remove("d-inline-block");
+    document.getElementById('frequencyTableRight').classList.add("d-none");
+    document.getElementById('frequencyTableRight').classList.remove("d-inline-block");
+    document.getElementById('frequencyChart').classList.remove("d-none");
+}
+
+function resetTable() {
+    const tBodyLeft = document.getElementById('frequencyTableLeft').getElementsByTagName('tbody')[0];
+    const tBodyRight = document.getElementById('frequencyTableRight').getElementsByTagName('tbody')[0];
+
+    for (let i = 0; i< tBodyLeft.rows.length;){
+        tBodyLeft.deleteRow(i);
+    }
+
+    for (let i = 0; i< tBodyRight.rows.length;){
+        tBodyRight.deleteRow(i);
+    }
+}
+
+function fillTable() {
+    const tBodyLeft = document.getElementById('frequencyTableLeft').getElementsByTagName('tbody')[0];
+    const tBodyRight = document.getElementById('frequencyTableRight').getElementsByTagName('tbody')[0];
+
+    for (let i = 0; i < gainLeftArray.length; i++) {
+        addTableTow(tBodyLeft, i, gainLeftArray, powerLeftArray, rmsLeftArray, thdLeftArray, thdNLeftArray, snrLeftArray);
+        addTableTow(tBodyRight, i, gainRightArray, powerRightArray, rmsRightArray, thdRightArray, thdNRightArray, snrRightArray);
+    }
+}
+
+function addLastMeasurementToTable() {
+    const tBodyLeft = document.getElementById('frequencyTableLeft').getElementsByTagName('tbody')[0];
+    const tBodyRight = document.getElementById('frequencyTableRight').getElementsByTagName('tbody')[0];
+
+    const rowNr = gainLeftArray.length - 1;
+
+    if (rowNr >= 0) {
+        addTableTow(tBodyLeft, rowNr, gainLeftArray, powerLeftArray, rmsLeftArray, thdLeftArray, thdNLeftArray, snrLeftArray);
+        addTableTow(tBodyRight, rowNr, gainRightArray, powerRightArray, rmsRightArray, thdRightArray, thdNRightArray, snrRightArray);
+    }
+}
+
+function addTableTow(tBody, rowNr, gainArray, powerArray, rmsArray, thdArray, thdNArray, snrArray) {
+    const newRow = tBody.insertRow();
+
+    addTableCell(newRow, gainArray[rowNr].x);
+    addTableCell(newRow, gainArray[rowNr].y.toFixed(1));
+    addTableCell(newRow, powerArray[rowNr].y.toFixed(2));
+    addTableCell(newRow, dbToVoltFixed(rmsArray[rowNr].y));
+    addTableCell(newRow, dbToPercent(thdArray[rowNr].y).toFixed(6));
+    addTableCell(newRow, dbToPercent(thdNArray[rowNr].y).toFixed(6));
+    addTableCell(newRow, snrArray[rowNr].y.toFixed(3));
+}
+
+function addTableCell(row, value) {
+    const newCell = row.insertCell();
+    newCell.appendChild(document.createTextNode(value));
+}
+
+function updateTableIfVisible() {
+    const graph = document.querySelector('input[name="graphChoice"]:checked').value;
+
+    if (graph === "table") {
+        addLastMeasurementToTable();
+    }
 }
