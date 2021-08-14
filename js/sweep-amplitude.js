@@ -150,20 +150,29 @@ function clickResetZoom() {
 function updateGraph() {
     const graph = document.querySelector('input[name="graphChoice"]:checked').value;
 
-    if (graph === "gain") {
-        showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
-    } else if (graph === "power") {
-        showData("Power", "Watt", null, powerLeftArray, powerRightArray, null);
-    } else if (graph === "rms") {
-        showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
-    } else if (graph === "thd") {
-        showData("THD", "dB", "Percent", thdLeftArray, thdRightArray, dbToPercentFixed);
-    } else if (graph === "thdN") {
-        showData("THD+N", "dB", "Percent", thdNLeftArray, thdNRightArray, dbToPercentFixed);
-    } else if (graph === "snr") {
-        showData("SNR", "dB", null, snrLeftArray, snrRightArray, null);
-    } else if (graph === "phase") {
-        showData("Phase", "Degrees", "Milliseconds", phaseLeftArray, phaseRightArray, degreeToMillisecondsFixed);
+    if (graph === "table") {
+        showTable();
+        fillTable();
+    }
+
+    else {
+        showGraph();
+
+        if (graph === "gain") {
+            showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
+        } else if (graph === "power") {
+            showData("Power", "Watt", null, powerLeftArray, powerRightArray, null);
+        } else if (graph === "rms") {
+            showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
+        } else if (graph === "thd") {
+            showData("THD", "dB", "Percent", thdLeftArray, thdRightArray, dbToPercentFixed);
+        } else if (graph === "thdN") {
+            showData("THD+N", "dB", "Percent", thdNLeftArray, thdNRightArray, dbToPercentFixed);
+        } else if (graph === "snr") {
+            showData("SNR", "dB", null, snrLeftArray, snrRightArray, null);
+        } else if (graph === "phase") {
+            showData("Phase", "Degrees", "Milliseconds", phaseLeftArray, phaseRightArray, degreeToMillisecondsFixed);
+        }
     }
 }
 
@@ -562,4 +571,55 @@ function enableButtonsAfterAcquire() {
     document.getElementById("setSettingsBtn").disabled = false;
     document.getElementById("runBtn").disabled = false;
     document.getElementById("updateViewBtn").disabled = false;
+}
+
+function showTable() {
+    document.getElementById('amplitudeTableLeft').classList.remove("d-none");
+    document.getElementById('amplitudeTableLeft').classList.add("d-inline-block");
+    document.getElementById('amplitudeTableRight').classList.remove("d-none");
+    document.getElementById('amplitudeTableRight').classList.add("d-inline-block");
+    document.getElementById('amplitudeChart').classList.add("d-none");
+}
+
+function showGraph() {
+    document.getElementById('amplitudeTableLeft').classList.add("d-none");
+    document.getElementById('amplitudeTableLeft').classList.remove("d-inline-block");
+    document.getElementById('amplitudeTableRight').classList.add("d-none");
+    document.getElementById('amplitudeTableRight').classList.remove("d-inline-block");
+    document.getElementById('amplitudeChart').classList.remove("d-none");
+}
+
+function fillTable() {
+    const tBodyLeft = document.getElementById('amplitudeTableLeft').getElementsByTagName('tbody')[0];
+    const tBodyRight = document.getElementById('amplitudeTableRight').getElementsByTagName('tbody')[0];
+
+    for (let i = 0; i< tBodyLeft.rows.length;){
+        tBodyLeft.deleteRow(i);
+    }
+
+    for (let i = 0; i< tBodyRight.rows.length;){
+        tBodyRight.deleteRow(i);
+    }
+
+    for (let i = 0; i < gainLeftArray.length; i++) {
+        addTableTow(tBodyLeft, i, gainLeftArray, powerLeftArray, rmsLeftArray, thdLeftArray, thdNLeftArray, snrLeftArray);
+        addTableTow(tBodyRight, i, gainRightArray, powerRightArray, rmsRightArray, thdRightArray, thdNRightArray, snrRightArray);
+    }
+}
+
+function addTableTow(tBody, rowNr, gainArray, powerArray, rmsArray, thdArray, thdNArray, snrArray) {
+    const newRow = tBody.insertRow();
+
+    addTableCell(newRow, gainArray[rowNr].x);
+    addTableCell(newRow, gainArray[rowNr].y.toFixed(1));
+    addTableCell(newRow, powerArray[rowNr].y.toFixed(2));
+    addTableCell(newRow, dbToVoltFixed(rmsArray[rowNr].y));
+    addTableCell(newRow, dbToPercent(thdArray[rowNr].y).toFixed(6));
+    addTableCell(newRow, dbToPercent(thdNArray[rowNr].y).toFixed(6));
+    addTableCell(newRow, snrArray[rowNr].y.toFixed(3));
+}
+
+function addTableCell(row, value) {
+    const newCell = row.insertCell();
+    newCell.appendChild(document.createTextNode(value));
 }
