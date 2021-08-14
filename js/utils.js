@@ -14,14 +14,6 @@ function dbToPercentFixed(db) {
     return dbToPercent(db).toFixed(4);
 }
 
-function power4ToPower8(power4) {
-    return power4 / 2;
-}
-
-function power4ToPower8Fixed(power4) {
-    return power4ToPower8(power4).toFixed(2);
-}
-
 function amplitudeTodBV(amplitude) {
     return 20 * Math.log(amplitude) / Math.LN10;
 }
