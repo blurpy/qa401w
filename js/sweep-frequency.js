@@ -56,6 +56,7 @@ function clickSetSettings() {
     setBufferSize();
     setAttenuator();
     setExternalGain();
+    setLoad();
     setGenerator1();
     setGenerator2();
     setWindowType();
@@ -84,6 +85,11 @@ function updateSetAttenuator(attenuatorChoice) {
 function setExternalGain() {
     const externalGain = document.getElementById("externalGain").value;
     document.getElementById("setExternalGain").innerText = externalGain;
+}
+
+function setLoad() {
+    const load = document.getElementById("load").value;
+    document.getElementById("setLoad").innerText = load;
 }
 
 function setGenerator1() {
@@ -143,7 +149,7 @@ function updateGraph() {
     if (graph === "gain") {
         showData("Gain", "dB", "Times", gainLeftArray, gainRightArray, gainDbToTimesFixed);
     } else if (graph === "power") {
-        showData("Power", "Watt 4Ω", "Watt 8Ω", powerLeftArray, powerRightArray, power4ToPower8Fixed);
+        showData("Power", "Watt", null, powerLeftArray, powerRightArray, null);
     } else if (graph === "rms") {
         showData("RMS", "dBV", "Volts", rmsLeftArray, rmsRightArray, dbToVoltFixed);
     } else if (graph === "thd") {
@@ -372,19 +378,21 @@ function refreshGain(rmsLeft, rmsRight) {
 }
 
 function refreshPower(rmsLeft, rmsRight) {
+    const load = document.getElementById("load").value;
+
     const squareLeft = Math.pow(dbToVolt(rmsLeft), 2);
     const squareRight = Math.pow(dbToVolt(rmsRight), 2);
 
-    const power4Left = toPoint(currentFrequency, squareLeft / 4);
-    const power4Right = toPoint(currentFrequency, squareRight / 4);
+    const powerLeft = toPoint(currentFrequency, squareLeft / load);
+    const powerRight = toPoint(currentFrequency, squareRight / load);
 
-    powerLeftArray.push(power4Left);
-    powerRightArray.push(power4Right);
+    powerLeftArray.push(powerLeft);
+    powerRightArray.push(powerRight);
 
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
     if (graphChoice === "power") {
-        addPoint(power4Left, power4Right);
+        addPoint(powerLeft, powerRight);
     }
 }
 
