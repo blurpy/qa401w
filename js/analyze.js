@@ -45,6 +45,7 @@ function clickSetSettings() {
     setBufferSize();
     setAttenuator();
     setExternalGain();
+    setLoad();
     setGenerator1();
     setGenerator2();
     setWindowType();
@@ -81,6 +82,17 @@ function setExternalGain() {
     } else {
         document.getElementById("rmsInputRow").classList.remove("d-none");
     }
+}
+
+function setLoad() {
+    const load = document.getElementById("load").value;
+
+    document.getElementById("powerLoadLeft").innerText = load;
+    document.getElementById("powerLoadRight").innerText = load;
+
+    // Reset previous measurement to avoid misunderstandings
+    document.getElementById("powerLeft").innerText = "0";
+    document.getElementById("powerRight").innerText = "0";
 }
 
 function setGenerator1() {
@@ -446,17 +458,15 @@ function refreshGain(rmsLeft, rmsVoltLeft, rmsRight, rmsVoltRight) {
 }
 
 function refreshPower(rmsVoltLeft, rmsVoltRight) {
+    const load = document.getElementById("load").value;
+
     const squareLeft = Math.pow(rmsVoltLeft, 2);
-    const power4Left = squareLeft / 4;
-    const power8Left = squareLeft / 8;
-    document.getElementById("power4Left").innerText = power4Left.toFixed(2);
-    document.getElementById("power8Left").innerText = power8Left.toFixed(2);
+    const powerLeft = squareLeft / load;
+    document.getElementById("powerLeft").innerText = powerLeft.toFixed(2);
 
     const squareRight = Math.pow(rmsVoltRight, 2);
-    const power4Right = squareRight / 4;
-    const power8Right = squareRight / 8;
-    document.getElementById("power4Right").innerText = power4Right.toFixed(2);
-    document.getElementById("power8Right").innerText = power8Right.toFixed(2);
+    const powerRight = squareRight / load;
+    document.getElementById("powerRight").innerText = powerRight.toFixed(2);
 }
 
 function refreshPeak(httpRequest) {
