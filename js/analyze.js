@@ -20,6 +20,7 @@ onDOMContentLoaded = (function() {
 
     updateGenerator1Output();
     updateGenerator2Output();
+    updateAudioGeneratorsEnabled();
 })();
 
 function registerButtons() {
@@ -30,6 +31,9 @@ function registerButtons() {
     document.getElementById("runBtn").addEventListener('click', clickRun);
     document.getElementById("stopBtn").addEventListener('click', clickStop);
     document.getElementById("menuBtn").addEventListener('click', clickMenu);
+
+    document.getElementById("audioGen1Check").addEventListener('click', clickAudioGenerator1);
+    document.getElementById("audioGen2Check").addEventListener('click', clickAudioGenerator2);
 
     document.getElementById("menuColumn").addEventListener('transitionend', hideMenu);
     document.addEventListener('keyup', handleKeyboardShortcuts);
@@ -191,6 +195,11 @@ function updateGenerator2Output() {
     }
 }
 
+function updateAudioGeneratorsEnabled() {
+    clickAudioGenerator1();
+    clickAudioGenerator2();
+}
+
 function clickUpdateView() {
     updateGraph();
     updateChannel();
@@ -301,6 +310,32 @@ function hideMenu() {
 
     if (collapsed) {
         document.getElementById("menuColumn").classList.add("d-none");
+    }
+}
+
+function clickAudioGenerator1() {
+    updateAudioGeneratorEnabled("audioGen1Check",
+        "audioGen1FrequencyText", "audioGen1Frequency",
+        "audioGen1AmplitudeText", "audioGen1Amplitude");
+}
+
+function clickAudioGenerator2() {
+    updateAudioGeneratorEnabled("audioGen2Check",
+        "audioGen2FrequencyText", "audioGen2Frequency",
+        "audioGen2AmplitudeText", "audioGen2Amplitude");
+}
+
+function updateAudioGeneratorEnabled(checkboxId, frequencyLabelId, frequencyInputId, amplitudeLabelId, amplitudeInputId) {
+    if (document.getElementById(checkboxId).checked) {
+        document.getElementById(frequencyLabelId).classList.remove("text-black-50");
+        document.getElementById(frequencyInputId).classList.remove("text-black-50");
+        document.getElementById(amplitudeLabelId).classList.remove("text-black-50");
+        document.getElementById(amplitudeInputId).classList.remove("text-black-50");
+    } else {
+        document.getElementById(frequencyLabelId).classList.add("text-black-50");
+        document.getElementById(frequencyInputId).classList.add("text-black-50");
+        document.getElementById(amplitudeLabelId).classList.add("text-black-50");
+        document.getElementById(amplitudeInputId).classList.add("text-black-50");
     }
 }
 
