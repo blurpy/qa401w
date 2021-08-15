@@ -216,10 +216,26 @@ function updateChannel() {
 
     if (channel === "left") {
         setChannels(true, false);
+        updateChannelTableEnabled(true, false);
     } else if (channel === "right") {
         setChannels(false, true);
+        updateChannelTableEnabled(false, true);
     } else if (channel === "both") {
         setChannels(true, true);
+        updateChannelTableEnabled(true, true);
+    }
+}
+
+function updateChannelTableEnabled(leftChannel, rightChannel) {
+    if (leftChannel && rightChannel) {
+        updateElementsEnabled(document.getElementsByClassName("leftResult"), true);
+        updateElementsEnabled(document.getElementsByClassName("rightResult"), true);
+    } else if (leftChannel) {
+        updateElementsEnabled(document.getElementsByClassName("leftResult"), true);
+        updateElementsEnabled(document.getElementsByClassName("rightResult"), false);
+    } else if (rightChannel) {
+        updateElementsEnabled(document.getElementsByClassName("leftResult"), false);
+        updateElementsEnabled(document.getElementsByClassName("rightResult"), true);
     }
 }
 
@@ -675,4 +691,14 @@ function enableButtonsAfterAcquire() {
     document.getElementById("setSettingsBtn").disabled = false;
     document.getElementById("acquireBtn").disabled = false;
     document.getElementById("runBtn").disabled = false;
+}
+
+function updateElementsEnabled(elements, enable) {
+    for (let i = 0; i < elements.length; i++) {
+        if (enable) {
+            elements[i].classList.remove("text-black-50");
+        } else {
+            elements[i].classList.add("text-black-50");
+        }
+    }
 }

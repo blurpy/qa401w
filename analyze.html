@@ -206,65 +206,65 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Left</th>
-                <th>Right</th>
+                <th class="leftResult">Left</th>
+                <th class="rightResult">Right</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td class="font-weight-bold">THD</td>
-                <td><span id="thdLeft">0</span> dB / <span id="thdPctLeft">0</span>%</td>
-                <td><span id="thdRight">0</span> dB / <span id="thdPctRight">0</span>%</td>
+                <td class="leftResult"><span id="thdLeft">0</span> dB / <span id="thdPctLeft">0</span>%</td>
+                <td class="rightResult"><span id="thdRight">0</span> dB / <span id="thdPctRight">0</span>%</td>
               </tr>
               <tr class="d-none" id="thdAvgRow">
                 <td class="font-weight-bold">THD avg</td>
-                <td><span id="thdAvgLeft">0</span> dB / <span id="thdPctAvgLeft">0</span>%</td>
-                <td><span id="thdAvgRight">0</span> dB / <span id="thdPctAvgRight">0</span>%</td>
+                <td class="leftResult"><span id="thdAvgLeft">0</span> dB / <span id="thdPctAvgLeft">0</span>%</td>
+                <td class="rightResult"><span id="thdAvgRight">0</span> dB / <span id="thdPctAvgRight">0</span>%</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">THD+N</td>
-                <td><span id="thdnLeft">0</span> dB / <span id="thdnPctLeft">0</span>%</td>
-                <td><span id="thdnRight">0</span> dB / <span id="thdnPctRight">0</span>%</td>
+                <td class="leftResult"><span id="thdnLeft">0</span> dB / <span id="thdnPctLeft">0</span>%</td>
+                <td class="rightResult"><span id="thdnRight">0</span> dB / <span id="thdnPctRight">0</span>%</td>
               </tr>
               <tr class="d-none" id="thdnAvgRow">
                 <td class="font-weight-bold">THD+N avg</td>
-                <td><span id="thdnAvgLeft">0</span> dB / <span id="thdnPctAvgLeft">0</span>%</td>
-                <td><span id="thdnAvgRight">0</span> dB / <span id="thdnPctAvgRight">0</span>%</td>
+                <td class="leftResult"><span id="thdnAvgLeft">0</span> dB / <span id="thdnPctAvgLeft">0</span>%</td>
+                <td class="rightResult"><span id="thdnAvgRight">0</span> dB / <span id="thdnPctAvgRight">0</span>%</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">SNR</td>
-                <td><span id="snrLeft">0</span> dB</td>
-                <td><span id="snrRight">0</span> dB</td>
+                <td class="leftResult"><span id="snrLeft">0</span> dB</td>
+                <td class="rightResult"><span id="snrRight">0</span> dB</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">RMS</td>
-                <td><span id="rmsLeft">0</span> dBV / <span id="rmsVoltLeft">0</span> V / <span id="rmsVppLeft">0</span> Vpp</td>
-                <td><span id="rmsRight">0</span> dBV / <span id="rmsVoltRight">0</span> V / <span id="rmsVppRight">0</span> Vpp</td>
+                <td class="leftResult"><span id="rmsLeft">0</span> dBV / <span id="rmsVoltLeft">0</span> V / <span id="rmsVppLeft">0</span> Vpp</td>
+                <td class="rightResult"><span id="rmsRight">0</span> dBV / <span id="rmsVoltRight">0</span> V / <span id="rmsVppRight">0</span> Vpp</td>
               </tr>
               <tr id="rmsInputRow" class="d-none">
                 <td class="font-weight-bold">Input</td>
-                <td><span id="rmsInputLeft">0</span> dBV / <span id="rmsInputVoltLeft">0</span> V / <span id="rmsInputVppLeft">0</span> Vpp</td>
-                <td><span id="rmsInputRight">0</span> dBV / <span id="rmsInputVoltRight">0</span> V / <span id="rmsInputVppRight">0</span> Vpp</td>
+                <td class="leftResult"><span id="rmsInputLeft">0</span> dBV / <span id="rmsInputVoltLeft">0</span> V / <span id="rmsInputVppLeft">0</span> Vpp</td>
+                <td class="rightResult"><span id="rmsInputRight">0</span> dBV / <span id="rmsInputVoltRight">0</span> V / <span id="rmsInputVppRight">0</span> Vpp</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">Peak</td>
-                <td><span id="peakLeft">0</span> dBV / <span id="peakLeftFrequency">0</span> Hz</td>
-                <td><span id="peakRight">0</span> dBV / <span id="peakRightFrequency">0</span> Hz</td>
+                <td class="leftResult"><span id="peakLeft">0</span> dBV / <span id="peakLeftFrequency">0</span> Hz</td>
+                <td class="rightResult"><span id="peakRight">0</span> dBV / <span id="peakRightFrequency">0</span> Hz</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">Gain</td>
-                <td><span id="gainLeft">0</span> dB / <span id="gainTimesLeft">0</span>x</td>
-                <td><span id="gainRight">0</span> dB / <span id="gainTimesRight">0</span>x</td>
+                <td class="leftResult"><span id="gainLeft">0</span> dB / <span id="gainTimesLeft">0</span>x</td>
+                <td class="rightResult"><span id="gainRight">0</span> dB / <span id="gainTimesRight">0</span>x</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">Power</td>
-                <td><span id="powerLeft">0</span> W @ <span id="powerLoadLeft">8</span> Ω</td>
-                <td><span id="powerRight">0</span> W @ <span id="powerLoadRight">8</span> Ω</td>
+                <td class="leftResult"><span id="powerLeft">0</span> W @ <span id="powerLoadLeft">8</span> Ω</td>
+                <td class="rightResult"><span id="powerRight">0</span> W @ <span id="powerLoadRight">8</span> Ω</td>
               </tr>
               <tr>
                 <td class="font-weight-bold">Phase</td>
-                <td><span id="phaseDegreeLeft">0</span> deg / <span id="phaseSecondLeft">0</span> sec</td>
-                <td><span id="phaseDegreeRight">0</span> deg / <span id="phaseSecondRight">0</span> sec</td>
+                <td class="leftResult"><span id="phaseDegreeLeft">0</span> deg / <span id="phaseSecondLeft">0</span> sec</td>
+                <td class="rightResult"><span id="phaseDegreeRight">0</span> deg / <span id="phaseSecondRight">0</span> sec</td>
               </tr>
             </tbody>
           </table>

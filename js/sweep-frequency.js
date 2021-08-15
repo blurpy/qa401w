@@ -179,10 +179,26 @@ function updateChannel() {
 
     if (channel === "left") {
         setChannels(true, false);
+        updateChannelInputEnabled(true, false);
     } else if (channel === "right") {
         setChannels(false, true);
+        updateChannelInputEnabled(false, true);
     } else if (channel === "both") {
         setChannels(true, true);
+        updateChannelInputEnabled(true, true);
+    }
+}
+
+function updateChannelInputEnabled(leftChannel, rightChannel) {
+    if (leftChannel && rightChannel) {
+        document.getElementById("rmsInputLeftText").classList.remove("text-black-50");
+        document.getElementById("rmsInputRightText").classList.remove("text-black-50");
+    } else if (leftChannel) {
+        document.getElementById("rmsInputLeftText").classList.remove("text-black-50");
+        document.getElementById("rmsInputRightText").classList.add("text-black-50");
+    } else if (rightChannel) {
+        document.getElementById("rmsInputLeftText").classList.add("text-black-50");
+        document.getElementById("rmsInputRightText").classList.remove("text-black-50");
     }
 }
 
