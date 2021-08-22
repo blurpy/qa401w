@@ -19,6 +19,7 @@ Analyze acquisitions over a frequency range from 20Hz to a specified stop freque
 * Hover over a point in the graph for X, Y values.
 * Zoom and pan in the graph to see more details.
 * Optionally calculate the average THD of the last 100 acquisitions in continuous mode.
+* When specifying an external gain, the real input voltage will be shown in addition to the calculated voltage.
 * View up to 0.3 seconds of the recorded waveform as a time series graph. Remember to enable fetching of time data.
  
 ![Screenshot of time series analysis](img/qa401w-analyze-time.png)
@@ -32,6 +33,7 @@ Run frequency sweeps and record data at predefined steps along the way.
 
 * Choose one graph to follow in real time while sweep runs.
 * Switch between the different graphs after sweep is finished to view recorded results.
+* The results can also be viewed in table mode and copied into a spreadsheet for further processing.
 
 
 ### Amplitude sweep mode
@@ -42,6 +44,7 @@ Run amplitude sweeps and record data at defined steps along the way.
 
 * Choose one graph to follow in real time while sweep runs.
 * Switch between the different graphs after sweep is finished to view recorded results.
+* The results can also be viewed in table mode and copied into a spreadsheet for further processing.
 
 
 ### Keyboard shortcuts
