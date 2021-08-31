@@ -2,6 +2,8 @@
 
 Unofficial web interface for usage with the [QA401H](https://github.com/QuantAsylum/QA401H) REST API for the [QA401 Audio Analyzer](https://quantasylum.com/products/qa401-audio-analyzer). This allows a visual interface on Linux and macOS.
 
+See [QA40x Web](https://github.com/blurpy/qa40xw) for a version for the QA402.
+
 
 ## Features
 
