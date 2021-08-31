@@ -561,7 +561,7 @@ function refreshFrequencyChart(httpRequest) {
     const rightDataPoints = base64ToFrequencyDataPoints(response.Right, response.Dx, attenuation);
 
     updateFrequencyChart(leftDataPoints, rightDataPoints);
-    refreshPeakFrequency(leftDataPoints, rightDataPoints)
+    refreshPeakFrequency(leftDataPoints, rightDataPoints);
 }
 
 function refreshTimeChart(httpRequest) {
