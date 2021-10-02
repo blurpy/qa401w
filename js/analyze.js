@@ -60,8 +60,8 @@ function clickSetSettings() {
 }
 
 function setBufferSize() {
-    const bufferSizeChoice = document.querySelector('#bufferSizeSelect option:checked').value;
-    makeRequest("PUT", "/Settings/BufferSize/" + bufferSizeChoice, updateSetBufferSize.bind(null, bufferSizeChoice));
+    const bufferSizeChoice = document.querySelector('#bufferSizeSelect option:checked');
+    makeRequest("PUT", "/Settings/BufferSize/" + bufferSizeChoice.value, updateSetBufferSize.bind(null, bufferSizeChoice.label));
 }
 
 function updateSetBufferSize(bufferSizeChoice) {
