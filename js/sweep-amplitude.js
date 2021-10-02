@@ -8,9 +8,6 @@ let steps = [];
 let stepPosition = 0;
 let currentFrequency = 0;
 let currentAmplitude = 0;
-let measureAmplitudeStart = 0;
-let measureAmplitudeStop = 0;
-let measureAmplitudeStep = 1;
 
 let gainLeftArray = [];
 let gainRightArray = [];
@@ -96,7 +93,7 @@ function setLoad() {
 }
 
 function setGenerator1() {
-    currentAmplitude = Number(document.getElementById("measureAmplitudeStart").value);
+    currentAmplitude = Number(document.getElementById("sweepAmplitudeStart").value);
     currentFrequency = Number(document.getElementById("audioGen1Frequency").value);
     makeRequest("PUT", "/Settings/AudioGen/Gen1/On/" + currentFrequency + "/" + currentAmplitude, updateGenerator1Output);
 }
@@ -211,10 +208,10 @@ function clickRun() {
     }
 
     stepPosition = 0;
-    measureAmplitudeStart = Number(document.getElementById("measureAmplitudeStart").value);
-    measureAmplitudeStop = Number(document.getElementById("measureAmplitudeStop").value);
-    measureAmplitudeStep = Number(document.getElementById("measureAmplitudeStep").value);
-    steps = generateSteps(measureAmplitudeStart, measureAmplitudeStop, measureAmplitudeStep);
+    const sweepAmplitudeStart = Number(document.getElementById("sweepAmplitudeStart").value);
+    const sweepAmplitudeStop = Number(document.getElementById("sweepAmplitudeStop").value);
+    const sweepAmplitudeStep = Number(document.getElementById("sweepAmplitudeStep").value);
+    steps = generateSteps(sweepAmplitudeStart, sweepAmplitudeStop, sweepAmplitudeStep);
     currentAmplitude = steps[stepPosition];
     currentFrequency = Number(document.getElementById("audioGen1Frequency").value);
 
