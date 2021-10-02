@@ -81,12 +81,12 @@
               <label class="custom-control-label" for="audioGen1Check">Audio generator 1</label>
             </div>
             <div class="row pt-1">
-              <label for="measureFrequencyStart" class="col-form-label col-auto pr-2">Start frequency <span class="small">(Hz)</span>:</label>
-              <input type="number" id="measureFrequencyStart" class="form-control col-5" value="20" min="1" max="96000"/>
+              <label for="sweepFrequencyStart" class="col-form-label col-auto pr-2">Start frequency <span class="small">(Hz)</span>:</label>
+              <input type="number" id="sweepFrequencyStart" class="form-control col-5" value="20" min="1" max="96000"/>
             </div>
             <div class="row pt-1">
-              <label for="measureFrequencyStop" class="col-form-label col-auto pr-2">Stop frequency <span class="small">(Hz)</span>:</label>
-              <input type="number" id="measureFrequencyStop" class="form-control col-5" value="20000" min="1" max="96000"/>
+              <label for="sweepFrequencyStop" class="col-form-label col-auto pr-2">Stop frequency <span class="small">(Hz)</span>:</label>
+              <input type="number" id="sweepFrequencyStop" class="form-control col-5" value="20000" min="1" max="96000"/>
             </div>
             <div class="row pt-1">
               <label for="audioGen1Amplitude" class="col-form-label col-auto pr-4 mr-2">Amplitude <span class="small">(dBV)</span>:&nbsp;</label>
@@ -114,6 +114,13 @@
             <div class="custom-control custom-radio custom-control-inline mr-1">
               <input class="custom-control-input" type="radio" name="sampleRateChoice" id="sampleRate192" value="192000" data-label="192 kHz">
               <label class="custom-control-label" for="sampleRate192">192 kHz</label>
+            </div>
+          </div>
+
+          <div class="pt-1 pb-1">
+            <div class="row pt-1">
+              <label for="measureFrequencyStop" class="col-form-label col-auto pr-3 mr-3">Measure to <span class="small">(Hz)</span>:</label>
+              <input type="number" id="measureFrequencyStop" class="form-control col-5 ml-1" value="20000" min="1" max="95000"/>
             </div>
           </div>
 
@@ -205,7 +212,8 @@
             <p class="mb-1">External gain: <span id="setExternalGain">0</span> dB</p>
             <p class="mb-1">Load: <span id="setLoad">8</span> Ω</p>
             <p class="mb-1">Window type: <span id="setWindowType">Hann</span></p>
-            <p>Sample rate: <span id="setSampleRate">48 kHz</span></p>
+            <p class="mb-1">Sample rate: <span id="setSampleRate">48 kHz</span></p>
+            <p>Measure range: 20 Hz - <span id="setMeasureFrequencyStop">20000</span> Hz</p>
           </div>
 
           <div class="d-inline-block align-top pt-2 pb-2 pl-5 ml-3">

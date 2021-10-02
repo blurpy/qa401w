@@ -1,13 +1,14 @@
 const basePath = "http://localhost:9401";
 
+const measureFrequencyStart = 20;
+let measureFrequencyStop = 20000;
+
 let run = false;
 let currentRequests = 0;
 let steps = [];
 let stepPosition = 0;
 let currentFrequency = 0;
 let currentAmplitude = 0;
-let measureFrequencyStart = 0;
-let measureFrequencyStop = 0;
 
 let gainLeftArray = [];
 let gainRightArray = [];
@@ -61,6 +62,7 @@ function clickSetSettings() {
     setGenerator2();
     setWindowType();
     setSampleRate();
+    setMeasureFrequencyStop();
     setRoundFrequencies();
 }
 
@@ -117,6 +119,11 @@ function setSampleRate() {
 
 function updateSetSampleRate(sampleRate) {
     document.getElementById("setSampleRate").innerText = sampleRate;
+}
+
+function setMeasureFrequencyStop() {
+    measureFrequencyStop = Number(document.getElementById("measureFrequencyStop").value);
+    document.getElementById("setMeasureFrequencyStop").innerText = measureFrequencyStop;
 }
 
 function setRoundFrequencies() {
@@ -208,9 +215,9 @@ function clickRun() {
     }
 
     stepPosition = 0;
-    measureFrequencyStart = Number(document.getElementById("measureFrequencyStart").value);
-    measureFrequencyStop = Number(document.getElementById("measureFrequencyStop").value);
-    steps = generateSteps(measureFrequencyStart, measureFrequencyStop);
+    const sweepFrequencyStart = Number(document.getElementById("sweepFrequencyStart").value);
+    const sweepFrequencyStop = Number(document.getElementById("sweepFrequencyStop").value);
+    steps = generateSteps(sweepFrequencyStart, sweepFrequencyStop);
     currentFrequency = steps[stepPosition];
 
     if (steps.length === 0) {
@@ -440,10 +447,10 @@ function refreshPhaseDegrees(httpRequest) {
 }
 
 function refreshAcquisition() {
-    makeRequest("GET", "/ThdDb/" + currentFrequency + "/" + (measureFrequencyStop + 10), refreshThd);
-    makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshThdN);
+    makeRequest("GET", "/ThdDb/" + currentFrequency + "/" + measureFrequencyStop, refreshThd);
+    makeRequest("GET", "/ThdnDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshThdN);
     makeRequest("GET", "/SnrDb/" + currentFrequency + "/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshSnr);
-    makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + (measureFrequencyStop + 10), refreshRms);
+    makeRequest("GET", "/RmsDbv/" + measureFrequencyStart + "/" + measureFrequencyStop, refreshRms);
     makeRequest("GET", "/Phase/Degrees", refreshPhaseDegrees);
     updateGenerator1Output();
 }
