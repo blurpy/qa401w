@@ -1,4 +1,5 @@
 const basePath = "http://localhost:9401";
+
 const measureFrequencyStart = 20;
 let measureFrequencyStop = 20000;
 const avgLimit = 100;
