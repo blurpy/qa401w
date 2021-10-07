@@ -622,7 +622,7 @@ function addLastMeasurementToTable() {
 
     const rowNr = gainLeftArray.length - 1;
 
-    if (rowNr >= 0) {
+    if (rowNr === tBodyLeft.rows.length) {
         addTableTow(tBodyLeft, rowNr, gainLeftArray, powerLeftArray, rmsLeftArray, thdLeftArray, thdNLeftArray, snrLeftArray);
         addTableTow(tBodyRight, rowNr, gainRightArray, powerRightArray, rmsRightArray, thdRightArray, thdNRightArray, snrRightArray);
     }
