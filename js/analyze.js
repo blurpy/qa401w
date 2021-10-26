@@ -691,16 +691,6 @@ function addToAverageList(list, item) {
     }
 }
 
-function getAverageValueFromList(list) {
-    let sum = 0.0;
-
-    for (let i = 0; i < list.length; i++) {
-        sum += Number(list[i]);
-    }
-
-    return sum / list.length;
-}
-
 function findPeakFrequency(dataPoints) {
     let peakAmplitude = -1000;
     let peakFrequency = 0;
