@@ -460,7 +460,7 @@ function refreshAcquisition() {
 function requestsComplete() {
     updateTableIfVisible();
 
-    if (avgCount < avgTotal) {
+    if (run && avgCount < avgTotal) {
         avgCount++;
     } else {
         avgCount = 1;
