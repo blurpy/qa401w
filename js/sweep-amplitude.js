@@ -380,10 +380,11 @@ function refreshRms(httpRequest) {
             addPoint(avgLeftPoint, avgRightPoint);
         }
 
-        refreshRmsInput(response);
         refreshGain(avgLeft, avgRight);
         refreshPower(avgLeft, avgRight);
     }
+
+    refreshRmsInput(response);
 }
 
 function refreshRmsInput(response) {
