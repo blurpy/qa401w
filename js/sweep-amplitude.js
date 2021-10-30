@@ -25,7 +25,7 @@ let snrRightArray = [];
 let phaseLeftArray = [];
 let phaseRightArray = [];
 
-const avgTotal = 1;
+let avgTotal = 1;
 let avgCount = 1;
 
 let rmsAvgLeftArray = [];
@@ -77,6 +77,7 @@ function clickSetSettings() {
     setWindowType();
     setSampleRate();
     setMeasureFrequencyStop();
+    setAverages();
     setRoundFrequencies();
 }
 
@@ -141,6 +142,17 @@ function setMeasureFrequencyStop() {
     document.getElementById("setMeasureFrequencyStop").innerText = measureFrequencyStop;
 }
 
+function setAverages() {
+    avgTotal = Number(document.getElementById("averages").value);
+    document.getElementById("setAvgTotal").innerText = avgTotal;
+
+    if (avgTotal > 1) {
+        document.getElementById('averageDisplay').classList.remove("d-none");
+    } else {
+        document.getElementById('averageDisplay').classList.add("d-none");
+    }
+}
+
 function setRoundFrequencies() {
     const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
     const enabled = (checked ? "On" : "Off");
@@ -154,6 +166,8 @@ function updateGenerator1Output() {
     document.getElementById("audioGen1OutputDbv").innerText = currentAmplitude;
     document.getElementById("audioGen1OutputVrms").innerText = volt.toFixed(3);
     document.getElementById("audioGen1OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
+
+    document.getElementById("setAvgCount").innerText = avgCount;
 }
 
 function clickUpdateView() {

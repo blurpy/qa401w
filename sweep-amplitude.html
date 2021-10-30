@@ -126,6 +126,10 @@
               <label for="measureFrequencyStop" class="col-form-label col-auto pr-4 mr-3">Measure to <span class="small">(Hz)</span>:</label>
               <input type="number" id="measureFrequencyStop" class="form-control col-5" value="20000" min="1" max="95000"/>
             </div>
+            <div class="row pt-1">
+              <label for="averages" class="col-form-label col-auto pr-5 mr-4">Averages:&nbsp;</label>
+              <input type="number" id="averages" class="form-control col-5 ml-2" value="1" min="1" max="100"/>
+            </div>
           </div>
 
           <div class="pt-1 pb-1">
@@ -210,6 +214,9 @@
               <span id="audioGen1OutputDbv">0</span> dBV /
               <span id="audioGen1OutputVrms">0</span> V /
               <span id="audioGen1OutputVpp">0</span> Vpp
+              <span id="averageDisplay" class="d-none">
+                (<span id="setAvgCount">1</span>/<span id="setAvgTotal">1</span>)
+              </span>
             </p>
             <p class="mb-1">FFT: <span id="setBufferSize">32k</span></p>
             <p class="mb-1">Attenuator: <span id="setAttenuator">+26 dBV</span></p>
