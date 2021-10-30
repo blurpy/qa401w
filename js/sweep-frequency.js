@@ -25,6 +25,20 @@ let snrRightArray = [];
 let phaseLeftArray = [];
 let phaseRightArray = [];
 
+let avgTotal = 1;
+let avgCount = 1;
+
+let rmsAvgLeftArray = [];
+let rmsAvgRightArray = [];
+let thdAvgLeftArray = [];
+let thdAvgRightArray = [];
+let thdNAvgLeftArray = [];
+let thdNAvgRightArray = [];
+let snrAvgLeftArray = [];
+let snrAvgRightArray = [];
+let phaseAvgLeftArray = [];
+let phaseAvgRightArray = [];
+
 onDOMContentLoaded = (function() {
     registerButtons();
     initializeCharts();
@@ -63,6 +77,7 @@ function clickSetSettings() {
     setWindowType();
     setSampleRate();
     setMeasureFrequencyStop();
+    setAverages();
     setRoundFrequencies();
 }
 
@@ -126,6 +141,17 @@ function setMeasureFrequencyStop() {
     document.getElementById("setMeasureFrequencyStop").innerText = measureFrequencyStop;
 }
 
+function setAverages() {
+    avgTotal = Number(document.getElementById("averages").value);
+    document.getElementById("setAvgTotal").innerText = avgTotal;
+
+    if (avgTotal > 1) {
+        document.getElementById('averageDisplay').classList.remove("d-none");
+    } else {
+        document.getElementById('averageDisplay').classList.add("d-none");
+    }
+}
+
 function setRoundFrequencies() {
     const checked = document.querySelector('input[name="roundFrequenciesCheck"]').checked;
     const enabled = (checked ? "On" : "Off");
@@ -139,6 +165,8 @@ function updateGenerator1Output() {
     document.getElementById("audioGen1OutputDbv").innerText = currentAmplitude;
     document.getElementById("audioGen1OutputVrms").innerText = volt.toFixed(3);
     document.getElementById("audioGen1OutputVpp").innerText = rmsVoltToVpp(volt).toFixed(3);
+
+    document.getElementById("setAvgCount").innerText = avgCount;
 }
 
 function clickUpdateView() {
@@ -214,6 +242,7 @@ function clickRun() {
         return;
     }
 
+    avgCount = 1;
     stepPosition = 0;
     const sweepFrequencyStart = Number(document.getElementById("sweepFrequencyStart").value);
     const sweepFrequencyStop = Number(document.getElementById("sweepFrequencyStop").value);
@@ -228,6 +257,7 @@ function clickRun() {
 
     updateGenerator1Output();
     resetMeasurements();
+    resetAverageMeasurements();
     resetCharts();
     resetTable();
     disableButtonsDuringAcquire();
@@ -310,49 +340,31 @@ function refreshStatusVersion(httpRequest) {
 function refreshThd(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
-    const thdLeft = toPoint(currentFrequency, Number(response.Left));
-    const thdRight = toPoint(currentFrequency, Number(response.Right));
-
-    thdLeftArray.push(thdLeft);
-    thdRightArray.push(thdRight);
+    thdAvgLeftArray.push(Number(response.Left));
+    thdAvgRightArray.push(Number(response.Right));
 
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
-
-    if (graphChoice === "thd") {
-        addPoint(thdLeft, thdRight);
-    }
+    addAveragePoint(thdLeftArray, thdRightArray, thdAvgLeftArray, thdAvgRightArray, graphChoice === "thd");
 }
 
 function refreshThdN(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
-    const thdNLeft = toPoint(currentFrequency, Number(response.Left));
-    const thdNRight = toPoint(currentFrequency, Number(response.Right));
-
-    thdNLeftArray.push(thdNLeft);
-    thdNRightArray.push(thdNRight);
+    thdNAvgLeftArray.push(Number(response.Left));
+    thdNAvgRightArray.push(Number(response.Right));
 
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
-
-    if (graphChoice === "thdN") {
-        addPoint(thdNLeft, thdNRight);
-    }
+    addAveragePoint(thdNLeftArray, thdNRightArray, thdNAvgLeftArray, thdNAvgRightArray, graphChoice === "thdN");
 }
 
 function refreshSnr(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
-    const snrLeft = toPoint(currentFrequency, Number(response.Left));
-    const snrRight = toPoint(currentFrequency, Number(response.Right));
-
-    snrLeftArray.push(snrLeft);
-    snrRightArray.push(snrRight);
+    snrAvgLeftArray.push(Number(response.Left));
+    snrAvgRightArray.push(Number(response.Right));
 
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
-
-    if (graphChoice === "snr") {
-        addPoint(snrLeft, snrRight);
-    }
+    addAveragePoint(snrLeftArray, snrRightArray, snrAvgLeftArray, snrAvgRightArray, graphChoice === "snr");
 }
 
 function refreshRms(httpRequest) {
@@ -362,21 +374,29 @@ function refreshRms(httpRequest) {
     const rmsLeft = Number(response.Left) + (externalGain * -1);
     const rmsRight = Number(response.Right) + (externalGain * -1);
 
-    const rmsLeftPoint = toPoint(currentFrequency, rmsLeft);
-    const rmsRightPoint = toPoint(currentFrequency, rmsRight);
-
-    rmsLeftArray.push(rmsLeftPoint);
-    rmsRightArray.push(rmsRightPoint);
-
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
 
-    if (graphChoice === "rms") {
-        addPoint(rmsLeftPoint, rmsRightPoint);
+    rmsAvgLeftArray.push(rmsLeft);
+    rmsAvgRightArray.push(rmsRight);
+
+    if (avgCount === avgTotal) {
+        const avgLeft = getAverageValueFromList(rmsAvgLeftArray);
+        const avgLeftPoint = toPoint(currentFrequency, avgLeft);
+        const avgRight = getAverageValueFromList(rmsAvgRightArray);
+        const avgRightPoint = toPoint(currentFrequency, avgRight);
+
+        rmsLeftArray.push(avgLeftPoint);
+        rmsRightArray.push(avgRightPoint);
+
+        if (graphChoice === "rms") {
+            addPoint(avgLeftPoint, avgRightPoint);
+        }
+
+        refreshGain(avgLeft, avgRight);
+        refreshPower(avgLeft, avgRight);
     }
 
     refreshRmsInput(response);
-    refreshGain(rmsLeft, rmsRight);
-    refreshPower(rmsLeft, rmsRight);
 }
 
 function refreshRmsInput(response) {
@@ -433,17 +453,11 @@ function refreshPower(rmsLeft, rmsRight) {
 function refreshPhaseDegrees(httpRequest) {
     const response = JSON.parse(httpRequest.responseText);
 
-    const phaseLeft = toPoint(currentFrequency, Number(response.Left));
-    const phaseRight = toPoint(currentFrequency, Number(response.Right));
-
-    phaseLeftArray.push(phaseLeft);
-    phaseRightArray.push(phaseRight);
+    phaseAvgLeftArray.push(Number(response.Left));
+    phaseAvgRightArray.push(Number(response.Right));
 
     const graphChoice = document.querySelector('input[name="graphChoice"]:checked').value;
-
-    if (graphChoice === "phase") {
-        addPoint(phaseLeft, phaseRight);
-    }
+    addAveragePoint(phaseLeftArray, phaseRightArray, phaseAvgLeftArray, phaseAvgRightArray, graphChoice === "phase");
 }
 
 function refreshAcquisition() {
@@ -457,7 +471,14 @@ function refreshAcquisition() {
 
 function requestsComplete() {
     updateTableIfVisible();
-    stepPosition++;
+
+    if (run && avgCount < avgTotal) {
+        avgCount++;
+    } else {
+        avgCount = 1;
+        stepPosition++;
+        resetAverageMeasurements();
+    }
 
     if (run && stepPosition < steps.length) {
         currentFrequency = steps[stepPosition];
@@ -551,6 +572,19 @@ function resetMeasurements() {
     phaseRightArray = [];
 }
 
+function resetAverageMeasurements() {
+    rmsAvgLeftArray = [];
+    rmsAvgRightArray = [];
+    thdAvgLeftArray = [];
+    thdAvgRightArray = [];
+    thdNAvgLeftArray = [];
+    thdNAvgRightArray = [];
+    snrAvgLeftArray = [];
+    snrAvgRightArray = [];
+    phaseAvgLeftArray = [];
+    phaseAvgRightArray = [];
+}
+
 function disableButtonsDuringAcquire() {
     document.getElementById("setSettingsBtn").disabled = true;
     document.getElementById("runBtn").disabled = true;
@@ -591,6 +625,20 @@ function showGraph() {
     document.getElementById('frequencyTableRight').classList.add("d-none");
     document.getElementById('frequencyTableRight').classList.remove("d-inline-block");
     document.getElementById('frequencyChart').classList.remove("d-none");
+}
+
+function addAveragePoint(leftArray, rightArray, avgLeftArray, avgRightArray, currentGraph) {
+    if (avgCount === avgTotal) {
+        const avgLeftPoint = toPoint(currentFrequency, getAverageValueFromList(avgLeftArray));
+        const avgRightPoint = toPoint(currentFrequency, getAverageValueFromList(avgRightArray));
+
+        leftArray.push(avgLeftPoint);
+        rightArray.push(avgRightPoint);
+
+        if (currentGraph) {
+            addPoint(avgLeftPoint, avgRightPoint);
+        }
+    }
 }
 
 function resetTable() {
