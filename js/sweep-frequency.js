@@ -142,7 +142,14 @@ function setMeasureFrequencyStop() {
 }
 
 function setAverages() {
-    avgTotal = Number(document.getElementById("averages").value);
+    const averages = Number(document.getElementById("averages").value);
+
+    if (averages < 1 || averages > 100) {
+        alert("Number of averages must be between 1 and 100.")
+        return;
+    }
+
+    avgTotal = averages;
     document.getElementById("setAvgTotal").innerText = avgTotal;
 
     if (avgTotal > 1) {
